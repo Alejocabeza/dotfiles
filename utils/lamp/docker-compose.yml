@@ -1,0 +1,55 @@
+version: "4"
+
+services:
+  mariadb:
+    container_name: mariadb
+    image: mariadb:latest
+    restart: always
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_ROOT_PASSWORD: ""
+    volumes:
+      - mariadb-lamp-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - lamp-network
+
+  web:
+    container_name: web
+    build:
+      context: ./docker
+    restart: always
+    tty: true
+    volumes:
+      - ~/workspace/htdocs:/var/www/html
+      - /etc/php/php.ini:/usr/local/etc/php/php.ini
+      - ./httpd.conf:/etc/apache2/sites-available/000-default.conf
+    depends_on:
+      - mariadb
+    ports:
+      - "250:80"
+    networks:
+      - lamp-network
+
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    depends_on:
+      - mariadb
+    environment:
+      PMA_HOST: mariadb
+      MYSQL_ROOT_PASSWORD: ""
+      UPLOAD_LIMIT: 10M
+    ports:
+      - "8080:80"
+    networks:
+      - lamp-network
+
+volumes:
+  mariadb-lamp-data: {}
+
+networks:
+  lamp-network:
+    external: true
