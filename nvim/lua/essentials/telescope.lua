@@ -49,7 +49,7 @@ return {
       desc = "[S]earch [F]iles [R]oot",
     },
     {
-      "<leader>sf",
+      "<C-p>",
       function()
         require("telescope.builtin").find_files({
           no_ignore = false,
@@ -242,6 +242,7 @@ return {
   config = function(_, opts)
     require("telescope").setup(opts)
     require("telescope").load_extension("file_browser")
+    require("telescope").load_extension("fzf")
     require("telescope").load_extension("ui-select")
   end,
 }
