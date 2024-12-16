@@ -35,6 +35,7 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.editor.inc-rename" },
     { import = "lazyvim.plugins.extras.editor.refactoring" },
     { import = "lazyvim.plugins.extras.editor.telescope" },
+    { import = "lazyvim.plugins.extras.editor.illuminate" },
     -- FORMATTER
     { import = "lazyvim.plugins.extras.formatting.black" },
     { import = "lazyvim.plugins.extras.formatting.prettier" },
@@ -52,6 +53,7 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.lang.php" },
     { import = "lazyvim.plugins.extras.lang.prisma" },
     { import = "lazyvim.plugins.extras.lang.tailwind" },
+    { import = "lazyvim.plugins.extras.lang.python" },
     { import = "lazyvim.plugins.extras.lang.yaml" },
     { import = "lazyvim.plugins.extras.lang.toml" },
     { import = "lazyvim.plugins.extras.lang.typescript" },
