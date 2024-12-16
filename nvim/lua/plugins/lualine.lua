@@ -11,7 +11,9 @@ return {
     sections = {
       lualine_a = { { "mode", upper = true } },
       lualine_b = { { "branch", icon = "" }, "db_ui#statusline" },
+
       lualine_c = { { "filename", file_status = true, path = 1 } },
+
       lualine_x = {
         "diagnostics",
         "diff",
@@ -23,12 +25,14 @@ return {
         {
           require("lazy.status").updates,
           cond = require("lazy.status").has_updates,
-          color = { fg = "ff9e64" },
+          color = { fg = "#ff9e64" },
         },
       },
+
       lualine_y = { "filetype" },
       lualine_z = { "location" },
     },
+
     winbar = {
       lualine_a = {},
       lualine_b = {},
@@ -37,6 +41,7 @@ return {
       lualine_y = {},
       lualine_z = {},
     },
+
     inactive_winbar = {
       lualine_a = {},
       lualine_b = {},
@@ -46,6 +51,7 @@ return {
       lualine_z = {},
     },
   },
+
   config = function(_, opts)
     require("lualine").setup(opts)
   end,

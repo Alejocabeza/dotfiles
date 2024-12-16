@@ -26,16 +26,12 @@ return {
     },
   },
   init = function()
-    -- FIX: use `autocmd` for lazy-loading neo-tree instead of directly requiring it,
-    -- because `cwd` is not set up properly.
     vim.api.nvim_create_autocmd("BufEnter", {
       group = vim.api.nvim_create_augroup("Neotree_start_directory", { clear = true }),
       desc = "Start Neo-tree with directory",
       once = true,
       callback = function()
-        if package.loaded["neo-tree"] then
-          return
-        else
+        if not package.loaded["neo-tree"] then
           local stats = vim.uv.fs_stat(vim.fn.argv(0))
           if stats and stats.type == "directory" then
             require("neo-tree")
@@ -44,11 +40,11 @@ return {
       end,
     })
   end,
-  opts = {
-    close_if_last_window = true,
-    sources = { "filesystem", "buffers", "git_status" },
-    open_files_do_not_replace_types = { "terminal", "Trouble", "trouble", "qf", "Outline" },
-    filesystem = {
+  opts = function(_, opts)
+    opts.close_if_last_window = true
+    opts.sources = { "filesystem", "buffers", "git_status" }
+    opts.open_files_do_not_replace_types = { "terminal", "Trouble", "trouble", "qf", "Outline" }
+    opts.filesystem = {
       bind_to_cwd = false,
       follow_current_file = { enabled = true },
       use_libuy_file_watcher = true,
@@ -62,8 +58,8 @@ return {
           ".env",
         },
       },
-    },
-    window = {
+    }
+    opts.window = {
       width = 30,
       mappings = {
         ["l"] = "open",
@@ -85,10 +81,10 @@ return {
         },
         ["P"] = { "toggle_preview", config = { use_float = false } },
       },
-    },
-    default_component_configs = {
+    }
+    opts.default_component_configs = {
       indent = {
-        with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
+        with_expanders = true,
         expander_collapsed = "",
         expander_expanded = "",
         expander_highlight = "NeoTreeExpander",
@@ -99,20 +95,25 @@ return {
           staged = "󰱒",
         },
       },
-    },
-  },
-  config = function(_, opts)
-    local function on_move(data)
-      Snacks.rename.on_rename_file(data.source, data.destination)
-    end
+    }
 
     local events = require("neo-tree.events")
     opts.event_handlers = opts.event_handlers or {}
     vim.list_extend(opts.event_handlers, {
-      { event = events.FILE_MOVED, handler = on_move },
-      { event = events.FILE_RENAMED, handler = on_move },
+      {
+        event = events.FILE_MOVED,
+        handler = function(data)
+          Snacks.rename.on_rename_file(data.source, data.destination)
+        end,
+      },
+      {
+        event = events.FILE_RENAMED,
+        handler = function(data)
+          Snacks.rename.on_rename_file(data.source, data.destination)
+        end,
+      },
     })
-    require("neo-tree").setup(opts)
+
     vim.api.nvim_create_autocmd("TermClose", {
       pattern = "*lazygit",
       callback = function()
@@ -121,5 +122,10 @@ return {
         end
       end,
     })
+
+    return opts
+  end,
+  config = function(_, opts)
+    require("neo-tree").setup(opts)
   end,
 }
