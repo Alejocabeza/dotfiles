@@ -4,9 +4,12 @@ return {
   opts = {
     options = {
       theme = "auto",
+      section_separator = "",
+      component_separators = "",
       icons_enabled = true,
       globalstatus = true,
     },
+
     extensions = { "quickfix", "fugitive" },
     sections = {
       lualine_a = { { "mode", upper = true } },

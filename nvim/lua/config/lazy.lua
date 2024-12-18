@@ -21,7 +21,7 @@ require("lazy").setup({
     -- imports extras
     -- AI
     { import = "lazyvim.plugins.extras.ai.codeium" },
-    -- { import = "lazyvim.plugins.extras.ai.tabnine" },
+    { import = "lazyvim.plugins.extras.ai.tabnine" },
     -- CODING
     -- { import = "lazyvim.plugins.extras.coding.luasnip" },
     -- { import = "lazyvim.plugins.extras.coding.nvim-cmp" },

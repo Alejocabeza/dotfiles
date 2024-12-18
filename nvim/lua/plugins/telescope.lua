@@ -51,12 +51,12 @@ return {
     local actions = require("telescope.actions")
     local fb_actions = telescope.extensions.file_browser.actions
 
-    opts.defaults = vim.tbl_deep_extend("force", opts.defaults or {}, {
+    opts.defaults = {
       wrap_results = true,
       layout_strategy = "horizontal",
       layout_config = { prompt_position = "top" },
       sorting_strategy = "ascending",
-      file_ignore_pattern = {
+      file_ignore_patterns = {
         "node_modules",
         "package-lock.json",
         "vendor",
@@ -74,9 +74,18 @@ return {
           ["<C-k>"] = actions.cycle_history_prev,
         },
       },
-    })
+    }
 
     opts.pickers = {
+      find_files = {
+        file_ignore_patterns = {
+          "node_modules",
+          "package-lock.json",
+          "var",
+          "yarn.lock",
+          "bun.lockb",
+        },
+      },
       diagnostics = {
         theme = "ivy",
         initial_mode = "normal",
@@ -127,6 +136,7 @@ return {
 
     return opts
   end,
+
   config = function(_, opts)
     require("telescope").setup(opts)
     require("telescope").load_extension("file_browser")
