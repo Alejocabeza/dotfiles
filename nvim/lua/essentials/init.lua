@@ -12,13 +12,20 @@ return {
 		},
 		config = true,
 	},
-	{ "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
+	{
+		"nvim-tree/nvim-web-devicons",
+		enabled = vim.g.have_nerd_font,
+		config = function()
+			require("nvim-web-devicons").setup({})
+		end,
+	},
 	{ "Bilal2453/luvit-meta", lazy = true },
 	"jwalton512/vim-blade",
 	{
 		"tpope/vim-dispatch",
 		cmd = { "Make", "Dispatch" },
 	},
+	{ "folke/lazy.nvim", version = "*" },
 	"tpope/vim-surround",
 	"tpope/vim-repeat",
 	"tpope/vim-rhubarb",

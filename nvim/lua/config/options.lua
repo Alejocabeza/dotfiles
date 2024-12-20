@@ -25,8 +25,3 @@ vim.opt.inccommand = "split"
 vim.opt.cursorline = true
 vim.opt.scrolloff = 10
 vim.opt.swapfile = false
-
--- vim.cmd([[
---     highlight Normal guibg=NONE ctermbg=NONE
---     highlight NonText guibg=NONE ctermbg=NONE
--- ]])
