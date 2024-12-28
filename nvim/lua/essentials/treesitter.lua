@@ -31,9 +31,6 @@ return {
 		},
 	},
 	opts = {
-		auto_install = true,
-		highlight = { enable = true },
-		indent = { enable = true },
 		ensure_installed = {
 			"lua",
 			"luadoc",
@@ -50,30 +47,63 @@ return {
 			"gitignore",
 			"gitattributes",
 		},
+		highlight = {
+			enable = true,
+			additional_vim_regex_highlighting = { "org" },
+		},
+		indent = {
+			enable = true,
+		},
+		textobjects = {
+			select = {
+				enable = true,
+				lookahead = true,
+				keymaps = {
+					["af"] = "@function.outher",
+					["if"] = "@function.inner",
+					["ac"] = "@conditional.outher",
+					["ic"] = "@conditional.inner",
+					["al"] = "@block.outher",
+					["il"] = "@block.inner",
+				},
+			},
+		},
 		incremental_selection = {
 			enable = true,
 			keymaps = {
-				init_selection = "<C-space>",
-				node_incremental = "<C-space>",
-				scope_incremental = false,
-				node_decremental = "<bs>",
-			},
-		},
-		textobjects = {
-			move = {
-				enable = true,
-				goto_next_start = { ["]f"] = "@function.outer", ["]c"] = "@class.outer", ["]a"] = "@parameter.inner" },
-				goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer", ["]A"] = "@parameter.inner" },
-				goto_previous_start = {
-					["[f"] = "@function.outer",
-					["[c"] = "@class.outer",
-					["[a"] = "@parameter.inner",
-				},
-				goto_previous_end = { ["[F"] = "@function.outer", ["[C"] = "@class.outer", ["[A"] = "@parameter.inner" },
+				init_selection = "gnn",
+				node_incremental = "grn",
+				scope_incremental = "grc",
+				node_incremental = "grm",
 			},
 		},
 	},
-	config = function(_, opts)
-		require("nvim-treesitter.configs").setup(opts)
+	config = function(plug, opts)
+		local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+
+		parser_config.blade = {
+			install_info = {
+				url = "https://github.com/EmranMR/tree-sitter-blade",
+				files = { "src/parser.c" },
+				branch = "main",
+			},
+			filetype = "blade",
+		}
+
+		vim.filetype.add({
+			pattern = {
+				[".*%.blade%.php"] = "blade",
+			},
+		})
+
+		vim.filetype.add({
+			extension = {
+				mdx = "mdx",
+			},
+		})
+
+		vim.treesitter.language.register("markdown", "mdx")
+
+		require(plug.main).setup(opts)
 	end,
 }

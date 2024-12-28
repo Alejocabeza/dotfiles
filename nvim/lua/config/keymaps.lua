@@ -52,4 +52,4 @@ vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
 
 -- Explorer
-vim.keymap.set("n", "nt", "<cmd>Ex<cr>", { desc = "File Explorer" })
+-- vim.keymap.set("n", "nt", "<cmd>Ex<cr>", { desc = "File Explorer" })
