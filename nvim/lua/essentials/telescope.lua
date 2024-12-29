@@ -161,7 +161,7 @@ return {
 	opts = function()
 		local telescope = require("telescope")
 		local actions = require("telescope.actions")
-		local fb_actions = require('telescope').extensions.file_browser.actions
+		local fb_actions = require("telescope").extensions.file_browser.actions
 
 		return {
 			defaults = {
@@ -175,6 +175,11 @@ return {
 					"var",
 					"yarn.lock",
 					"bun.lockb",
+					"dist",
+					"build",
+					".dist",
+					".build",
+					".next",
 				},
 				windblend = 0,
 				mappings = {
@@ -240,7 +245,7 @@ return {
 	config = function(_, opts)
 		require("telescope").setup(opts)
 		require("telescope").load_extension("fzf")
-		require('telescope').load_extension('file_browser')
+		require("telescope").load_extension("file_browser")
 		require("telescope").load_extension("ui-select")
 	end,
 }
