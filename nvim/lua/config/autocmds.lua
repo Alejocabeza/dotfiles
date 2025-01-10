@@ -1,48 +1,22 @@
-vim.api.nvim_create_autocmd("TextYankPost", {
-	desc = "Highlight when yanking (copying) text",
-	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-	callback = function()
-		vim.highlight.on_yank()
-	end,
+-- Turn off paste mode when leaving insert
+vim.api.nvim_create_autocmd("InsertLeave", {
+  pattern = "*",
+  command = "set nopaste",
 })
 
--- resize splits if window got resized
-vim.api.nvim_create_autocmd({ "VimResized" }, {
-	callback = function()
-		vim.cmd("tabdo wincmd =")
-	end,
-})
-
--- close some filetypes with <q>
+-- Disable the concealing in some file formats
+-- The default conceallevel is 3 in LazyVim
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = {
-		"qf",
-		"help",
-		"man",
-		"notify",
-		"lspinfo",
-		"spectre_panel",
-		"startuptime",
-		"tsplayground",
-		"PlenaryTestPopup",
-	},
-	callback = function(event)
-		vim.bo[event.buf].buflisted = false
-		vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
-	end,
+  pattern = { "json", "jsonc", "markdown" },
+  callback = function()
+    vim.opt.conceallevel = 0
+  end,
 })
 
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "gitcommit", "markdown", "NeogitCommitMessage", "norg" },
-	callback = function()
-		vim.opt_local.wrap = true
-		vim.opt_local.spell = true
-	end,
+-- Disable autoformat for lua files
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = { "lua" },
+  callback = function()
+    vim.b.autoformat = false
+  end,
 })
-
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-	callback = function()
-		vim.cmd([[%s/\s\+$//e]])
-	end,
-})
-
