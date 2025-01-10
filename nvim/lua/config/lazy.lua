@@ -13,12 +13,10 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	spec = {
-		-- Essentials configs
-		{ import = "essentials" },
-		-- Support Langs
-		{ import = "langs" },
 		-- plugins extra
 		{ import = "plugins" },
+		-- Support Langs
+		{ import = "langs" },
 	},
 	default = {
 		lazy = true,

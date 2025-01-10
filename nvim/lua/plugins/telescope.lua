@@ -48,7 +48,7 @@ return {
 			desc = "[S]earch [F]iles [R]oot",
 		},
 		{
-			"<C-p>",
+			"<Leader><space>",
 			function()
 				require("telescope.builtin").find_files({
 					no_ignore = false,
