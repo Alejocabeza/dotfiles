@@ -16,8 +16,10 @@ return {
           ".git",
           ".DS_Store",
           "node_modules",
+          "vendor",
+          "var",
           ".next",
-          "dist"
+          "dist",
         },
         always_show = {
           ".env",

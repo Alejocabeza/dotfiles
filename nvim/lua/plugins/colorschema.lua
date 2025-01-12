@@ -9,9 +9,18 @@ return {
     end,
   },
   {
+    "wuelnerdotexe/vim-enfocado",
+    lazy = false,
+    priority = 1000,
+    init = function()
+      vim.g.enfocado_style = "neon"
+    end,
+  },
+  { "catppuccin/nvim", lazy = true, name = "catppuccin", opts = { transparent_background = true } },
+  {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "sonokai",
+      colorscheme = "catppuccin-macchiato",
     },
   },
 }
