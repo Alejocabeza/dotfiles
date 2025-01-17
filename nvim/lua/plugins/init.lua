@@ -4,7 +4,7 @@ return {
   "nvim-lua/popup.nvim",
   "onsails/lspkind-nvim",
   "MunifTanjim/nui.nvim",
-  "terryma/vim-multiple-cursors",
+  "mg979/vim-visual-multi",
   {
     "declancm/maximize.nvim",
     keys = {

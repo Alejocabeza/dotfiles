@@ -49,6 +49,8 @@ return {
         ".next",
         "dist",
         "build",
+        "vendor",
+        "var",
       },
       winblend = 0,
       mappings = {

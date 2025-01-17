@@ -4,13 +4,6 @@ local opts = { noremap = true, silent = true }
 local Util = require("lazyvim.util")
 local Snacks = require("snacks")
 
-keymap.set("n", "<C-h>", "<Cmd>NvimTmuxNavigateLeft<CR>", { silent = true })
-keymap.set("n", "<C-j>", "<Cmd>NvimTmuxNavigateDown<CR>", { silent = true })
-keymap.set("n", "<C-k>", "<Cmd>NvimTmuxNavigateUp<CR>", { silent = true })
-keymap.set("n", "<C-l>", "<Cmd>NvimTmuxNavigateRight<CR>", { silent = true })
-keymap.set("n", "<C-\\>", "<Cmd>NvimTmuxNavigateLastActive<CR>", { silent = true })
-keymap.set("n", "<C-Space>", "<Cmd>NvimTmuxNavigateNavigateNext<CR>", { silent = true })
-
 -- Borderless terminal
 vim.keymap.set("n", "<C-/>", function()
   Snacks.terminal.get(nil, { border = "none" })
@@ -45,10 +38,14 @@ vim.keymap.set("n", "<C-a>", "gg<S-v>G")
 vim.keymap.set("n", "dw", 'vb"_d')
 
 -- Split windows
-keymap.set("n", "ss", ":vsplit<Return>", opts)
-keymap.set("n", "sv", ":split<Return>", opts)
+keymap.set("n", "sv", ":vsplit<Return>", opts)
+keymap.set("n", "ss", ":split<Return>", opts)
 
 -- Tabs
 keymap.set("n", "te", ":tabedit<CR>", opts)
 keymap.set("n", "<tab>", ":tabnext<Return>", opts)
 keymap.set("n", "<s-tab>", ":tabprev<Return>", opts)
+
+-- close and save easy
+keymap.set('n', '<C-w>', "<cmd>q<cr>")
+keymap.set('n', '<C-s>', "<cmd>w<cr>")
