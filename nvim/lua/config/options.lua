@@ -7,6 +7,7 @@ local opt = vim.opt
 opt.conceallevel = 0
 opt.laststatus = 3
 opt.cmdheight = 0
+opt.clipboard = { "unnamedplus" }
 
 vim.g.root_spec = { "cwd" }
 vim.g.omni_sql_no_default_maps = 1

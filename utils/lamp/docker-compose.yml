@@ -41,14 +41,25 @@ services:
     environment:
       PMA_HOST: mariadb
       MYSQL_ROOT_PASSWORD: ""
-      UPLOAD_LIMIT: 10M
+      UPLOAD_LIMIT: 1000M
+      MEMORY_LIMIT: 1000M
     ports:
       - "8080:80"
     networks:
       - lamp-network
 
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    restart: always
+
 volumes:
   mariadb-lamp-data: {}
+  redis_data: {}
 
 networks:
   lamp-network:
