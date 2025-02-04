@@ -1,0 +1,5 @@
+picom &
+nm-applet &
+nitrogen --restore &
+xsettingsd &
+variety &
