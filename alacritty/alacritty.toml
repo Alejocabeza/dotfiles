@@ -1,11 +1,11 @@
 general.import = ["~/.config/alacritty/themes-alacritty/themes/one_dark.toml"]
 
 [window]
-opacity = 0.9
 padding = { x = 4, y = 4 }
 decorations = "None"
-dimensions = {columns = 120, lines = 30}
-# startup_mode = "Fullscreen"
+# dimensions = { columns = 120, lines = 30 }
+opacity = 0.95
+startup_mode = "Fullscreen"
 blur = true
 
 [font]
