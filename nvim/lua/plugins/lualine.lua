@@ -1,30 +1,17 @@
 return {
-	"nvim-lualine/lualine.nvim",
-	dependencies = { "kyazdani42/nvim-web-devicons" },
-	config = function()
-		require("lualine").setup({
-			options = {
-				theme = "auto",
-				icons_enabled = true,
-				globalstatus = true,
-			},
-			extensions = { "quickfix", "fugitive" },
-			sections = {
-				lualine_a = { { "mode", upper = true } },
-				lualine_b = { { "branch", icon = "" }, "db_ui#statusline" },
-				lualine_c = { { "filename", file_status = true, path = 1 } },
-				lualine_x = {
-					"diagnostics",
-					"diff",
-					{
-						require("lazy.status").updates,
-						cond = require("lazy.status").has_updates,
-						color = { fg = "ff9e64" },
-					},
-				},
-				lualine_y = { "filetype" },
-				lualine_z = { "location" },
-			},
-		})
-	end,
+  "nvim-lualine/lualine.nvim",
+  opts = function(_, opts)
+    local LazyVim = require("lazyvim.util")
+    opts.sections.lualine_c[4] = {
+      LazyVim.lualine.pretty_path({
+        length = 0,
+        relative = "cwd",
+        modified_hl = "MatchParen",
+        directory_hl = "",
+        filename_hl = "Bold",
+        modified_sign = "",
+        readonly_icon = " 󰌾 ",
+      }),
+    }
+  end,
 }

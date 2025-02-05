@@ -32,7 +32,7 @@ keymap.set("n", "<M-l>", '<Cmd>lua require("tmux").resize_right()<CR>', { silent
 local set_keymap = vim.api.nvim_set_keymap
 
 -- clone line
-keymap.set('n', 'tt', '<cmd>t.<cr>')
+keymap.set("n", "tt", "<cmd>t.<cr>")
 
 -- Select All
 vim.keymap.set("n", "<C-a>", "gg<S-v>G")
@@ -50,5 +50,5 @@ keymap.set("n", "<tab>", ":tabnext<Return>", opts)
 keymap.set("n", "<s-tab>", ":tabprev<Return>", opts)
 
 -- close and save easy
-keymap.set('n', '<C-w>', "<cmd>q<cr>")
-keymap.set('n', '<C-s>', "<cmd>w<cr>")
+keymap.set("n", "<C-w>", "<cmd>q<cr>")
+keymap.set("n", "<C-s>", "<cmd>w<cr>")
