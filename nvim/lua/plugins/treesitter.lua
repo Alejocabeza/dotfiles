@@ -2,6 +2,7 @@ return {
   "nvim-treesitter/nvim-treesitter",
   event = "VeryLazy",
   build = ":TSUpdate",
+  version = '*',
   main = "nvim-treesitter.configs",
   dependencies = {
     {
@@ -39,13 +40,9 @@ return {
       "diff",
       "fish",
       "regex",
+      "blade",
       "printf",
       "query",
-      "git_config",
-      "gitcommit",
-      "git_rebase",
-      "gitignore",
-      "gitattributes",
     },
     highlight = {
       enable = true,
@@ -72,7 +69,6 @@ return {
       enable = true,
       keymaps = {
         init_selection = "gnn",
-        node_incremental = "grn",
         scope_incremental = "grc",
         node_incremental = "grm",
       },
