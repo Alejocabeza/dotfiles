@@ -5,8 +5,7 @@ return {
   version = '*',
   main = "nvim-treesitter.configs",
   dependencies = {
-    {
-      "nvim-treesitter/nvim-treesitter-textobjects",
+    { "nvim-treesitter/nvim-treesitter-textobjects",
       event = "VeryLazy",
       enabled = true,
       config = function()

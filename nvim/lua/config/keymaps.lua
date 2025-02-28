@@ -4,9 +4,6 @@ local opts = { noremap = true, silent = true }
 local Util = require("lazyvim.util")
 local Snacks = require("snacks")
 
--- OIL
-vim.keymap.set("n", "nt", "<CMD>Oil<CR>", { desc = "Open parent directory" })
-
 -- Borderless terminal
 vim.keymap.set("n", "<C-/>", function()
   Snacks.terminal.get(nil, { border = "none" })

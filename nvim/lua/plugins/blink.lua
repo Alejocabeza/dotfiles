@@ -1,6 +1,5 @@
 return {
   "saghen/blink.cmp",
-  version = "0.10.0",
   opts = {
     keymap = {
       preset = "default",

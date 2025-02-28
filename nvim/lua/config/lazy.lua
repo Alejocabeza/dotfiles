@@ -18,9 +18,7 @@ require("lazy").setup({
   spec = {
     -- add LazyVim and import its plugins
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-    -- Extras
-    { import = "lazyvim.plugins.extras.ai.codeium" },
-    -- { import = "lazyvim.plugins.extras.ai.tabnine" },
+    -- Extra
     { import = "lazyvim.plugins.extras.coding.luasnip" },
     { import = "lazyvim.plugins.extras.dap.core" },
     { import = "lazyvim.plugins.extras.dap.nlua" },
@@ -55,6 +53,10 @@ require("lazy").setup({
     -- import/override with your plugins
     { import = "plugins" },
   },
+  defaults = {
+    lazy = false,
+    version = false,
+  },
   ui = {
     border = "rounded",
     icons = vim.g.have_nerd_font and {} or {
@@ -72,10 +74,6 @@ require("lazy").setup({
       task = "📌",
       lazy = "💤 ",
     },
-  },
-  defaults = {
-    lazy = false,
-    version = false,
   },
   install = { colorscheme = { "tokyonight", "habamax" } },
   checker = {
