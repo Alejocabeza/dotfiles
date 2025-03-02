@@ -41,6 +41,7 @@ return {
       "regex",
       "blade",
       "printf",
+      "phpdoc",
       "query",
     },
     highlight = {
