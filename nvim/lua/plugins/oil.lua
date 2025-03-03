@@ -1,17 +1,7 @@
 return {
-  -- Plugin: oil.nvim
-  -- URL: https://github.com/stevearc/oil.nvim
-  -- Description: A Neovim plugin for managing and navigating directories.
   "stevearc/oil.nvim",
-  dependencies = { { "echasnovski/mini.icons", opts = {} } },
+  event = "VimEnter",
   opts = {
-    columns = {
-      "icon",
-      "permissions",
-      "size",
-      "mtime",
-    },
-    delete_to_trash = true,
     -- Key mappings for oil.nvim actions
     keymaps = {
       ["g?"] = "actions.show_help", -- Show help
@@ -36,7 +26,8 @@ return {
       show_hidden = true,
     },
   },
+  dependencies = { { "echasnovski/mini.icons", opts = {} } },
   keys = {
-    { "nt", "<cmd>Oil<cr>" },
+    { "-", "<cmd>Oil<cr>" },
   },
 }
