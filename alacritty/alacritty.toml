@@ -1,4 +1,4 @@
-general.import = ["~/.config/alacritty/themes-alacritty/themes/one_dark.toml"]
+general.import = ["~/.config/alacritty/themes-alacritty/themes/catppuccin_mocha.toml"]
 
 [window]
 padding = { x = 4, y = 4 }
@@ -10,7 +10,7 @@ blur = true
 
 [font]
 normal = { family = "Hack Nerd Font Mono", style = "Regular" }
-size = 12
+size = 9
 
 [cursor]
 style = "Block"

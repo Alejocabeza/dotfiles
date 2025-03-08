@@ -1,10 +1,25 @@
 return {
-  "stevearc/conform.nvim",
-  opts = function(_, opts)
-    opts.formatters_by_ft = vim.tbl_deep_extend("force", opts.formatters_by_ft or {}, {
-      blade = { "blade-formatter" },
-      json = { "jq" },
-      php = { "pint" },
-    })
-  end,
+	"stevearc/conform.nvim",
+	event = "VeryLazy",
+	opts = {
+		formatters_by_ft = {
+			lua = { "stylua" },
+			blade = {'blade-formatter'},
+			json = {"jq"},
+			php = {"pint"},
+			typescript = {"prettier"},
+			typescriptreact = {"prettier"},
+			javascript = {"prettier"},
+			javascriptreact = {"prettier"}
+		},
+	},
+	keys = {
+		{
+			"<leader>cf",
+			function()
+				require("conform").format()
+			end,
+			desc = "Format file",
+		},
+	},
 }

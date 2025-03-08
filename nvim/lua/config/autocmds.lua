@@ -1,30 +1,39 @@
--- Turn off paste mode when leaving insert
-vim.api.nvim_create_autocmd("InsertLeave", {
-  pattern = "*",
-  command = "set nopaste",
+-- resize splits if window got resized
+vim.api.nvim_create_autocmd({ "VimResized" }, {
+  callback = function()
+    vim.cmd "tabdo wincmd ="
+  end,
 })
 
--- Disable the concealing in some file formats
--- The default conceallevel is 3 in LazyVim
+-- close some filetypes with <q>
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "json", "jsonc", "markdown" },
-  callback = function()
-    vim.opt.conceallevel = 0
+  pattern = {
+    "qf",
+    "help",
+    "man",
+    "notify",
+    "lspinfo",
+    "spectre_panel",
+    "startuptime",
+    "tsplayground",
+    "PlenaryTestPopup",
+  },
+  callback = function(event)
+    vim.bo[event.buf].buflisted = false
+    vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
   end,
 })
 
--- Disable autoformat for lua files
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "lua" },
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "gitcommit", "markdown", "NeogitCommitMessage", "norg" },
   callback = function()
-    vim.b.autoformat = false
+    vim.opt_local.wrap = true
+    vim.opt_local.spell = true
   end,
 })
 
--- Disable autoformat for lua files
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "*" },
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
   callback = function()
-    vim.b.autoformat = false
+    vim.cmd [[%s/\s\+$//e]]
   end,
 })
