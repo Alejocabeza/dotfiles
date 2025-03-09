@@ -13,12 +13,4 @@ return {
 			typescriptreact = { "eslint_d" },
 		},
 	},
-	config = function(_, opts)
-		local lint = require("lint")
-		if lint then
-			lint.setup(opts)
-		else
-			vim.notify("nvim-lint not loaded correctly", vim.log.levels.ERROR)
-		end
-	end,
 }

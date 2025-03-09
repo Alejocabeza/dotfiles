@@ -205,32 +205,42 @@ keymap.set("n", "tr", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", { desc = "LS
 keymap.set("i", "<C-Space>", "<cmd>lua vim.lsp.buf.completion()<CR>", { desc = "LSP Completion" })
 
 -- Debugging
-keymap.set("n", "<leader>bb", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", {desc="Toggle Breakpoint"})
-keymap.set("n", "<leader>bc", "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>", {desc="Breakpoint Conditions"})
-keymap.set("n", "<leader>bl", "<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<cr>", {desc="Log Point Message"})
-keymap.set("n", "<leader>br", "<cmd>lua require'dap'.clear_breakpoints()<cr>", {desc="Clear BreakPoint"})
-keymap.set("n", "<leader>ba", "<cmd>Telescope dap list_breakpoints<cr>", {desc="List Breakpoint"})
-keymap.set("n", "<leader>dc", "<cmd>lua require'dap'.continue()<cr>", {desc="DAP Continue"})
-keymap.set("n", "<leader>dj", "<cmd>lua require'dap'.step_over()<cr>", {desc="DAP Step Over"})
-keymap.set("n", "<leader>dk", "<cmd>lua require'dap'.step_into()<cr>", {desc="DAP Step Into"})
-keymap.set("n", "<leader>do", "<cmd>lua require'dap'.step_out()<cr>", {desc="DAP Step Out"})
+keymap.set("n", "<leader>bb", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", { desc = "Toggle Breakpoint" })
+keymap.set(
+	"n",
+	"<leader>bc",
+	"<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>",
+	{ desc = "Breakpoint Conditions" }
+)
+keymap.set(
+	"n",
+	"<leader>bl",
+	"<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<cr>",
+	{ desc = "Log Point Message" }
+)
+keymap.set("n", "<leader>br", "<cmd>lua require'dap'.clear_breakpoints()<cr>", { desc = "Clear BreakPoint" })
+keymap.set("n", "<leader>ba", "<cmd>Telescope dap list_breakpoints<cr>", { desc = "List Breakpoint" })
+keymap.set("n", "<leader>dc", "<cmd>lua require'dap'.continue()<cr>", { desc = "DAP Continue" })
+keymap.set("n", "<leader>dj", "<cmd>lua require'dap'.step_over()<cr>", { desc = "DAP Step Over" })
+keymap.set("n", "<leader>dk", "<cmd>lua require'dap'.step_into()<cr>", { desc = "DAP Step Into" })
+keymap.set("n", "<leader>do", "<cmd>lua require'dap'.step_out()<cr>", { desc = "DAP Step Out" })
 keymap.set("n", "<leader>dd", function()
 	require("dap").disconnect()
 	require("dapui").close()
-end, {desc="Open DAPUI"})
+end, { desc = "Open DAPUI" })
 keymap.set("n", "<leader>dt", function()
 	require("dap").terminate()
 	require("dapui").close()
-end, {desc="Close DAPUI"})
-keymap.set("n", "<leader>dr", "<cmd>lua require'dap'.repl.toggle()<cr>", {desc="DAP Replace Toggle"})
-keymap.set("n", "<leader>dl", "<cmd>lua require'dap'.run_last()<cr>", {desc="DAP Run Last"})
+end, { desc = "Close DAPUI" })
+keymap.set("n", "<leader>dr", "<cmd>lua require'dap'.repl.toggle()<cr>", { desc = "DAP Replace Toggle" })
+keymap.set("n", "<leader>dl", "<cmd>lua require'dap'.run_last()<cr>", { desc = "DAP Run Last" })
 keymap.set("n", "<leader>di", function()
 	require("dap.ui.widgets").hover()
-end, {desc="DAP Widgets Hover"})
+end, { desc = "DAP Widgets Hover" })
 keymap.set("n", "<leader>d?", function()
 	local widgets = require("dap.ui.widgets")
 	widgets.centered_float(widgets.scopes)
-end, {desc="DAP Widget Float Window"})
+end, { desc = "DAP Widget Float Window" })
 
 -- Snacks Terminal And LazyGit
 keymap.set({ "n", "t" }, "<C-/>", function()
@@ -243,31 +253,31 @@ end, { desc = "Lazygit" })
 -- Neotest
 keymap.set("n", "<leader>tn", function()
 	require("neotest").run.run()
-end, {desc = "Test Run"})
+end, { desc = "Test Run" })
 keymap.set("n", "<leader>tl", function()
 	require("neotest").run.run_last()
-end, {desc="Test Run Last"})
+end, { desc = "Test Run Last" })
 keymap.set("n", "<leader>tm", function()
 	require("neotest").summary.run_marked()
-end, {desc="Test Summary"})
+end, { desc = "Test Summary" })
 keymap.set("n", "<leader>tf", function()
 	require("neotest").run.run(vim.fn.expand("%"))
-end, {desc="Test Run Function"})
+end, { desc = "Test Run Function" })
 keymap.set("n", "<leader>ts", function()
 	require("neotest").summary.toggle()
-end, {desc="Test Toggle Summary"})
+end, { desc = "Test Toggle Summary" })
 keymap.set("n", "<leader>to", function()
 	require("neotest").output.open({ enter = true })
-end, {desc="Test Output Open"})
+end, { desc = "Test Output Open" })
 keymap.set("n", "<leader>ti", function()
 	require("neotest").output.open({ enter = true, last_run = true })
-end, {desc="Test Output Open Last Test"})
+end, { desc = "Test Output Open Last Test" })
 keymap.set("n", "<leader>tpo", function()
 	require("neotest").output_panel.toggle()
-end, {desc="Test Output Panel Toggle"})
+end, { desc = "Test Output Panel Toggle" })
 keymap.set("n", "<leader>tpl", function()
 	require("neotest").output_panel.clear()
-end, {desc="Test Output Panel Clear"})
+end, { desc = "Test Output Panel Clear" })
 
 -- Laravel Keymaps
 keymap.set("n", "<leader>ll", "<cmd>Laravel<cr>")
@@ -295,6 +305,122 @@ end, { desc = "Buffer Keymaps (which-key)" })
 keymap.set("n", "<c-w><space>", function()
 	require("which-key").show({ keys = "<c-w>", loop = true })
 end, { desc = "Window Hydra Mode (which-key)" })
+
+-- Oil
+keymap.set("n", "nt", "<cmd>Oil<cr>")
+
+-- Worktree
+keymap.set("n", "<leader>gt", function()
+	vim.system(
+		{ "git", "worktree", "list" },
+		{},
+		vim.schedule_wrap(function(obj)
+			local out = obj.stdout
+			local worktrees = {}
+			local base_path = nil
+			if not out then
+				return
+			end
+			-- Split output into lines and process each line
+			for line in out:gmatch("[^\r\n]+") do
+				if line:match("%(bare%)") then
+					-- Extract base path from bare repository line
+					base_path = line:match("^%s*(.-)%s+%(bare%)") or ""
+				else
+					if base_path == nil then
+						vim.notify("Not a worktree project")
+						return
+					end
+					-- Parse non-bare worktree lines
+					local path, hash, branch = line:match("^%s*(.-)%s+([%x]+)%s+%[(.-)%]")
+					if path and hash and branch then
+						local basename = path:match(base_path:gsub("-", "%%-") .. "/(.+)$") or path
+						table.insert(worktrees, {
+							path = path,
+							base_path = base_path,
+							basename = basename,
+							hash = hash,
+							branch = branch,
+						})
+					end
+				end
+			end
+
+			local snacks = require("snacks").picker
+			snacks.pick({
+				title = "Worktrees",
+				items = vim.iter(worktrees)
+					:map(function(worktree)
+						return {
+							value = worktree,
+							text = worktree.path .. " " .. worktree.branch .. " " .. worktree.hash,
+						}
+					end)
+					:totable(),
+				preview = "none",
+				format = function(item, _)
+					return {
+						{ string.format("[%s]", item.value.basename), "@string" },
+						{ " ", "@string" },
+						{ item.value.hash, "@keyword" },
+						{ " - ", "@string" },
+						{ item.value.branch, "@string" },
+					}
+				end,
+				layout = {
+					preview = false,
+				},
+				confirm = function(picker, item)
+					picker:close()
+					if item then
+						require("git-worktree").switch_worktree(item.value.path)
+					end
+				end,
+			})
+		end)
+	)
+end, { desc = "Worktree" })
+
+-- Git Signs
+keymap.set('n', ']c', function()
+	if vim.wo.diff then
+		vim.cmd.normal({"]c", bang = true})
+	else
+		require('gitsigns').nav_hunk('prev')
+	end
+end, {desc = "Next Hunk"})
+keymap.set('n', '[c', function()
+	if vim.wo.diff then
+		vim.cmd.normal({"[c", bang = true})
+	else
+    require('gitsigns').nav_hunk('prev')
+	end
+end, {desc = "Prev Hunk"})
+keymap.set('n', '<leader>hs', require('gitsigns').stage_hunk, {desc = "Stage Hunk"})
+keymap.set('n', '<leader>hr', require('gitsigns').reset_hunk, {desc = "Reset Hunk"})
+keymap.set('v', '<leader>hs', function() require('gitsigns').stage_hunk({vim.fn.line('.'), vim.fn.line('v')}) end , {desc = "Stage Hunk Visual"})
+keymap.set('v', '<leader>hr', function() require('gitsigns').reset_hunk({vim.fn.line('.'), vim.fn.line('v')}) end , {desc = "Stage Hunk Visual"})
+keymap.set('n', '<leader>hS', require('gitsigns').stage_buffer, {desc = "Stage Buffer"})
+keymap.set('n', '<leader>hR', require('gitsigns').reset_buffer, {desc = "Reset Buffer"})
+keymap.set('n', '<leader>hp', require('gitsigns').preview_hunk, {desc = "Preview Hunk"})
+keymap.set('n', '<leader>hi', require('gitsigns').preview_hunk_inline, {desc = "Preview Hunk Inline"})
+keymap.set('n', '<leader>hb', function ()
+	require('gitsings').blame_line({full = true})
+end, {desc = "Blame Line"})
+keymap.set('n', '<leader>hd', require('gitsigns').diffthis, {desc = "Diff This"})
+keymap.set('n', '<leader>hD', function ()
+	require('gitsings').diffthis('~')
+end, {desc = "Diff This ~"})
+keymap.set('n', '<leader>hQ', function ()
+	require('gitsings').setqflist('all')
+end, {desc = "Set Qf List"})
+keymap.set('n', '<leader>hq', require('gitsigns').setqflist, {desc = "Set Qf List"})
+keymap.set('n', '<leader>tb', require('gitsigns').toggle_current_line_blame, {desc = "Toggle  Current Line Blame"})
+keymap.set('n', '<leader>td', require('gitsigns').toggle_deleted, {desc = "Toggle Deleted"})
+keymap.set('n', '<leader>tw', require('gitsigns').toggle_word_diff, {desc = "Toggle Word Diff"})
+keymap.set({'o', 'x'}, 'ih', require('gitsigns').select_hunk, {desc = "Select Hunk"})
+
+
 
 -- custom keymaps
 keymap.set("n", "tt", "<cmd>t.<cr>")

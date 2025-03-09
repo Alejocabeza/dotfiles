@@ -10,7 +10,7 @@ blur = true
 
 [font]
 normal = { family = "Hack Nerd Font Mono", style = "Regular" }
-size = 9
+size = 8
 
 [cursor]
 style = "Block"
