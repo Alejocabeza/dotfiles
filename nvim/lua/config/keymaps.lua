@@ -59,7 +59,7 @@ end, { desc = "Grep" })
 keymap.set("n", "<leader>:", function()
 	require("snacks").picker.command_history()
 end, { desc = "History" })
-keymap.set("n", "<leader><space>", function()
+keymap.set("n", "<C-p>", function()
 	require("snacks").picker.smart({ multi = { "buffers", "files" } })
 end, { desc = "Smart Picker" })
 keymap.set("n", "<leader>fp", function()
@@ -307,7 +307,7 @@ keymap.set("n", "<c-w><space>", function()
 end, { desc = "Window Hydra Mode (which-key)" })
 
 -- Oil
-keymap.set("n", "nt", "<cmd>Oil<cr>")
+keymap.set("n", "-", "<cmd>Oil --float<cr>")
 
 -- Worktree
 keymap.set("n", "<leader>gt", function()

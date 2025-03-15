@@ -11,13 +11,10 @@ return {
   piority = 1000,
   lazy = false,
   opts = {
-    bigfile = {enabled = true},
-      dashboard = {
-        preset = {
-          pick = function(cmd, opts)
-            return LazyVim.pick(cmd, opts)()
-          end,
-          header = [[
+    bigfile = { enabled = true },
+    dashboard = {
+      preset = {
+        header = [[
           ██╗      █████╗ ███████╗██╗   ██╗██╗   ██╗██╗███╗   ███╗          Z
           ██║     ██╔══██╗╚══███╔╝╚██╗ ██╔╝██║   ██║██║████╗ ████║      Z
           ██║     ███████║  ███╔╝  ╚████╔╝ ██║   ██║██║██╔████╔██║   z
@@ -38,26 +35,26 @@ return {
             { icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
             { icon = " ", key = "q", desc = "Quit", action = ":qa" },
           },
-        },
       },
-    indent = {enabled = true},
-    input = {enabled = true},
-    notifier = {enabled = true},
-    picker = {enabled = true},
-    scop = {enabled = true},
-    explorer = {enabled = true},
-    scroll = {enabled = true},
-    statuscolumn = {enabled =true},
-    words={enabled = true},
-    terminal={
+    },
+    indent = { enabled = true },
+    input = { enabled = true },
+    notifier = { enabled = true },
+    picker = { enabled = true },
+    scop = { enabled = true },
+    explorer = { enabled = false },
+    scroll = { enabled = true },
+    statuscolumn = { enabled = true },
+    words = { enabled = true },
+    terminal = {
       win = {
         keys = {
           nav_h = { "<C-h>", term_nav("h"), desc = "Go to Left Window", expr = true, mode = "t" },
           nav_j = { "<C-j>", term_nav("j"), desc = "Go to Lower Window", expr = true, mode = "t" },
           nav_k = { "<C-k>", term_nav("k"), desc = "Go to Upper Window", expr = true, mode = "t" },
           nav_l = { "<C-l>", term_nav("l"), desc = "Go to Right Window", expr = true, mode = "t" },
-        }
-      }
-    }
-  }
+        },
+      },
+    },
+  },
 }

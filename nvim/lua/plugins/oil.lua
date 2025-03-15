@@ -10,7 +10,7 @@ return {
       ["<C-d>"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a horizontal split" }, -- Open entry in horizontal split
       ["<C-t>"] = { "actions.select", opts = { tab = true }, desc = "Open the entry in new tab" }, -- Open entry in new tab
       ["<C-p>"] = "actions.preview", -- Preview entry
-      ["<C-c>"] = "actions.close", -- Close oil.nvim
+      ["q"] = "actions.close", -- Close oil.nvim
       ["<C-l>"] = "actions.refresh", -- Refresh oil.nvim
       ["-"] = "actions.parent", -- Go to parent directory
       ["_"] = "actions.open_cwd", -- Open current working directory

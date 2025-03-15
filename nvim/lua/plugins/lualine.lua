@@ -1,7 +1,5 @@
 return {
-  "nvim-lualine/lualine.nvim",
-  opts = {
-    icons_enable = true,
-    theme = "auto",
-  },
+  "echasnovski/mini.statusline",
+  version = false,
+  opts = {}
 }
