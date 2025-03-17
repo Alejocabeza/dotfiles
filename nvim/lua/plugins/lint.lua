@@ -1,19 +1,21 @@
 return {
-  "mfussenegger/nvim-lint",
-  event = "VeryLazy",
+  'mfussenegger/nvim-lint',
+  event = { 'BufReadPre', 'BufNewFile' },
   opts = {
-    events = { "BufWritePost", "BufReadPost", "InsertLeave" },
     linters_by_ft = {
-      fish = { "fish" },
-      lua = { "luacheck" },
-      php = { "tlint" },
-      javascript = { "eslint_d" },
-      javascriptreact = { "eslint_d" },
-      typescript = { "eslint_d" },
-      typescriptreact = { "eslint_d" },
+      markdown = { 'markdownlint' },
     },
   },
-  config = function(_, opts)
-    require('lint').setup(opts)
-  end
+  config = function()
+    local lint = require 'lint'
+    local lint_augroup = vim.api.nvim_create_augroup('lint', { clear = true })
+    vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost', 'InsertLeave' }, {
+      group = lint_augroup,
+      callback = function()
+        if vim.opt_local.modifiable:get() then
+          lint.try_lint()
+        end
+      end,
+    })
+  end,
 }

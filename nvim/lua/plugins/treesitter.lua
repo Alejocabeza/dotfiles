@@ -1,13 +1,10 @@
 return {
-  'nvim-treesitter/nvim-treesitter',
-  dependencies = {
-    'nvim-treesitter/nvim-treesitter-textobjects',
-  },
-  build = ':TSUpdate',
+  "nvim-treesitter/nvim-treesitter",
+  build = ":TSUpdate",
+  main = "nvim-treesitter.configs",
   opts = {
     ensure_installed = {
-      "bash",
-      "c",
+      "bash", "c",
       "diff",
       "html",
       "lua",
@@ -22,6 +19,7 @@ return {
       "css",
       "javascript",
     },
+    -- Autoinstall languages that are not installed
     auto_install = true,
     highlight = {
       enable = true,
@@ -47,7 +45,7 @@ return {
       },
     },
   },
-  config = function (_, opts)
+  config = function(_, opts)
     require("nvim-treesitter.install").prefer_git = true
     require("nvim-treesitter.configs").setup(opts)
 
@@ -58,8 +56,7 @@ return {
         files = { "src/parser.c" },
         branch = "main",
       },
-      filetype = "blade",
-    }
+      filetype = "blade", }
     vim.filetype.add({ pattern = { [".*%.blade%.php"] = "blade" } })
-  end
+  end,
 }

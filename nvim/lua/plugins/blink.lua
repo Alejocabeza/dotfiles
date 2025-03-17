@@ -1,12 +1,14 @@
 return {
   {
     "saghen/blink.compat",
+    event = "InsertEnter",
     version = "*",
     lazy = true,
     opts = {},
   },
   {
     "saghen/blink.cmp",
+    event = "InsertEnter",
     dependencies = {
       "rafamadriz/friendly-snippets",
       {
@@ -26,7 +28,7 @@ return {
         ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
         ["<C-k>"] = { "select_prev", "fallback_to_mappings" },
         ["<C-j>"] = { "select_next", "fallback_to_mappings" },
-        ["<Tab>"] = {
+        ["<Enter>"] = {
           function(cmp)
             if cmp.snippet_active() then
               return cmp.accept()
@@ -37,7 +39,6 @@ return {
           "snippet_forward",
           "fallback",
         },
-        ["<S-Tab>"] = { "snippet_backward", "fallback" },
       },
       signature = {
         enabled = true,
@@ -56,11 +57,7 @@ return {
         default = function()
           local sources = { "lsp", "path", "snippets", "buffer" }
 
-          if
-            require("utils").enableForCategory("laravel")
-            and vim.bo.filetype == "php"
-            and vim.fn.filereadable("artisan") == 1
-          then
+          if vim.bo.filetype == "php" and vim.fn.filereadable("artisan") == 1 then
             table.insert(sources, "laravel")
           end
 
