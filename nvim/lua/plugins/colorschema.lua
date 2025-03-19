@@ -1,10 +1,13 @@
 return {
   {
-    "catppuccin/nvim",
-    name = "catppuccin",
+    "wuelnerdotexe/vim-enfocado",
+    lazy = false,
     priority = 1000,
+    init = function()
+      vim.g.enfocado_style = "neon"
+    end,
     config = function()
-      vim.cmd.colorscheme("catppuccin-mocha")
+      vim.cmd.colorscheme("enfocado")
     end,
   },
 }

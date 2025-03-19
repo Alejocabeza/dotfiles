@@ -1,16 +1,16 @@
-general.import = ["~/.config/alacritty/themes-alacritty/themes/catppuccin_mocha.toml"]
+general.import = ["~/.config/alacritty/themes-alacritty/themes/enfocado_dark.toml"]
 
 [window]
 padding = { x = 4, y = 4 }
 decorations = "None"
 # dimensions = { columns = 120, lines = 30 }
-opacity = 0.95
+opacity = 1
 startup_mode = "Maximized"
 blur = true
 
 [font]
 normal = { family = "Hack Nerd Font Mono", style = "Regular" }
-size = 12
+size = 8
 
 [cursor]
 style = "Block"
