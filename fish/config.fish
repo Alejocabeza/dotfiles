@@ -11,8 +11,10 @@ set -gx TERM xterm-256color
 
 # Keymap
 bind -M insert \cc kill-whole-line repaint
-bind \cw 'find_workspace_directory' repaint
-bind \cf 'find_current_directory' repaint
+bind \cd 'find_directory' repaint
+bind -M insert \cd 'find_directory' repaint
+bind \cf 'find_files' repaint
+bind -M insert \cf 'find_files' repaint
 bind \cl 'find_container_docker_and_run_bash' repaint
 
 # theme
@@ -65,22 +67,24 @@ set -gx PATH $PATH (composer global config --absolute bin-dir)
 # Added by LM Studio CLI (lms)
 # set -gx PATH $PATH /home/alejocabeza/.lmstudio/bin
 
-function find_workspace_directory
-    find $HOME/workspace/ -mindepth 1 -maxdepth 1 -type d | fzf | read selected; if test -n "$selected"; cd "$selected"; end
-end
-
-function find_current_directory
-  find . -mindepth 1 -maxdepth 1 | fzf | read selected
-  if test -n "$selected"
-    if test -f "$selected"
-      nvim "$selected"
-    else if test -d "$selected"
-      cd "$selected"
-      find_current_directory
+function find_directory
+  fd -t d -0 -H . $HOME | fzf --print0 --read0 | read -z dir
+  if test -n "$dir"
+    if test -d "$dir"
+      cd "$dir"
+    else
+      echo "Error: '$dir' no es un directorio válido."
     end
+  else
+    echo "No se seleccionó ningún directorio."
   end
 end
 
-function find_container_docker_and_run_bash
-    docker ps --format '{{.Names}}' | fzf | read selected; if test -n "$selected"; docker exec -it $selected bash; end
+function find_files
+  find ~ -type f -print0 | fzf --print0 --read0 | xargs -0 -I {} nvim "{}"
+end
+
+function tm
+  set session_name (basename (pwd))
+  tmux new-session -s $session_name
 end

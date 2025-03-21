@@ -14,6 +14,7 @@ return {
 			"tlint",
 			"pint",
 			"luacheck",
+			"sqlfluff"
 		},
 	},
 	config = function(_, opts)

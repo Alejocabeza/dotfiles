@@ -20,6 +20,9 @@ return {
         end,
       },
       { "echasnovski/mini.icons", opts = {} },
+      {
+        "kristijanhusak/vim-dadbod-completion",
+      },
     },
     version = "*",
     opts = {

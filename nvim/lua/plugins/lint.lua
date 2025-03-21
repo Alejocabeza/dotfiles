@@ -4,6 +4,7 @@ return {
   opts = {
     linters_by_ft = {
       markdown = { 'markdownlint' },
+      sql = { 'sqlfluff' },
     },
   },
   config = function()

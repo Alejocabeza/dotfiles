@@ -2,9 +2,16 @@ return {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
   main = "nvim-treesitter.configs",
+  dependencies = {
+    {
+      "windwp/nvim-ts-autotag",
+      event = "",
+    },
+ },
   opts = {
     ensure_installed = {
-      "bash", "c",
+      "bash",
+      "c",
       "diff",
       "html",
       "lua",
@@ -56,7 +63,8 @@ return {
         files = { "src/parser.c" },
         branch = "main",
       },
-      filetype = "blade", }
+      filetype = "blade",
+    }
     vim.filetype.add({ pattern = { [".*%.blade%.php"] = "blade" } })
   end,
 }

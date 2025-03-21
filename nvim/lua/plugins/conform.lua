@@ -13,6 +13,7 @@ return {
       typescriptreact = { 'prettier' },
       javascript = { 'prettier' },
       javascriptreact = { 'prettier' },
+      sql = { 'sqlfluff' },
     },
   },
   keys = {
