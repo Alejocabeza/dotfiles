@@ -5,9 +5,9 @@ return {
   dependencies = {
     {
       "windwp/nvim-ts-autotag",
-      event = "",
+      opts = {},
     },
- },
+  },
   opts = {
     ensure_installed = {
       "bash",
