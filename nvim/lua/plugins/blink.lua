@@ -1,12 +1,5 @@
 return {
   {
-    "saghen/blink.compat",
-    event = "InsertEnter",
-    version = "*",
-    lazy = true,
-    opts = {},
-  },
-  {
     "saghen/blink.cmp",
     event = "InsertEnter",
     dependencies = {
@@ -18,10 +11,17 @@ return {
         config = function()
           require("luasnip.loaders.from_vscode").lazy_load()
         end,
-      },
-      { "echasnovski/mini.icons", opts = {} },
+      }, { "echasnovski/mini.icons", opts = {} },
       {
         "kristijanhusak/vim-dadbod-completion",
+      },
+      "codeium.nvim",
+      {
+        "saghen/blink.compat",
+        event = "InsertEnter",
+        version = "*",
+        lazy = true,
+        opts = {},
       },
     },
     version = "*",
@@ -31,17 +31,6 @@ return {
         ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
         ["<C-k>"] = { "select_prev", "fallback_to_mappings" },
         ["<C-j>"] = { "select_next", "fallback_to_mappings" },
-        ["<Enter>"] = {
-          function(cmp)
-            if cmp.snippet_active() then
-              return cmp.accept()
-            else
-              return cmp.select_and_accept()
-            end
-          end,
-          "snippet_forward",
-          "fallback",
-        },
       },
       signature = {
         enabled = true,
@@ -58,7 +47,7 @@ return {
       },
       sources = {
         default = function()
-          local sources = { "lsp", "path", "snippets", "buffer" }
+          local sources = { "lsp", "path", "snippets", "buffer", "codeium" }
 
           if vim.bo.filetype == "php" and vim.fn.filereadable("artisan") == 1 then
             table.insert(sources, "laravel")
@@ -79,6 +68,12 @@ return {
           return sources
         end,
         providers = {
+          codeium = {
+            name = "codeium",
+            module = "blink.compat.source",
+            score_offset = 100,
+            async = true,
+          },
           laravel = {
             name = "laravel",
             module = "blink.compat.source",
