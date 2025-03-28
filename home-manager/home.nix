@@ -12,13 +12,12 @@
   #
   # You should not change this value, even if you update Home Manager. If you do
   # want to update the value, then make sure to first check the Home Manager
-  # release notes.
+  # release notes. 
   home.stateVersion = "24.11"; # Please read the comment before changing.
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
-	# pkgs.neovim
 	pkgs.fish
 	pkgs.fastfetch
 	pkgs.eza
@@ -31,6 +30,9 @@
 	pkgs.xclip
 	pkgs.xsel
 	pkgs.btop
+	pkgs.php84
+	pkgs.php84Packages.composer
+	pkgs.fnm
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -85,6 +87,7 @@
   #
   home.sessionVariables = {
     EDITOR = "nvim";
+    COMPOSER_HOME = "${config.home.homeDirectory}/.composer";
   };
 
   # Let Home Manager install and manage itself.
@@ -261,6 +264,13 @@
 		  set session_name (basename (pwd))
 		  tmux new-session -s $session_name
 		end
+
+		# Añade el directorio vendor de Composer al PATH
+		set -gx PATH "$PATH:${config.home.homeDirectory}/.composer/vendor/bin"
+
+		# Inicialización de fnm
+		set -l fnm_dir ~/.fnm
+		status is-interactive; and source "$fnm_dir/fnm.fish"
 	'';
 	shellAliases = {
 		ll = "exa -l -g --icons";

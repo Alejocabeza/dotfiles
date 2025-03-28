@@ -22,6 +22,11 @@ return {
     end,
   },
   "adalessa/php-lsp-utils",
+  {
+    "tribela/transparent.nvim",
+    event = "VimEnter",
+    config = true,
+  },
   { "nvzone/volt", lazy = true },
   { "nvzone/menu", lazy = true },
   "nvim-lua/plenary.nvim",
