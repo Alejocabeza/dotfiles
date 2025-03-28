@@ -33,6 +33,7 @@
 	pkgs.php84
 	pkgs.php84Packages.composer
 	pkgs.fnm
+	pkgs.rustup
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -94,6 +95,7 @@
   programs.home-manager.enable = true;
 
   programs.neovim.enable = true;
+
 
   home.pointerCursor = {
     name = "phinger-cursors-dark";

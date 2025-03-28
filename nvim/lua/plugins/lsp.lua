@@ -48,6 +48,8 @@ return {
       timeout_ms = nil,
     },
     servers = {
+      rnix = {},
+      nil_ls = {},
       lua_ls = {
         settings = {
           Lua = {
