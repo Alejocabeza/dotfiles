@@ -154,66 +154,103 @@
         }
       ];
     extraConfig = ''
-      set -g terminal-overrides "xterm-256color"
-      set -ga terminal-overrides ",xterm-256color:Tc"
-      set -as terminal-overrides ',*:Smulx=\E[4::%p1%dm'
-      set -as terminal-overrides ',*:Setulc=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'
-
-      set -s escape-time 0
-
-      set -g mouse on
+      set -g default-terminal "tmux-256color"
+      set -g default-terminal "screen-256color"
+      # action key
 
       unbind C-b
-      set -g prefix C-t
+      set-option -g prefix C-t
+      set-option -g repeat-time 0
+      set-option -g focus-events on
 
-      set -g base-index 1
-      set -wg pane-base-index 1
+      #### Key bindings
+      set-window-option -g mode-keys vi
 
-      set -wg mode-keys vi
-      unbind H
-      bind H resize-pane -L 5
-      unbind J
-      bind J resize-pane -D 5
-      unbind K
-      bind K resize-pane -U 5
-      unbind L
-      bind L resize-pane -R 5
+      #bind t send-key C-t
+      # Reload settings
+      bind r source-file ~/.config/tmux/tmux.conf \; display "Reloaded!"
+      # Open current directory
+      bind o run-shell "open #{pane_current_path}"
+      bind -r e kill-pane -a
 
-      # Fzf key bindings
-      unbind p
-      unbind P
-      bind p display-popup -w 80% -h 40% -E '$HOME/.config/tmux/z_registry.sh && SESSION_WIZARD_CMD="nvim" $HOME/.config/tmux/session-wizard.sh'
-      bind P display-popup -w 80% -h 40% -E '$HOME/.config/tmux/z_registry.sh && $HOME/.config/tmux/session-wizard.sh'
+      # vim-like pane switching
+      bind -r k select-pane -U
+      bind -r j select-pane -D
+      bind -r h select-pane -L
+      bind -r l select-pane -R
 
-      # Set status bar to top
+      # Moving window
+      bind-key -n C-S-Left swap-window -t -1 \; previous-window
+      bind-key -n C-S-Right swap-window -t +1 \; next-window
+
+      # Resizing pane
+      bind -r C-k resize-pane -U 5
+      bind -r C-j resize-pane -D 5
+      bind -r C-h resize-pane -L 5
+      bind -r C-l resize-pane -R 5
+
+      #### basic settings
+      #
+      set-option -g mouse on
+      set-option -g status-justify "left"
+      #set-option utf8-default on
+      set-window-option -g mode-keys vi
+      #set-window-option -g utf8 on
+      # look'n feel
+      set-option -g status-fg cyan
+      set-option -g status-bg black
+      set -g pane-active-border-style fg=colour166,bg=default
+      set -g window-style fg=colour10,bg=default
+      set -g window-active-style fg=colour12,bg=default
+      set-option -g history-limit 64096
+
+      set -sg escape-time 10
+
+      #### COLOUR
+
+      # default statusbar colors
+      set-option -g status-style bg=colour235,fg=colour136,default
+
+      # default window title colors
+      set-window-option -g window-status-style fg=colour244,bg=colour234,dim
+
+      # active window title colors
+      set-window-option -g window-status-current-style fg=colour166,bg=default,bright
+
+      # pane border
+      set-option -g pane-border-style fg=colour235 #base02
+      set-option -g pane-active-border-style fg=colour136,bg=colour235
+
+      # message text
+      set-option -g message-style bg=colour235,fg=colour166
+
+      # pane number display
+      set-option -g display-panes-active-colour colour33 #blue
+      set-option -g display-panes-colour colour166 #orange
+
+      # clock
+      set-window-option -g clock-mode-colour colour64 #green
+
+      # allow the title bar to adapt to whatever host you connect to
+      set -g set-titles on
+      set -g set-titles-string "#T"
+
+      # import
+      if-shell "uname -s | grep -q Darwin" "source ~/.config/tmux/macos.conf"
+
+      # Split pane using | and
+      bind / split-window -h
+      bind - split-window -v
+      unbind %
+      unbind '"'
+
+      # clipboard
+      # bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xsel --clipboard --input"
+      bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xclip --clipboard --input"
+
+      set -sg escape-time 0
+      set -g status-interval 0
       set -g status-position top
-
-      # xterm keys compatibility
-      set-option -g xterm-keys on
-
-      # Go back to main
-      unbind m
-      bind-key -r m run-shell '$HOME/.config/tmux/tmux.sh'
-
-      # Lazygit quick access
-      unbind g
-      bind-key -r g run-shell 'tmux neww lazygit'
-
-      # Reload tmux config
-      unbind b
-      bind b source-file $HOME/.config/tmux/tmux.conf \; display-message "Config reloaded"
-
-      # Kill session with D
-      unbind D
-      bind D run-shell '$HOME/.config/tmux/tmux-killer.sh session'
-
-      # Close window with X
-      unbind X
-      bind X run-shell '$HOME/.config/tmux/tmux-killer.sh window'
-
-      # Close with x not ask for confirmation
-      unbind x
-      bind x run-shell '$HOME/.config/tmux/tmux-killer.sh pane'
     '';
   };
 
@@ -222,7 +259,6 @@
 	interactiveShellInit = ''
 		fastfetch
 
-		fish_vi_key_bindings
 		set fish_greeting ""
 		set -gx TERM xterm-256color
 
@@ -239,7 +275,7 @@
 		set -g theme_hide_hostname no
 		set -g theme_hostname always
 
-		set -g fish_key_bindings
+		fish_vi_key_bindings
 		set -g fzf_key_bindings
 		set -g fish_sequence_key_delay_ms 10
 
