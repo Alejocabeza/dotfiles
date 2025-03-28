@@ -25,7 +25,6 @@
 	pkgs.fd
 	pkgs.tmux
 	pkgs.alacritty
-	pkgs.alacritty-theme
 	pkgs.lazygit
 	pkgs.xclip
 	pkgs.xsel
