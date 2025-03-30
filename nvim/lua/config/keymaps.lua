@@ -111,7 +111,7 @@ keymap.set("n", "tr", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", { desc = "LS
 keymap.set("i", "<C-Space>", "<cmd>lua vim.lsp.buf.completion()<CR>", { desc = "LSP Completion" })
 
 -- Snacks Terminal And LazyGit
-keymap.set({ "n", "t" }, "<C-/>", function()
+keymap.set({ "n", "t" }, "<leader>j", function()
   require("snacks").terminal()
 end, { desc = "Toggle Terminal" })
 keymap.set("n", "<leader>gg", function()
