@@ -18,20 +18,20 @@ return {
   },
   opts = {
     -- Ollama Config
-    provider = "ollama",
-    ollama = {
-      model = "deepseek-r1",
-    },
-    behaviour = {
-      enable_cursor_planning_mode = true,
-    },
-    -- Gemini Config
-    -- provider = "gemini",
-    -- gemini = {
-    --   model = "gemini-2.0-pro-exp-02-05",
-    --   temperature = 0,
-    --   max_tokens = 4096,
+    -- provider = "ollama",
+    -- ollama = {
+    --   model = "deepseek-r1",
     -- },
+    -- behaviour = {
+    --   enable_cursor_planning_mode = true,
+    -- },
+    -- Gemini Config
+    provider = "gemini",
+    gemini = {
+      model = "gemini-2.5-pro-exp-03-25",
+      temperature = 0,
+      max_tokens = 4096,
+    },
     file_selector = {
       provider = "snacks",
     },

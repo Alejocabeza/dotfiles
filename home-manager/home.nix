@@ -15,6 +15,11 @@
   # release notes. 
   home.stateVersion = "24.11"; # Please read the comment before changing.
 
+  # Add this section to configure nixpkgs
+  nixpkgs.config = {
+    allowUnfree = true;
+  };
+
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
@@ -33,6 +38,13 @@
 	pkgs.php84Packages.composer
 	pkgs.fnm
 	pkgs.rustup
+	pkgs.sqlite
+	pkgs.postgresql
+	pkgs.vscode
+	pkgs.postman
+	pkgs.code-cursor
+	pkgs.kitty
+	pkgs.nerd-fonts.hack
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -95,12 +107,24 @@
 
   programs.neovim.enable = true;
 
-
-  home.pointerCursor = {
-    name = "phinger-cursors-dark";
-    package = pkgs.phinger-cursors;
-    size = 24;
-    gtk.enable = true;
+  programs.kitty = {
+    enable = true;
+    font = {
+      name = "Hack Nerd Font Mono";
+      size = 12;
+    };
+    settings = {
+      allow_remote_control = "yes";
+      enable_audio_bell = false;
+      adjust_line_height = "130%";
+      close_on_child_death = true;
+      window_padding_width = 0;
+      hide_window_decorations = true;
+      confirm_os_window_close = 0;
+    };
+    extraConfig = ''
+      shell tmux new-session -A -s Main
+    '';
   };
 
   programs.alacritty = {
@@ -121,6 +145,7 @@
 		cursor.style = "Block";
 		cursor.unfocused_hollow = true;
 		env.TERM = "xterm-256color";
+		# terminal.shell = "tmux new-session -A -s Main";
 	};
   };
 
@@ -259,6 +284,7 @@
 	enable = true;	
 	interactiveShellInit = ''
 		fastfetch
+		#tmux new-session -A -s Main
 
 		set fish_greeting ""
 		set -gx TERM xterm-256color
@@ -308,6 +334,8 @@
 		# Inicialización de fnm
 		set -l fnm_dir ~/.fnm
 		status is-interactive; and source "$fnm_dir/fnm.fish"
+
+		set -x GOOGLE_API_KEY "TU_API_KEY_DE_GEMINI"
 	'';
 	shellAliases = {
 		ll = "exa -l -g --icons";
