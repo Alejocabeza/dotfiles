@@ -42,9 +42,8 @@
 	pkgs.postgresql
 	pkgs.vscode
 	pkgs.postman
-	pkgs.code-cursor
-	pkgs.kitty
-	pkgs.nerd-fonts.hack
+	# pkgs.code-cursor
+	pkgs.kitty pkgs.nerd-fonts.hack
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -100,6 +99,7 @@
   home.sessionVariables = {
     EDITOR = "nvim";
     COMPOSER_HOME = "${config.home.homeDirectory}/.composer";
+    GEMINI_API_KEY = "AIzaSyBHPwwVIzVjMTPsafksZrY1AIZKQpTeJwc";
   };
 
   # Let Home Manager install and manage itself.
@@ -334,8 +334,6 @@
 		# Inicialización de fnm
 		set -l fnm_dir ~/.fnm
 		status is-interactive; and source "$fnm_dir/fnm.fish"
-
-		set -x GOOGLE_API_KEY "TU_API_KEY_DE_GEMINI"
 	'';
 	shellAliases = {
 		ll = "exa -l -g --icons";
