@@ -15,12 +15,6 @@ return {
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = { signs = false },
   },
-  {
-    "direnv/direnv.vim",
-    init = function()
-      vim.g.direnv_silent_load = 1
-    end,
-  },
   "adalessa/php-lsp-utils",
   {
     "tribela/transparent.nvim",

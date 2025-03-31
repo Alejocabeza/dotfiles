@@ -43,7 +43,8 @@
 	pkgs.vscode
 	pkgs.postman
 	# pkgs.code-cursor
-	pkgs.kitty pkgs.nerd-fonts.hack
+	pkgs.kitty
+	pkgs.nerd-fonts.hack
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
