@@ -50,7 +50,7 @@ return {
     terminal = {
       win = {
         style={
-          position="bottom",
+          position="float",
         },
         keys = {
           nav_h = { "<C-h>", term_nav("h"), desc = "Go to Left Window", expr = true, mode = "t" },

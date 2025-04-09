@@ -55,10 +55,24 @@ services:
     networks:
       - lamp-network
 
+  mongodb:
+    image: mongo:latest
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - lamp-network
+
 volumes:
   mariadb-lamp-data: {}
   postgres_data: {}
   redis_data: {}
+  mongodb_data: {}
 
 networks:
   lamp-network:

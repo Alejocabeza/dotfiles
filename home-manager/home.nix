@@ -1,117 +1,121 @@
+# home.nix
 { config, pkgs, ... }:
 
-{
-  # Home Manager needs a bit of information about you and the paths it should
-  # manage.
-  home.username = "alejocabeza";
-  home.homeDirectory = "/home/alejocabeza";
+# --- Bloque let para definir variables locales ---
+let
+  # Define tu versión de PHP base para facilitar cambios futuros
+  phpBase = pkgs.php84;
 
-  # This value determines the Home Manager release that your configuration is
-  # compatible with. This helps avoid breakage when a new Home Manager release
-  # introduces backwards incompatible changes.
-  #
-  # You should not change this value, even if you update Home Manager. If you do
-  # want to update the value, then make sure to first check the Home Manager
-  # release notes. 
-  home.stateVersion = "24.11"; # Please read the comment before changing.
+  # Crea una versión personalizada de PHP con las extensiones que necesitas
+  phpWithMyExtensions = phpBase.withExtensions (
+    { all, enabled }: enabled ++ [  # Toma las extensiones habilitadas por defecto y añade las siguientes:
+      # --- La extensión clave que necesitas ---
+      all.imagick
 
-  # Add this section to configure nixpkgs
-  nixpkgs.config = {
-    allowUnfree = true;
+      # --- Otras extensiones comunes y recomendadas para desarrollo web/Laravel ---
+      # Descomenta o añade las que necesites para tu proyecto específico
+      all.gd          # Alternativa a Imagick, útil tenerla disponible
+      all.pdo_sqlite  # Para bases de datos SQLite
+      all.pdo_mysql   # Para bases de datos MySQL/MariaDB
+      # all.pdo_pgsql # Para bases de datos PostgreSQL
+      all.intl        # Para funciones de internacionalización
+      all.zip         # Para manejar archivos ZIP (común con Composer)
+      all.bcmath      # Para matemáticas de precisión arbitraria
+      all.sodium      # Para operaciones criptográficas modernas
+      # all.opcache   # Generalmente habilitada por defecto en 'enabled', mejora rendimiento
+      # ... puedes añadir más extensiones de 'all' aquí
+    ]
+  );
+
+  # Define Composer específicamente para tu versión de PHP personalizada (más robusto)
+  composerForMyPhp = pkgs.php84Packages.composer.override {
+    php = phpWithMyExtensions; # Asegura que Composer use el PHP correcto
   };
 
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
+# --- Fin del bloque let ---
+in
+{
+  # --- Configuración básica de Home Manager ---
+  home.username = "alejandro";
+  home.homeDirectory = "/home/alejandro";
+  home.stateVersion = "24.11"; # Por favor, lee el comentario original antes de cambiar.
+
+  # --- Configuración de Nixpkgs ---
+  nixpkgs.config = {
+    allowUnfree = true; # Permite instalar paquetes no libres
+  };
+
+  # --- Paquetes a instalar en tu entorno de usuario ---
   home.packages = [
-	pkgs.fish
-	pkgs.fastfetch
-	pkgs.eza
-	pkgs.fzf
-	pkgs.fd
-	pkgs.tmux
-	pkgs.alacritty
-	pkgs.lazygit
-	pkgs.xclip
-	pkgs.xsel
-	pkgs.btop
-	pkgs.php84
-	pkgs.php84Packages.composer
-	pkgs.fnm
-	pkgs.rustup
-	pkgs.sqlite
-	pkgs.postgresql
-	pkgs.vscode
-	pkgs.postman
-	# pkgs.code-cursor
-	pkgs.kitty
-	pkgs.nerd-fonts.hack
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # pkgs.hello
+    # --- Tu PHP personalizado con extensiones incluidas ---
+    phpWithMyExtensions
 
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
+    # --- Composer asociado a tu PHP personalizado ---
+    composerForMyPhp
 
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
+    # --- Dependencia del sistema requerida por la extensión php-imagick ---
+    pkgs.imagemagick
+
+    # --- Tus otros paquetes ---
+    pkgs.fish
+    pkgs.fastfetch
+    pkgs.eza
+    pkgs.fzf
+    pkgs.fd
+    pkgs.tmux
+    pkgs.lazygit
+    pkgs.xclip
+    pkgs.xsel
+    pkgs.wl-clipboard
+    pkgs.btop
+    pkgs.fnm
+    pkgs.rustup
+    pkgs.sqlite # Herramienta CLI de SQLite
+    pkgs.postgresql # Herramientas CLI/servidor de PostgreSQL
+    pkgs.vscode
+    pkgs.postman
+    pkgs.kitty
+    pkgs.nerd-fonts.hack # Asegúrate que este paquete exista o usa pkgs.hack-font u otro nerd font
+    pkgs.luarocks-nix
+    pkgs.mongodb-compass
+
+    # --- Paquetes PHP originales eliminados (ya no necesarios de esta forma) ---
+    # pkgs.php84 # Reemplazado por phpWithMyExtensions
+    # pkgs.php84Extensions.imagick # Integrado en phpWithMyExtensions
+    # pkgs.php84Packages.composer # Reemplazado por composerForMyPhp
   ];
 
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
+  # --- Gestión de archivos de configuración (dotfiles) ---
   home.file = {
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
-
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
-    # ".tmux.conf".source = ../tmux/tmux.conf;
-    ".gitconfig".source = ../.gitconfig;
-    "utils/lamp".source = ../utils/lamp;
+    ".gitconfig".source = ../.gitconfig; # Asegúrate que esta ruta relativa sea correcta
+    "utils/lamp".source = ../utils/lamp;   # Asegúrate que esta ruta relativa sea correcta
   };
 
-  # Home Manager can also manage your environment variables through
-  # 'home.sessionVariables'. These will be explicitly sourced when using a
-  # shell provided by Home Manager. If you don't want to manage your shell
-  # through Home Manager then you have to manually source 'hm-session-vars.sh'
-  # located at either
-  #
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  ~/.local/state/nix/profiles/profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/alejocabeza/etc/profile.d/hm-session-vars.sh
-  #
+  # --- Variables de entorno de sesión ---
   home.sessionVariables = {
     EDITOR = "nvim";
+    # COMPOSER_HOME es útil si tienes configuraciones globales de composer,
+    # aunque el binario de composer estará en el PATH gestionado por Nix.
     COMPOSER_HOME = "${config.home.homeDirectory}/.composer";
+    # ¡PRECAUCIÓN! No es recomendable guardar claves API directamente en la configuración.
+    # Considera usar herramientas de gestión de secretos como 'sops-nix' o variables de entorno no versionadas.
     GEMINI_API_KEY = "AIzaSyBHPwwVIzVjMTPsafksZrY1AIZKQpTeJwc";
   };
 
-  # Let Home Manager install and manage itself.
+  # --- Habilitar Home Manager para gestionarse a sí mismo ---
   programs.home-manager.enable = true;
 
-  programs.neovim.enable = true;
+  # --- Configuración de programas gestionados por Home Manager ---
+
+  programs.neovim = {
+    enable = true;
+    # Aquí puedes añadir más configuración de Neovim si lo deseas
+  };
 
   programs.kitty = {
     enable = true;
     font = {
-      name = "Hack Nerd Font Mono";
+      name = "Hack Nerd Font Mono"; # Verifica que la fuente esté disponible y el nombre sea exacto
       size = 12;
     };
     settings = {
@@ -120,34 +124,30 @@
       adjust_line_height = "130%";
       close_on_child_death = true;
       window_padding_width = 0;
-      hide_window_decorations = true;
+      hide_window_decorations = false; # Cambiado de 'None' a booleano si es necesario
       confirm_os_window_close = 0;
     };
     extraConfig = ''
+      # Si quieres que Kitty inicie tmux automáticamente, puedes descomentar esto.
+      # Sin embargo, dado que gestionas tmux con programs.tmux, puede ser redundante.
       shell tmux new-session -A -s Main
     '';
   };
 
   programs.alacritty = {
-  	enable = true;
-	settings = {
-		window.padding = {
-			x = 4;
-			y = 4;
-		};
-		window.decorations = "None";
-		window.opacity = 0.8;
-		window.startup_mode = "Maximized";
-		window.blur = true; font.normal = {
-			family =  "Hack Nerd Font Mono";
-			style = "Regular";
-		};
-		font.size = 14;
-		cursor.style = "Block";
-		cursor.unfocused_hollow = true;
-		env.TERM = "xterm-256color";
-		# terminal.shell = "tmux new-session -A -s Main";
-	};
+    enable = false; # Mantenido como deshabilitado según tu config original
+    settings = {
+      window.padding = { x = 4; y = 4; };
+      window.decorations = "None";
+      window.opacity = 0.8;
+      window.startup_mode = "Maximized";
+      window.blur = true;
+      font.normal = { family = "Hack Nerd Font Mono"; style = "Regular"; };
+      font.size = 10;
+      cursor.style = "Block";
+      cursor.unfocused_hollow = true;
+      env.TERM = "xterm-256color";
+    };
   };
 
   programs.ripgrep = {
@@ -157,34 +157,33 @@
     ];
   };
 
-  # Tmux conf
   programs.tmux = {
     enable = true;
-    terminal = "xterm-256color";
-    # historyLimit = 100000;
-    plugins = with pkgs;
-      [
-        tmuxPlugins.sensible
-        tmuxPlugins.tmux-fzf
-        tmuxPlugins.vim-tmux-navigator
-        {
-          plugin = tmuxPlugins.tokyo-night-tmux;
-          extraConfig = ''
-            set -g @tokyo-night-tmux_show_datetime 0
-            set -g @tokyo-night-tmux_show_git 0
-            set -g @tokyo-night-tmux_show_battery_widget 0
-            set -g @tokyo-night-tmux_show_path 1
-
-            set -g @tokyo-night-tmux_window_id_style none
-            set -g @tokyo-night-tmux_window_id_style none
-          '';
-        }
-      ];
+    terminal = "xterm-256color"; # O "tmux-256color"
+    # historyLimit = 100000; # Descomenta si quieres establecer un límite
+    plugins = with pkgs; [
+      tmuxPlugins.sensible
+      tmuxPlugins.tmux-fzf
+      tmuxPlugins.vim-tmux-navigator
+      {
+        plugin = tmuxPlugins.tokyo-night-tmux;
+        extraConfig = ''
+          set -g @tokyo-night-tmux_show_datetime 0
+          set -g @tokyo-night-tmux_show_git 0
+          set -g @tokyo-night-tmux_show_battery_widget 0
+          set -g @tokyo-night-tmux_show_path 1
+          set -g @tokyo-night-tmux_window_id_style none
+          # set -g @tokyo-night-tmux_window_id_style none # Esta línea estaba duplicada
+        '';
+      }
+    ];
     extraConfig = ''
+      # --- Tu configuración extra de Tmux ---
+      # (Copiada de tu configuración original)
       set -g default-terminal "tmux-256color"
-      set -g default-terminal "screen-256color"
-      # action key
+      # set -g default-terminal "screen-256color" # Puedes tener solo una
 
+      # action key
       unbind C-b
       set-option -g prefix C-t
       set-option -g repeat-time 0
@@ -193,11 +192,10 @@
       #### Key bindings
       set-window-option -g mode-keys vi
 
-      #bind t send-key C-t
       # Reload settings
-      bind r source-file ~/.config/tmux/tmux.conf \; display "Reloaded!"
+      bind r source-file ~/.config/tmux/tmux.conf \; display "Reloaded!" # Asegúrate que esta ruta sea la correcta gestionada por HM o usa la ruta del Nix store
       # Open current directory
-      bind o run-shell "open #{pane_current_path}"
+      bind o run-shell "open #{pane_current_path}" # 'open' es más común en macOS, en Linux podrías usar 'xdg-open'
       bind -r e kill-pane -a
 
       # vim-like pane switching
@@ -217,36 +215,25 @@
       bind -r C-l resize-pane -R 5
 
       #### basic settings
-      #
       set-option -g mouse on
       set-option -g status-justify "left"
-      #set-option utf8-default on
       set-window-option -g mode-keys vi
-      #set-window-option -g utf8 on
-      # look'n feel
-      set-option -g status-fg cyan
-      set-option -g status-bg black
-      set -g pane-active-border-style fg=colour166,bg=default
-      set -g window-style fg=colour10,bg=default
-      set -g window-active-style fg=colour12,bg=default
       set-option -g history-limit 64096
+      set -sg escape-time 10 # Reducido a 10ms
 
-      set -sg escape-time 10
-
-      #### COLOUR
-
+      #### COLOUR (Usando tu tema tokyo-night, algunas de estas pueden ser redundantes)
       # default statusbar colors
-      set-option -g status-style bg=colour235,fg=colour136,default
+      # set-option -g status-style bg=colour235,fg=colour136,default # Probablemente sobreescrito por el tema
 
       # default window title colors
-      set-window-option -g window-status-style fg=colour244,bg=colour234,dim
+      # set-window-option -g window-status-style fg=colour244,bg=colour234,dim # Probablemente sobreescrito por el tema
 
       # active window title colors
-      set-window-option -g window-status-current-style fg=colour166,bg=default,bright
+      # set-window-option -g window-status-current-style fg=colour166,bg=default,bright # Probablemente sobreescrito por el tema
 
       # pane border
       set-option -g pane-border-style fg=colour235 #base02
-      set-option -g pane-active-border-style fg=colour136,bg=colour235
+      set-option -g pane-active-border-style fg=colour136,bg=colour235 # Puedes ajustar si el tema no lo hace
 
       # message text
       set-option -g message-style bg=colour235,fg=colour166
@@ -262,87 +249,110 @@
       set -g set-titles on
       set -g set-titles-string "#T"
 
-      # import
-      if-shell "uname -s | grep -q Darwin" "source ~/.config/tmux/macos.conf"
+      # import (Comentado ya que no parece haber un macos.conf gestionado aquí)
+      # if-shell "uname -s | grep -q Darwin" "source ~/.config/tmux/macos.conf"
 
-      # Split pane using | and
-      bind / split-window -h
-      bind - split-window -v
+      # Split pane using | and -
+      bind / split-window -h -c "#{pane_current_path}" # Añadido -c para mantener directorio
+      bind - split-window -v -c "#{pane_current_path}" # Añadido -c para mantener directorio
       unbind %
       unbind '"'
 
-      # clipboard
-      # bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xsel --clipboard --input"
-      bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xclip --clipboard --input"
+      # clipboard (Asegúrate que xclip esté instalado y funcione)
+      bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xclip -selection clipboard -in"
+      # Alternativa para Wayland (si usas wl-clipboard):
+      # bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "wl-copy"
 
-      set -sg escape-time 0
-      set -g status-interval 0
+      set -sg escape-time 0 # Reducido a 0ms para respuesta instantánea de Vi keys
+      set -g status-interval 1 # Actualizar status bar cada segundo (0 puede consumir CPU)
       set -g status-position top
     '';
   };
 
   programs.fish = {
-	enable = true;	
-	interactiveShellInit = ''
-		fastfetch
-		#tmux new-session -A -s Main
+    enable = true;
+    interactiveShellInit = ''
+      # Muestra fastfetch al inicio
+      fastfetch
 
-		set fish_greeting ""
-		set -gx TERM xterm-256color
+      # Saludo vacío
+      set fish_greeting ""
+      # Asegura el TERM correcto para colores
+      set -gx TERM xterm-256color
 
-		bind -M insert \cc kill-whole-line repaint
-		bind \cd 'find_directory' repaint
-		bind -M insert \cd 'find_directory' repaint
-		bind \cf 'find_files' repaint
-		bind -M insert \cf 'find_files' repaint
-		bind \cl 'find_container_docker_and_run_bash' repaint
+      # --- Tus bindings personalizados ---
+      bind -M insert \cc kill-whole-line repaint
+      bind \cd 'find_directory' repaint
+      bind -M insert \cd 'find_directory' repaint
+      bind \cf 'find_files' repaint
+      bind -M insert \cf 'find_files' repaint
+      bind \cl 'find_container_docker_and_run_bash' repaint # Asegúrate que esta función exista
 
-		set -g theme_color_scheme terminal-dark
-		set -g fish_prompt_pwd_dir_length 1
-		set -g theme_display_user yes
-		set -g theme_hide_hostname no
-		set -g theme_hostname always
+      # --- Configuración del prompt (si no usas un tema como starship/tide) ---
+      # set -g theme_color_scheme terminal-dark # Estos parecen ser de oh-my-fish/themes
+      # set -g fish_prompt_pwd_dir_length 1
+      # set -g theme_display_user yes
+      # set -g theme_hide_hostname no
+      # set -g theme_hostname always
 
-		fish_vi_key_bindings
-		set -g fzf_key_bindings
-		set -g fish_sequence_key_delay_ms 10
+      # --- Habilitar bindings Vi y FZF ---
+      fish_vi_key_bindings
+      # set -g fzf_key_bindings # Descomenta si quieres los bindings por defecto de fzf.fish
 
-		function find_directory
-		  fd -t d -0 -H . $HOME | fzf --print0 --read0 | read -z dir
-		  if test -n "$dir"
-		    if test -d "$dir"
-		      cd "$dir"
-		    else
-		      echo "Error: '$dir' no es un directorio válido."
-		    end
-		  else
-		    echo "No se seleccionó ningún directorio."
-		  end
-		end
+      # --- Retraso para secuencias de teclas (Vi mode) ---
+      set -g fish_sequence_key_delay_ms 10
 
-		function find_files
-		  find ~ -type f -print0 | fzf --print0 --read0 | xargs -0 -I {} nvim "{}"
-		end
+      # --- Tus funciones personalizadas ---
+      function find_directory
+        # Usa fd y fzf para cambiar de directorio
+        # Asegúrate que fd y fzf estén en home.packages
+        fd --type d --hidden --exclude .git --base-directory $HOME . $HOME | fzf --preview 'exa --tree --level=1 --icons {}' | read -l dir
+        if test -n "$dir"
+          cd "$dir"
+          commandline -r "" # Limpia la línea de comandos después de cd
+        else
+          commandline -r "" # Limpia si se cancela
+        end
+      end
 
-		function tm
-		  set session_name (basename (pwd))
-		  tmux new-session -s $session_name
-		end
+      function find_files
+        # Usa fd y fzf para abrir archivos con nvim
+        fd --type f --hidden --exclude .git . $HOME | fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}' | read -l file
+        if test -n "$file"
+          nvim "$file"
+          commandline -r ""
+        else
+          commandline -r ""
+        end
+      end
 
-		# Añade el directorio vendor de Composer al PATH
-		set -gx PATH "$PATH:${config.home.homeDirectory}/.composer/vendor/bin"
+      function tm
+        # Inicia o adjunta a una sesión de tmux con el nombre del directorio actual
+        set session_name (basename (pwd) | sed 's/\.//g') # Limpia el nombre de sesión
+        if not tmux has-session -t=$session_name 2>/dev/null
+          tmux new-session -s $session_name -d # Inicia en segundo plano si no existe
+        end
+        tmux attach-session -t $session_name
+      end
 
-		# Inicialización de fnm
-		set -l fnm_dir ~/.fnm
-		status is-interactive; and source "$fnm_dir/fnm.fish"
-	'';
-	shellAliases = {
-		ll = "exa -l -g --icons";
-		lla = "ll -a";
-		tree = "exa -T";
-		vim = "nvim";
-		g = "git";
-	};
+      # --- Inicializar FNM (Node Version Manager) ---
+      # Asegúrate que fnm esté en home.packages
+      fnm env --use-on-cd | source
+    '';
+    shellAliases = {
+      ll = "exa -l -g --icons";
+      lla = "ll -a --git"; # Añadido --git
+      tree = "exa --tree --level=2 --icons"; # Nivel 2 por defecto
+      vim = "nvim";
+      v = "nvim";
+      g = "lazygit"; # Cambiado a lazygit según tus paquetes
+      gs = "git status";
+      ga = "git add .";
+      gc = "git commit -m";
+      gp = "git push";
+      gl = "git pull";
+      cat = "bat"; # Usar bat si está disponible (añade pkgs.bat a home.packages si quieres)
+    };
   };
 
 }

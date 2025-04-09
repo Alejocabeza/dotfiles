@@ -112,7 +112,7 @@ keymap.set("i", "<C-Space>", "<cmd>lua vim.lsp.buf.completion()<CR>", { desc = "
 
 -- Snacks Terminal And LazyGit
 keymap.set({ "n", "t" }, "<leader>j", function()
-  require("snacks").terminal()
+  require("snacks").terminal.toggle()
 end, { desc = "Toggle Terminal" })
 keymap.set("n", "<leader>gg", function()
   require("snacks").lazygit()
