@@ -17,12 +17,13 @@ let
       all.gd          # Alternativa a Imagick, útil tenerla disponible
       all.pdo_sqlite  # Para bases de datos SQLite
       all.pdo_mysql   # Para bases de datos MySQL/MariaDB
-      # all.pdo_pgsql # Para bases de datos PostgreSQL
+      all.pdo_pgsql   # Para bases de datos PostgreSQL
       all.intl        # Para funciones de internacionalización
       all.zip         # Para manejar archivos ZIP (común con Composer)
       all.bcmath      # Para matemáticas de precisión arbitraria
       all.sodium      # Para operaciones criptográficas modernas
-      # all.opcache   # Generalmente habilitada por defecto en 'enabled', mejora rendimiento
+      all.opcache     # Generalmente habilitada por defecto en 'enabled', mejora rendimiento
+      all.redis       # Para almacenamiento en cache con Redis
       # ... puedes añadir más extensiones de 'all' aquí
     ]
   );
@@ -57,6 +58,7 @@ in
     pkgs.imagemagick
 
     # --- Tus otros paquetes ---
+    pkgs.bat
     pkgs.fish
     pkgs.fastfetch
     pkgs.eza
@@ -78,11 +80,6 @@ in
     pkgs.nerd-fonts.hack # Asegúrate que este paquete exista o usa pkgs.hack-font u otro nerd font
     pkgs.luarocks-nix
     pkgs.mongodb-compass
-
-    # --- Paquetes PHP originales eliminados (ya no necesarios de esta forma) ---
-    # pkgs.php84 # Reemplazado por phpWithMyExtensions
-    # pkgs.php84Extensions.imagick # Integrado en phpWithMyExtensions
-    # pkgs.php84Packages.composer # Reemplazado por composerForMyPhp
   ];
 
   # --- Gestión de archivos de configuración (dotfiles) ---
@@ -335,22 +332,19 @@ in
         tmux attach-session -t $session_name
       end
 
+      # Añade el directorio vendor de Composer al PATH
+      set -gx PATH "$PATH:${config.home.homeDirectory}/.composer/vendor/bin"
+
       # --- Inicializar FNM (Node Version Manager) ---
       # Asegúrate que fnm esté en home.packages
       fnm env --use-on-cd | source
     '';
     shellAliases = {
       ll = "exa -l -g --icons";
-      lla = "ll -a --git"; # Añadido --git
+      lla = "ll -a"; # Añadido --git
       tree = "exa --tree --level=2 --icons"; # Nivel 2 por defecto
       vim = "nvim";
-      v = "nvim";
-      g = "lazygit"; # Cambiado a lazygit según tus paquetes
-      gs = "git status";
-      ga = "git add .";
-      gc = "git commit -m";
-      gp = "git push";
-      gl = "git pull";
+      g = "git"; # Cambiado a lazygit según tus paquetes
       cat = "bat"; # Usar bat si está disponible (añade pkgs.bat a home.packages si quieres)
     };
   };
