@@ -37,8 +37,8 @@ let
 in
 {
   # --- Configuración básica de Home Manager ---
-  home.username = "alejandro";
-  home.homeDirectory = "/home/alejandro";
+  home.username = "ubuntu4";
+  home.homeDirectory = "/home/ubuntu4";
   home.stateVersion = "24.11"; # Por favor, lee el comentario original antes de cambiar.
 
   # --- Configuración de Nixpkgs ---
@@ -68,34 +68,36 @@ in
     pkgs.lazygit
     pkgs.xclip
     pkgs.xsel
-    pkgs.wl-clipboard
+    # pkgs.wl-clipboard
     pkgs.btop
     pkgs.fnm
     pkgs.rustup
     pkgs.sqlite # Herramienta CLI de SQLite
     pkgs.postgresql # Herramientas CLI/servidor de PostgreSQL
-    pkgs.vscode
-    pkgs.postman
-    pkgs.kitty
+    #pkgs.vscode
+    #pkgs.postman
+    #pkgs.kitty
     pkgs.nerd-fonts.hack # Asegúrate que este paquete exista o usa pkgs.hack-font u otro nerd font
     pkgs.luarocks-nix
-    pkgs.mongodb-compass
+    pkgs.oh-my-fish
+    pkgs.libgcc
+    pkgs.bun
+    pkgs.python314
+    pkgs.gnumake42
+    # pkgs.mongodb-compass
   ];
 
   # --- Gestión de archivos de configuración (dotfiles) ---
   home.file = {
-    ".gitconfig".source = ../.gitconfig; # Asegúrate que esta ruta relativa sea correcta
-    "utils/lamp".source = ../utils/lamp;   # Asegúrate que esta ruta relativa sea correcta
+    ".gitconfig".source = /home/ubuntu4/.dotfiles/.gitconfig; # Asegúrate que esta ruta relativa sea correcta
+    "utils/lamp".source = /home/ubuntu4/.dotfiles/utils/lamp;   # Asegúrate que esta ruta relativa sea correcta
+    ".config/nvim".source = /home/ubuntu4/.dotfiles/nvim; # Asegúrate que esta ruta relativa sea correcta
   };
 
   # --- Variables de entorno de sesión ---
   home.sessionVariables = {
     EDITOR = "nvim";
-    # COMPOSER_HOME es útil si tienes configuraciones globales de composer,
-    # aunque el binario de composer estará en el PATH gestionado por Nix.
     COMPOSER_HOME = "${config.home.homeDirectory}/.composer";
-    # ¡PRECAUCIÓN! No es recomendable guardar claves API directamente en la configuración.
-    # Considera usar herramientas de gestión de secretos como 'sops-nix' o variables de entorno no versionadas.
     GEMINI_API_KEY = "AIzaSyBHPwwVIzVjMTPsafksZrY1AIZKQpTeJwc";
   };
 
@@ -110,7 +112,7 @@ in
   };
 
   programs.kitty = {
-    enable = true;
+    enable = false;
     font = {
       name = "Hack Nerd Font Mono"; # Verifica que la fuente esté disponible y el nombre sea exacto
       size = 12;

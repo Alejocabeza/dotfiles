@@ -24,10 +24,13 @@ services:
     environment:
       PMA_HOST: mariadb
       MYSQL_ROOT_PASSWORD: ""
-      UPLOAD_LIMIT: 1000M
-      MEMORY_LIMIT: 1000M
+      UPLOAD_LIMIT: 5000M
+      MEMORY_LIMIT: 5000M
+      MAX_EXECUTION_TIME: 50000M
     ports:
       - "8080:80"
+    volumes:
+      - ./phpmyadmin.ini:/usr/local/etc/php/conf.d/phpmyadmin-custom.ini
     networks:
       - lamp-network
 
