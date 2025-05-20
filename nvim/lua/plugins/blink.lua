@@ -1,3 +1,4 @@
+local utils = require("utils")
 return {
   {
     "saghen/blink.cmp",
@@ -11,7 +12,8 @@ return {
         config = function()
           require("luasnip.loaders.from_vscode").lazy_load()
         end,
-      }, { "echasnovski/mini.icons", opts = {} },
+      },
+      { "echasnovski/mini.icons", opts = {} },
       {
         "kristijanhusak/vim-dadbod-completion",
       },
@@ -28,6 +30,10 @@ return {
     opts = {
       keymap = {
         preset = "default",
+        ["<S-Tab>"] = {},
+        ["<Tab>"] = {},
+        ['<C-y>'] = {},
+        ['<CR>'] = { 'select_and_accept', 'fallback_to_mappings' },
         ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
         ["<C-k>"] = { "select_prev", "fallback_to_mappings" },
         ["<C-j>"] = { "select_next", "fallback_to_mappings" },
@@ -47,7 +53,7 @@ return {
       },
       sources = {
         default = function()
-          local sources = { "lsp", "path", "snippets", "buffer", "codeium" }
+          local sources = { "lsp", "path", "snippets", "buffer" }
 
           if vim.bo.filetype == "php" and vim.fn.filereadable("artisan") == 1 then
             table.insert(sources, "laravel")
@@ -65,12 +71,26 @@ return {
             return { "buffer", "path", "snippets" }
           end
 
+          if utils.has("copilot") then
+            table.insert(sources, "copilot")
+          end
+
+          if utils.has("codeium") then
+            table.insert(sources, "codeium")
+          end
+
           return sources
         end,
         providers = {
           codeium = {
             name = "codeium",
             module = "blink.compat.source",
+            score_offset = 100,
+            async = true,
+          },
+          copilot = {
+            name = "copilot",
+            module = "blink-cmp-copilot",
             score_offset = 100,
             async = true,
           },

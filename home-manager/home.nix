@@ -37,8 +37,8 @@ let
 in
 {
   # --- Configuración básica de Home Manager ---
-  home.username = "ubuntu4";
-  home.homeDirectory = "/home/ubuntu4";
+  home.username = "alejandro";
+  home.homeDirectory = "/home/alejandro";
   home.stateVersion = "24.11"; # Por favor, lee el comentario original antes de cambiar.
 
   # --- Configuración de Nixpkgs ---
@@ -89,9 +89,10 @@ in
 
   # --- Gestión de archivos de configuración (dotfiles) ---
   home.file = {
-    ".gitconfig".source = /home/ubuntu4/.dotfiles/.gitconfig; # Asegúrate que esta ruta relativa sea correcta
-    "utils/lamp".source = /home/ubuntu4/.dotfiles/utils/lamp;   # Asegúrate que esta ruta relativa sea correcta
-    ".config/nvim".source = /home/ubuntu4/.dotfiles/nvim; # Asegúrate que esta ruta relativa sea correcta
+    ".gitconfig".source = /home/alejandro/.dotfiles/.gitconfig; # Asegúrate que esta ruta relativa sea correcta
+    "utils/lamp".source = /home/alejandro/.dotfiles/utils/lamp;   # Asegúrate que esta ruta relativa sea correcta
+    ".config/nvim".source = /home/alejandro/.dotfiles/nvim; # Asegúrate que esta ruta relativa sea correcta
+    ".config/kitty".source = /home/alejandro/.dotfiles/kitty;
   };
 
   # --- Variables de entorno de sesión ---

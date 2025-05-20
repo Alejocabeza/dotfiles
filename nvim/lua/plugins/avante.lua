@@ -26,12 +26,14 @@ return {
     --   enable_cursor_planning_mode = true,
     -- },
     -- Gemini Config
-    provider = "gemini",
-    gemini = {
-      model = "gemini-2.5-pro-exp-03-25",
-      temperature = 0,
-      max_tokens = 4096,
-    },
+    -- provider = "gemini",
+    -- gemini = {
+    --   model = "gemini-2.5-pro-exp-03-25",
+    --   temperature = 0,
+    --   max_tokens = 4096,
+    -- },
+    -- Copilot
+    provider = "copilot",
     file_selector = {
       provider = "snacks",
     },
