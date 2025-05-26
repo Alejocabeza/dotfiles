@@ -30,7 +30,6 @@ let
 
   # Crea una variante de PHP con memory_limit aumentado
   phpWithMemoryLimit = phpWithMyExtensions.passthru.buildEnv {
-    inherit extensions;
     extraConfig = ''
       memory_limit = 512M
     '';
