@@ -28,9 +28,17 @@ let
     ]
   );
 
+  # Crea una variante de PHP con memory_limit aumentado
+  phpWithMemoryLimit = phpWithMyExtensions.passthru.buildEnv {
+    inherit extensions;
+    extraConfig = ''
+      memory_limit = 512M
+    '';
+  };
+
   # Define Composer específicamente para tu versión de PHP personalizada (más robusto)
   composerForMyPhp = pkgs.php84Packages.composer.override {
-    php = phpWithMyExtensions; # Asegura que Composer use el PHP correcto
+    php = phpWithMemoryLimit;  # Asegura que Composer use el PHP con memory_limit personalizado
   };
 
 # --- Fin del bloque let ---
@@ -49,7 +57,7 @@ in
   # --- Paquetes a instalar en tu entorno de usuario ---
   home.packages = [
     # --- Tu PHP personalizado con extensiones incluidas ---
-    phpWithMyExtensions
+    phpWithMemoryLimit
 
     # --- Composer asociado a tu PHP personalizado ---
     composerForMyPhp
