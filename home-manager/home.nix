@@ -82,8 +82,9 @@ in
     pkgs.oh-my-fish
     pkgs.libgcc
     pkgs.bun
-    pkgs.python314
+    pkgs.python313
     pkgs.gnumake42
+    pkgs.libcdada
     # pkgs.mongodb-compass
   ];
 
