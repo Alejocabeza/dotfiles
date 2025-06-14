@@ -26,5 +26,8 @@ return {
       show_hidden = true,
     },
   },
+  keys = {
+    { "nt", "<cmd>Oil --float<cr>", desc = "Open oil.nvim in float mode" },
+  },
   dependencies = { { "echasnovski/mini.icons", opts = {} } },
 }

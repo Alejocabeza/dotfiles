@@ -283,6 +283,18 @@ in
       # Muestra fastfetch al inicio
       fastfetch
 
+      # Iniciar el agente SSH en Fish
+      eval (ssh-agent -c)
+
+      # Agregar ambas claves
+      if status is-interactive
+          if not set -q SSH_AUTH_SOCK
+              ssh-agent -s | source
+          end
+      end
+      ssh-add ~/.ssh/id_ed25519_personal
+      ssh-add ~/.ssh/id_ed25519_walls
+
       # Saludo vacío
       set fish_greeting ""
       # Asegura el TERM correcto para colores

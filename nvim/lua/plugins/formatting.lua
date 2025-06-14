@@ -1,10 +1,7 @@
 return {
   "stevearc/conform.nvim",
-  event = { "BufWritePre" },
-  cmd = { "ConformInfo" },
-  opts = {
-    notify_on_error = false,
-    formatters_by_ft = {
+  opts = function(_, opts)
+    opts.formatters_by_ft = {
       lua = { "stylua" },
       blade = { "blade-formatter" },
       json = { "jq" },
@@ -14,16 +11,7 @@ return {
       javascript = { "prettier" },
       javascriptreact = { "prettier" },
       sql = { "sqlfluff" },
-    },
-  },
-  keys = {
-    {
-      "<leader>cf",
-      function()
-        require("conform").format()
-      end,
-      mode = { "n", "v" },
-      desc = "Format file",
-    },
-  },
+    }
+    return opts
+  end,
 }
