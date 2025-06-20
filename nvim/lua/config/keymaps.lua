@@ -6,6 +6,8 @@ keymap.set("n", "+", "<C-a>")
 keymap.set("n", "-", "<C-x>")
 -- Delete a word backwards
 keymap.set("n", "dw", 'vb"_d')
+-- Copy a line
+keymap.set("n", "tt", "<cmd>t.<cr>")
 -- Select all
 keymap.set("n", "<C-a>", "gg<S-v>G")
 -- Disable continuations
