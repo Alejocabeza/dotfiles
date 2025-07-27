@@ -53,6 +53,7 @@ services:
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
+      POSTGRES_DB: localpg
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:

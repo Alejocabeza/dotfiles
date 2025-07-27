@@ -1,8 +1,52 @@
 return {
   "neovim/nvim-lspconfig",
+  event = "VeryLazy",
+  dependencies = {
+    { "williamboman/mason.nvim" },
+    { "williamboman/mason-lspconfig.nvim" },
+    { "WhoIsSethDaniel/mason-tool-installer.nvim" },
+    { "j-hui/fidget.nvim", opts = {} },
+    {
+      "folke/lazydev.nvim",
+      ft = "lua",
+      opts = {
+        library = {
+          { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+          { path = "${3rd}/love2d/library", words = { "love" } },
+        },
+      },
+    },
+  },
   opts = {
-    inlay_hints = { enabled = false },
-    ---@type lspconfig.options
+    diagnostics = {
+      underline = true,
+      update_in_insert = false,
+      virtual_text = {
+        spacing = 4,
+        source = "if_many",
+        prefix = "●",
+      },
+      severity_sort = true,
+    },
+    inlay_hints = {
+      enabled = true,
+      exclude = { "vue" },
+    },
+    codelens = {
+      enabled = false,
+    },
+    capabilities = {
+      workspace = {
+        fileOperations = {
+          didRename = true,
+          willRename = true,
+        },
+      },
+    },
+    format = {
+      formatting_options = nil,
+      timeout_ms = nil,
+    },
     servers = {
       rnix = {},
       nil_ls = {},
@@ -151,16 +195,22 @@ return {
       },
       eslint = {},
     },
-    setup = {
-      eslint = function()
-        require("lazyvim.util").lsp.on_attach(function(client)
-          if client.name == "eslint" then
-            client.server_capabilities.documentFormattingProvider = true
-          elseif client.name == "tsserver" then
-            client.server_capabilities.documentFormattingProvider = false
-          end
-        end)
-      end,
-    },
+    setup = {},
   },
+  config = function(_, opts)
+    local capabilities = require("blink.cmp").get_lsp_capabilities()
+    local servers = opts.servers
+    local ensure_installed = vim.tbl_keys(servers or {})
+    local mlsp = require("mason-lspconfig")
+    local setup = function(server_name)
+      local lspconfig = require("lspconfig")
+      local server = servers[server_name] or {}
+      server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+      lspconfig[server_name].setup(server)
+    end
+    mlsp.setup({
+      ensure_installed = ensure_installed, -- Only lsp servers here.
+      handlers = { setup },
+    })
+  end,
 }

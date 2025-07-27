@@ -6,11 +6,8 @@ return {
     init = function()
       vim.g.enfocado_style = "neon"
     end,
+    config = function()
+      vim.cmd.colorscheme("enfocado")
+    end,
   },
-  {
-    "LazyVim/LazyVim",
-    opts = {
-      colorscheme = "enfocado",
-    },
-  }
 }

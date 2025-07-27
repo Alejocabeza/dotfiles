@@ -8,22 +8,23 @@ let
 
   # Crea una versión personalizada de PHP con las extensiones que necesitas
   phpWithMyExtensions = phpBase.withExtensions (
-    { all, enabled }: enabled ++ [  # Toma las extensiones habilitadas por defecto y añade las siguientes:
+    { all, enabled }: enabled ++ [
+      # Toma las extensiones habilitadas por defecto y añade las siguientes:
       # --- La extensión clave que necesitas ---
       all.imagick
 
       # --- Otras extensiones comunes y recomendadas para desarrollo web/Laravel ---
       # Descomenta o añade las que necesites para tu proyecto específico
-      all.gd          # Alternativa a Imagick, útil tenerla disponible
-      all.pdo_sqlite  # Para bases de datos SQLite
-      all.pdo_mysql   # Para bases de datos MySQL/MariaDB
-      all.pdo_pgsql   # Para bases de datos PostgreSQL
-      all.intl        # Para funciones de internacionalización
-      all.zip         # Para manejar archivos ZIP (común con Composer)
-      all.bcmath      # Para matemáticas de precisión arbitraria
-      all.sodium      # Para operaciones criptográficas modernas
-      all.opcache     # Generalmente habilitada por defecto en 'enabled', mejora rendimiento
-      all.redis       # Para almacenamiento en cache con Redis
+      all.gd # Alternativa a Imagick, útil tenerla disponible
+      all.pdo_sqlite # Para bases de datos SQLite
+      all.pdo_mysql # Para bases de datos MySQL/MariaDB
+      all.pdo_pgsql # Para bases de datos PostgreSQL
+      all.intl # Para funciones de internacionalización
+      all.zip # Para manejar archivos ZIP (común con Composer)
+      all.bcmath # Para matemáticas de precisión arbitraria
+      all.sodium # Para operaciones criptográficas modernas
+      all.opcache # Generalmente habilitada por defecto en 'enabled', mejora rendimiento
+      all.redis # Para almacenamiento en cache con Redis
       # ... puedes añadir más extensiones de 'all' aquí
     ]
   );
@@ -37,15 +38,15 @@ let
 
   # Define Composer específicamente para tu versión de PHP personalizada (más robusto)
   composerForMyPhp = pkgs.php84Packages.composer.override {
-    php = phpWithMemoryLimit;  # Asegura que Composer use el PHP con memory_limit personalizado
+    php = phpWithMemoryLimit; # Asegura que Composer use el PHP con memory_limit personalizado
   };
 
-# --- Fin del bloque let ---
+  # --- Fin del bloque let ---
 in
 {
   # --- Configuración básica de Home Manager ---
-  home.username = "alejandro";
-  home.homeDirectory = "/home/alejandro";
+  home.username = "ubuntu";
+  home.homeDirectory = "/home/ubuntu";
   home.stateVersion = "24.11"; # Por favor, lee el comentario original antes de cambiar.
 
   # --- Configuración de Nixpkgs ---
@@ -97,10 +98,11 @@ in
 
   # --- Gestión de archivos de configuración (dotfiles) ---
   home.file = {
-    ".gitconfig".source = /home/alejandro/.dotfiles/.gitconfig; # Asegúrate que esta ruta relativa sea correcta
-    "utils/lamp".source = /home/alejandro/.dotfiles/utils/lamp;   # Asegúrate que esta ruta relativa sea correcta
-    ".config/nvim".source = /home/alejandro/.dotfiles/nvim; # Asegúrate que esta ruta relativa sea correcta
-    ".config/kitty".source = /home/alejandro/.dotfiles/kitty;
+    ".gitconfig".source = /home/ubuntu/.dotfiles/.gitconfig; # Asegúrate que esta ruta relativa sea correcta
+    "utils/lamp".source = /home/ubuntu/.dotfiles/utils/lamp; # Asegúrate que esta ruta relativa sea correcta
+    ".config/nvim".source = /home/ubuntu/.dotfiles/nvim; # Asegúrate que esta ruta relativa sea correcta
+    ".config/kitty".source = /home/ubuntu/.dotfiles/kitty;
+    ".bashrc".source = /home/ubuntu/.dotfiles/.bashrc;
   };
 
   # --- Variables de entorno de sesión ---
@@ -117,7 +119,6 @@ in
 
   programs.neovim = {
     enable = true;
-    # Aquí puedes añadir más configuración de Neovim si lo deseas
   };
 
   programs.kitty = {
@@ -278,22 +279,23 @@ in
   };
 
   programs.fish = {
-    enable = true;
+    enable = false;
     interactiveShellInit = ''
       # Muestra fastfetch al inicio
       fastfetch
+      tmux new -s Main
 
       # Iniciar el agente SSH en Fish
-      eval (ssh-agent -c)
+      # eval (ssh-agent -c)
 
       # Agregar ambas claves
-      if status is-interactive
-          if not set -q SSH_AUTH_SOCK
-              ssh-agent -s | source
-          end
-      end
-      ssh-add ~/.ssh/id_ed25519_personal
-      ssh-add ~/.ssh/id_ed25519_walls
+      # if status is-interactive
+      #     if not set -q SSH_AUTH_SOCK
+      #         ssh-agent -s | source
+      #     end
+      # end
+      # ssh-add ~/.ssh/id_ed25519_personal
+      # ssh-add ~/.ssh/id_ed25519_walls
 
       # Saludo vacío
       set fish_greeting ""

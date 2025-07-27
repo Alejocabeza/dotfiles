@@ -1,20 +1,13 @@
 return {
-  "zbirenbaum/copilot.lua",
-  opts = {
-    suggestion = {
-      auto_trigger = true,
-      keymap = {
-        accept = "<C-l>",
-        accept_word = "<M-l>",
-        accept_line = "<M-S-l>",
-        next = "<M-]>",
-        prev = "<M-[>",
-        dismiss = "<C-]>",
-      },
+  {
+    "zbirenbaum/copilot.lua",
+    opts = {
+      panel = { enabled = true },
+      suggestion = { enabled = true },
     },
-    filetypes = {
-      markdown = true,
-      help = true,
-    },
+  },
+  {
+    "giuxtaposition/blink-cmp-copilot",
+    dependencies = { "zbirenbaum/copilot.lua" },
   },
 }
