@@ -99,7 +99,6 @@ in
   # --- Gestión de archivos de configuración (dotfiles) ---
   home.file = {
     ".gitconfig".source = /home/ubuntu/.dotfiles/.gitconfig; # Asegúrate que esta ruta relativa sea correcta
-    "utils/lamp".source = /home/ubuntu/.dotfiles/utils/lamp; # Asegúrate que esta ruta relativa sea correcta
     ".config/nvim".source = /home/ubuntu/.dotfiles/nvim; # Asegúrate que esta ruta relativa sea correcta
     ".config/kitty".source = /home/ubuntu/.dotfiles/kitty;
     ".bashrc".source = /home/ubuntu/.dotfiles/.bashrc;

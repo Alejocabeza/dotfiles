@@ -124,8 +124,20 @@ if [ -e /home/ubuntu/.nix-profile/etc/profile.d/nix.sh ]; then
     . /home/ubuntu/.nix-profile/etc/profile.d/nix.sh
 fi
 
+export XDG_RUNTIME_DIR="/tmp/$USER-runtime-dir"
+mkdir -p "$XDG_RUNTIME_DIR"
+
+source ~/.config/fnm_runtime.sh
+
 #Support Fnm
 eval "$(fnm env --use-on-cd --shell bash)"
 
 # Support vendor composer path
 export PATH="$PATH:$HOME/.composer/vendor/bin"
+
+if command -v tmux &> /dev/null; then
+  if [ -z "$TMUX" ] && [ -z "$INSIDE_TMUX_AUTO" ]; then
+    export INSIDE_TMUX_AUTO=1
+    exec tmux new-session -A -s Main
+  fi
+fi
