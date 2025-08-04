@@ -61,6 +61,7 @@ services:
 
   mongodb:
     image: mongo:latest
+    restart: always
     command: >
       /bin/sh -c "chmod 400 /data/keyfile && chown 999:999 /data/keyfile && mongod --replSet rs0 --keyFile /data/keyfile --bind_ip_all"
     environment:
