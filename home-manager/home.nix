@@ -45,8 +45,8 @@ let
 in
 {
   # --- Configuración básica de Home Manager ---
-  home.username = "ubuntu";
-  home.homeDirectory = "/home/ubuntu";
+  home.username = "alejocabeza";
+  home.homeDirectory = "/home/alejocabeza";
   home.stateVersion = "24.11"; # Por favor, lee el comentario original antes de cambiar.
 
   # --- Configuración de Nixpkgs ---
@@ -98,10 +98,11 @@ in
 
   # --- Gestión de archivos de configuración (dotfiles) ---
   home.file = {
-    ".gitconfig".source = /home/ubuntu/.dotfiles/.gitconfig; # Asegúrate que esta ruta relativa sea correcta
-    ".config/nvim".source = /home/ubuntu/.dotfiles/nvim; # Asegúrate que esta ruta relativa sea correcta
-    ".config/kitty".source = /home/ubuntu/.dotfiles/kitty;
-    ".bashrc".source = /home/ubuntu/.dotfiles/.bashrc;
+    ".gitconfig".source = /home/alejocabeza/.dotfiles/.gitconfig; # Asegúrate que esta ruta relativa sea correcta
+    ".config/nvim".source = /home/alejocabeza/.dotfiles/nvim; # Asegúrate que esta ruta relativa sea correcta
+    "utils".source = /home/alejocabeza/.dotfiles/utils;
+    ".config/kitty".source = /home/alejocabeza/.dotfiles/kitty;
+    ".bashrc".source = /home/alejocabeza/.dotfiles/.bashrc;
   };
 
   # --- Variables de entorno de sesión ---
@@ -278,7 +279,7 @@ in
   };
 
   programs.fish = {
-    enable = false;
+    enable = true;
     interactiveShellInit = ''
       # Muestra fastfetch al inicio
       fastfetch

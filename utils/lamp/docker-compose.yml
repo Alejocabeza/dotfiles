@@ -62,18 +62,15 @@ services:
   mongodb:
     image: mongo:latest
     restart: always
-    command: >
-      /bin/sh -c "chmod 400 /data/keyfile && chown 999:999 /data/keyfile && mongod --replSet rs0 --keyFile /data/keyfile --bind_ip_all"
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: root
     volumes:
-      - ./mongo-keyfile:/data/keyfile
       - mongodb_data:/data/db
-      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
     ports:
       - "27017:27017"
-    restart: always
+    networks:
+      - lamp-network
 
 volumes:
   mariadb-lamp-data: {}

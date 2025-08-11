@@ -3,7 +3,7 @@ return {
   {
     "saghen/blink.cmp",
     event = "InsertEnter",
-    dependencies = {
+    version = '1.*', dependencies = {
       "rafamadriz/friendly-snippets",
       {
         "L3MON4D3/LuaSnip",
@@ -74,9 +74,19 @@ return {
             table.insert(sources, "copilot")
           end
 
+          if utils.has("codeium") then
+            table.insert(sources, "codeium")
+          end
+
           return sources
         end,
         providers = {
+          codeium = {
+            name = "codeium",
+            module = "blink.compat.source",
+            score_offset = 100,
+            async = true,
+          },
           copilot = {
             name = "copilot",
             module = "blink-cmp-copilot",

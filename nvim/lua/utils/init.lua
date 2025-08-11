@@ -6,4 +6,3 @@ function M.has(name)
 end
 
 return M
-
