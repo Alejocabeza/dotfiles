@@ -3,3 +3,4 @@
 /fish/fish_plugins
 /fish/fish_variables
 /.env
+/*/**/__pycache__/
