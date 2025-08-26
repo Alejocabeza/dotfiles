@@ -153,12 +153,13 @@ widget_defaults = dict(
     fontsize=12,
     padding=3,
 )
-extension_defaults = widget_defaults.copy()
 
+extension_defaults = widget_defaults.copy()
 logo = os.path.join(os.path.dirname(libqtile.resources.__file__), "logo.png")
+
 screens = [
     Screen(
-        bottom=bar.Bar(
+        top=bar.Bar(
             [
                 widget.CurrentLayout(),
                 widget.GroupBox(),
