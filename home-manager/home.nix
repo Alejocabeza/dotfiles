@@ -76,6 +76,7 @@ in
     pkgs.lazygit
     pkgs.xclip
     pkgs.xsel
+    pkgs.wl-clipboard
     # pkgs.wl-clipboard
     pkgs.btop
     pkgs.fnm
@@ -110,6 +111,7 @@ in
     EDITOR = "nvim";
     COMPOSER_HOME = "${config.home.homeDirectory}/.composer";
     GEMINI_API_KEY = "AIzaSyBHPwwVIzVjMTPsafksZrY1AIZKQpTeJwc";
+    XDG_CONFIG_HOME = "${config.home.homeDirectory}/.config";
   };
 
   # --- Habilitar Home Manager para gestionarse a sí mismo ---
