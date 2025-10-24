@@ -7,3 +7,6 @@ down: ## Stop all lamp containers
 
 restart: ## Restart Lamp Containers
 	$(MAKE) down && $(MAKE) start
+
+clear-redis: ## Clear redis cache
+	docker exec -it lamp-redis redis-cli FLUSHALL

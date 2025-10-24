@@ -2,7 +2,7 @@ version: "4"
 
 services:
   mariadb:
-    container_name: mariadb
+    container_name: lamp-mysql
     image: mariadb:latest
     restart: always
     environment:
@@ -16,7 +16,7 @@ services:
       - lamp-network
 
   phpmyadmin:
-    container_name: phpmyadmin
+    container_name: lamp-phpmyadmin
     image: phpmyadmin/phpmyadmin
     restart: always
     depends_on:
@@ -44,6 +44,7 @@ services:
     networks:
       - lamp-network
     restart: always
+    container_name: lamp-redis
 
   postgresql:
     image: postgres:latest
@@ -53,11 +54,11 @@ services:
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
-      POSTGRES_DB: localpg
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - lamp-network
+    container_name: lamp-pgsql
 
   mongodb:
     image: mongo:latest
@@ -71,6 +72,7 @@ services:
       - "27017:27017"
     networks:
       - lamp-network
+    container_name: lamp-mongo
 
 volumes:
   mariadb-lamp-data: {}
