@@ -1,6 +1,6 @@
 start: ## Start Lamp containers
 	docker network create lamp-network || true
-	docker compose up -d
+	docker compose up -d --force-recreate
 
 down: ## Stop all lamp containers
 	docker compose down

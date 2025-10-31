@@ -47,7 +47,7 @@ services:
     container_name: lamp-redis
 
   postgresql:
-    image: postgres:latest
+    image: postgres:17
     restart: always
     ports:
       - "5432:5432"
