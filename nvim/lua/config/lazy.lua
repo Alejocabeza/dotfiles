@@ -37,6 +37,7 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.lang.markdown" },
     { import = "lazyvim.plugins.extras.lang.typescript" },
     { import = "lazyvim.plugins.extras.lang.astro" },
+    { import = "lazyvim.plugins.extras.lang.vue" },
     { import = "lazyvim.plugins.extras.lang.nix" },
     { import = "lazyvim.plugins.extras.lang.toml" },
     { import = "lazyvim.plugins.extras.lang.docker" },
@@ -54,6 +55,9 @@ require("lazy").setup({
 
     -- Utility plugins
     { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
+
+    -- Utility Test
+    { import = "lazyvim.plugins.extras.test.core" },
 
     -- AI plugins
     { import = "lazyvim.plugins.extras.ai.copilot" },
