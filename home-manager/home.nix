@@ -77,6 +77,7 @@ in
     pkgs.xclip
     pkgs.xsel
     pkgs.wl-clipboard
+    pkgs.lsof
     # pkgs.wl-clipboard
     pkgs.btop
     pkgs.fnm
