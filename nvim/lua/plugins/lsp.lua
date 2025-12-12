@@ -89,9 +89,16 @@ return {
 			require("mason-tool-installer").setup({
 				ensure_installed = {
 					"stylua",
-					'blade-formatter',
-					'prettierd',
-					'php-debug-adapter'
+					"blade-formatter",
+					"prettier",
+					"eslint_d",
+					"shfmt",
+					"jq",
+					"tlint",
+					"pint",
+					"luacheck",
+					"sqlfluff",
+					"php-debug-adapter",
 				},
 			})
 		end,

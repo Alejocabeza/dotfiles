@@ -70,6 +70,13 @@ return {
 			desc = "Find Modified Files",
 		},
 		{
+			'<leader>fk',
+			function()
+				Snacks.picker.keymaps()
+			end,
+			desc = "Find Keymaps",
+		},
+		{
 			"<leader>:",
 			function()
 				Snacks.picker.command_history()

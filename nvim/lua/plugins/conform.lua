@@ -13,7 +13,7 @@ return { -- Autoformat
 		},
 	},
 	opts = {
-		notify_on_error = false,
+		notify_on_error = true,
 		-- format_on_save = function(bufnr)
 		--   local disable_filetypes = { c = true, cpp = true }
 		--   if disable_filetypes[vim.bo[bufnr].filetype] then
@@ -27,6 +27,22 @@ return { -- Autoformat
 		-- end,
 		formatters_by_ft = {
 			lua = { "stylua" },
+			blade = { "blade-formatter" },
+			json = { "jq" },
+			php = function(bufnr)
+				local fname = vim.uri_from_bufnr(bufnr)
+				if fname:match("views") then
+					return { "blade-formatter" }
+				end
+				if vim.fn.filereadable(vim.fn.getcwd() .. "/mago.toml" == 1) then
+					return { "mango_format" }
+				end
+				return { "pint" }
+			end,
+			javascript = { "prettier" },
+			typescript = { "prettier" },
+			javascriptreact = { "prettier" },
+			typescriptreact = { "prettier" },
 		},
 	},
 }
