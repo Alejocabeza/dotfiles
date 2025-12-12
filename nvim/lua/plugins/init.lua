@@ -1,0 +1,57 @@
+return {
+	"tpope/vim-sleuth",
+	{
+		"folke/lazydev.nvim",
+		ft = "lua",
+		opts = {
+			library = {
+				-- adds type hints for nixCats global
+				{ path = (require("nixCats").nixCatsPath or "") .. "/lua", words = { "nixCats" } },
+				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+				{ path = "${3rd}/love2d/library", words = { "love" } },
+				{ path = "plenary.nvim", words = { "describe" } },
+				{ path = "laravel.nvim", words = { "Laravel" } },
+				{ path = "nvim-nio", words = { "nio" } },
+				"snacks.nvim",
+			},
+		},
+	},
+	{
+		"folke/todo-comments.nvim",
+		event = "VimEnter",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		opts = { signs = false },
+	},
+	"adalessa/php-lsp-utils",
+	{
+		"tribela/transparent.nvim",
+		event = "VimEnter",
+		config = true,
+	},
+	{ "nvzone/volt", lazy = true },
+	{ "nvzone/menu", lazy = true },
+	"nvim-lua/plenary.nvim",
+	"nvim-lua/popup.nvim",
+	"MunifTanjim/nui.nvim",
+	"mg979/vim-visual-multi",
+	{
+		"declancm/maximize.nvim",
+		config = true,
+	},
+	{ "Bilal2453/luvit-meta", lazy = true },
+	"jwalton512/vim-blade",
+	{
+		"tpope/vim-dispatch",
+		cmd = { "Make", "Dispatch" },
+	},
+	"lewis6991/impatient.nvim",
+	"tpope/vim-surround",
+	"tpope/vim-repeat",
+	"tpope/vim-rhubarb",
+	"tpope/vim-dotenv",
+	"tpope/vim-eunuch",
+	"folke/twilight.nvim",
+	"tpope/vim-surround",
+	"tpope/vim-dispatch",
+	"NMAC427/guess-indent.nvim",
+}

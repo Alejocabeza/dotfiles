@@ -1,5 +1,0 @@
-require("core.options")
-require("core.replace_action")
-require("core.diagnostic")
-require("core.autocommands")
-require('core.keymaps')

@@ -1,5 +1,5 @@
 {
-  description = "My Config for 2026";
+  description = "A Lua-natic's neovim flake, with extra cats! nixCats!";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
@@ -12,7 +12,7 @@
     blade-treesitter = {
       url = "github:EmranMR/tree-sitter-blade";
       flake = false;
-    }
+    };
 
     "plugins-git-worktree.nvim" = {
       url = "github:polarmutex/git-worktree.nvim";
@@ -39,30 +39,66 @@
       flake = false;
     };
 
-    # see :help nixCats.flake.inputs
-    # If you want your plugin to be loaded by the standard overlay,
-    # i.e. if it wasnt on nixpkgs, but doesnt have an extra build step.
-    # Then you should name it "plugins-something"
-    # If you wish to define a custom build step not handled by nixpkgs,
-    # then you should name it in a different format, and deal with that in the
-    # overlay defined for custom builds in the overlays directory.
-    # for specific tags, branches and commits, see:
-    # https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake.html#examples
   };
 
-  # see :help nixCats.flake.outputs
   outputs = { self, nixpkgs, nixCats, ... }@inputs: let
     inherit (nixCats) utils;
     luaPath = ./.;
     forEachSystem = utils.eachSystem nixpkgs.lib.platforms.all;
-    extra_pkg_config = {};
-    dependencyOverlays =  [
+    extra_pkg_config = {
+    };
+    dependencyOverlays = [
       (utils.standardPluginOverlay inputs)
     ];
 
     categoryDefinitions = { pkgs, settings, categories, extra, name, mkPlugin, ... }@packageDef: {
       lspsAndRuntimeDeps = {
+        laravel = with pkgs; [
+          phpactor
+          blade-formatter
+          mago
+        ];
+        go = with pkgs; [
+          gopls
+          gotools
+          golangci-lint
+          golangci-lint-langserver
+        ];
+        rust = with pkgs; [
+          rustc
+          rustfmt
+          cargo
+          clippy
+          rust-analyzer
+        ];
+        python = with pkgs; [
+          python312
+          python312Packages.python-lsp-server
+        ];
+        javascript = with pkgs; [
+          nodejs
+          typescript-language-server
+          tailwindcss-language-server
+          emmet-language-server
+        ];
+        cpp = with pkgs; [
+          clang
+        ];
         general = with pkgs; [
+          fd
+          gh
+          git
+          imagemagick
+          (import ./php-debug-adapter.nix { inherit pkgs fetchurl stdenv; })
+          jq
+          lazygit
+          lua-language-server
+          nixd
+          nixfmt-rfc-style
+          stylua
+        ];
+        symfony = with pkgs; [
+          phpactor
         ];
       };
 
@@ -75,28 +111,24 @@
         gitPlugins = with pkgs.neovimPlugins; [ ];
         general = with pkgs.vimPlugins; [ ];
       };
-
       sharedLibraries = {
         general = with pkgs; [
+          # libgit2
         ];
       };
-
       environmentVariables = {
         test = {
           CATTESTVAR = "It worked!";
         };
       };
-
       extraWrapperArgs = {
         test = [
           '' --set CATTESTVAR2 "It worked again!"''
         ];
       };
-
       python3.libraries = {
         test = (_:[]);
       };
-
       extraLuaPackages = {
         test = [ (_:[]) ];
       };
@@ -162,6 +194,7 @@
         categoryDefinitions packageDefinitions extra_pkg_config nixpkgs;
     };
   in {
+
     overlays = utils.makeOverlays luaPath {
       inherit nixpkgs dependencyOverlays extra_pkg_config;
     } categoryDefinitions packageDefinitions defaultPackageName;

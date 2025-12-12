@@ -1,16 +1,6 @@
---[[
-  This directory is the luaUtils template.
-  You can choose what things from it that you would like to use.
-  And then delete the rest.
-  Everything in this directory is optional.
---]]
 
 local M = {}
--- NOTE: If you don't use lazy.nvim, you don't need this file.
 
----lazy.nvim wrapper
----@overload fun(nixLazyPath: string|nil, lazySpec: any, opts: table)
----@overload fun(nixLazyPath: string|nil, opts: table)
 function M.setup(nixLazyPath, lazySpec, opts)
   local lazySpecs = nil
   local lazyCFG = nil
@@ -39,14 +29,11 @@ function M.setup(nixLazyPath, lazySpec, opts)
   local isNixCats = vim.g[ [[nixCats-special-rtp-entry-nixCats]] ] ~= nil
   local lazypath
   if not isNixCats then
-    -- No nixCats? Not nix. Do it normally
     lazypath = regularLazyDownload()
     vim.opt.rtp:prepend(lazypath)
   else
     local nixCats = require('nixCats')
-    -- Else, its nix, so we wrap lazy with a few extra config options
     lazypath = nixLazyPath
-    -- and also we probably dont have to download lazy either
     if lazypath == nil then
       lazypath = regularLazyDownload()
     end
