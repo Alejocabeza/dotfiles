@@ -20,6 +20,8 @@ return {
 			{ "saghen/blink.cmp", url = "git@github.com:saghen/blink.cmp.git" },
 		},
 		config = function()
+			local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = true })
+
 			vim.api.nvim_create_autocmd("LspDetach", {
 				group = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true }),
 				callback = function(event)
@@ -29,7 +31,7 @@ return {
 			})
 
 			vim.api.nvim_create_autocmd("LspAttach", {
-				group = vim.api.nvim_create_augroup("Kickstart-lsp-attach", { clear = true }),
+				group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
 				callback = function(event)
 					local map = function(keys, func, desc, mode)
 						mode = mode or "n"
@@ -47,8 +49,6 @@ return {
 
 					local client = vim.lsp.get_client_by_id(event.data.client_id)
 					if client and client.server_capabilities.documentHighlightProvider then
-						local highlight_augroup =
-							vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = true })
 						vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 							buffer = event.buf,
 							group = highlight_augroup,
