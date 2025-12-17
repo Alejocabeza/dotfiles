@@ -75,6 +75,18 @@ function M.setup(nixLazyPath, lazySpec, opts)
               path = "~/projects/" .. plugin.name
             end
           end
+          if plugin.name == "nvim-treesitter" and path == nil then
+             local log = io.open(vim.fn.stdpath("config") .. "/nix_debug.log", "w")
+             if log then
+                 log:write("Checking for nvim-treesitter in " .. myNeovimPackages .. "\n")
+                 log:write("plugin.name: " .. plugin.name .. "\n")
+                 local p = io.popen('ls -F "' .. myNeovimPackages .. '/start"')
+                 if p then log:write("Start contents:\n" .. p:read("*a")) p:close() end
+                 local p2 = io.popen('ls -F "' .. myNeovimPackages .. '/opt"')
+                 if p2 then log:write("Opt contents:\n" .. p2:read("*a")) p2:close() end
+                 log:close()
+             end
+          end
           return path
         end,
         patterns = lazypatterns or { "" },

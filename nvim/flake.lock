@@ -1,0 +1,219 @@
+{
+  "nodes": {
+    "blade-treesitter": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1756128549,
+        "narHash": "sha256-3/gY68F+xOF5Fv6rK9cEIJCVDzg/3ap1/gzkEacGuy4=",
+        "owner": "EmranMR",
+        "repo": "tree-sitter-blade",
+        "rev": "cc764dadcbbceb3f259396fef66f970c72e94f96",
+        "type": "github"
+      },
+      "original": {
+        "owner": "EmranMR",
+        "repo": "tree-sitter-blade",
+        "type": "github"
+      }
+    },
+    "flake-parts": {
+      "inputs": {
+        "nixpkgs-lib": [
+          "neovim-nightly-overlay",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1765835352,
+        "narHash": "sha256-XswHlK/Qtjasvhd1nOa1e8MgZ8GS//jBoTqWtrS1Giw=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "a34fae9c08a15ad73f295041fec82323541400a9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
+    "neovim-nightly-overlay": {
+      "inputs": {
+        "flake-parts": "flake-parts",
+        "neovim-src": "neovim-src",
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1765843481,
+        "narHash": "sha256-gph2g2MNqvk3Db/PMWib7IIV2EiVk6SQQi+Sry8HsvY=",
+        "owner": "nix-community",
+        "repo": "neovim-nightly-overlay",
+        "rev": "fbd64d42f0fa18898a17a8fa1cef638433dbfc48",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "neovim-nightly-overlay",
+        "type": "github"
+      }
+    },
+    "neovim-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1765842602,
+        "narHash": "sha256-S+yCgY7y8Z/q1YeNYWggsfIdrTtO6Wpl/FghfTFqWp8=",
+        "owner": "neovim",
+        "repo": "neovim",
+        "rev": "7a866e6b2008472cceef49d05533d2988c838bff",
+        "type": "github"
+      },
+      "original": {
+        "owner": "neovim",
+        "repo": "neovim",
+        "type": "github"
+      }
+    },
+    "nixCats": {
+      "locked": {
+        "lastModified": 1765766809,
+        "narHash": "sha256-3Xp41+Sb1zIzASa1Uu1k1RMUoJ9CGyYb0GtvvpRPBqg=",
+        "owner": "BirdeeHub",
+        "repo": "nixCats-nvim",
+        "rev": "fe157e3ed69ed14b55ca81f597eac282caed58a2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "BirdeeHub",
+        "repo": "nixCats-nvim",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1765772535,
+        "narHash": "sha256-aq+dQoaPONOSjtFIBnAXseDm9TUhIbe215TPmkfMYww=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "09b8fda8959d761445f12b55f380d90375a1d6bb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1765772535,
+        "narHash": "sha256-aq+dQoaPONOSjtFIBnAXseDm9TUhIbe215TPmkfMYww=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "09b8fda8959d761445f12b55f380d90375a1d6bb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "plugins-debugmaster.nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1752666818,
+        "narHash": "sha256-pdgS0z8KdLsl7VexbPaRPtYc2lebzAgTtM3B52IaCpQ=",
+        "owner": "miroshQa",
+        "repo": "debugmaster.nvim",
+        "rev": "3d144b98c2c23f39123fbf5f10fdff7d6480a0e6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "miroshQa",
+        "repo": "debugmaster.nvim",
+        "type": "github"
+      }
+    },
+    "plugins-git-worktree.nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1739627460,
+        "narHash": "sha256-fnqJqQTNei+8Gk4vZ2hjRj8iHBXTZT15xp9FvhGB+BQ=",
+        "owner": "polarmutex",
+        "repo": "git-worktree.nvim",
+        "rev": "3ad8c17a3d178ac19be925284389c14114638ebb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "polarmutex",
+        "repo": "git-worktree.nvim",
+        "type": "github"
+      }
+    },
+    "plugins-laravel.nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1765289569,
+        "narHash": "sha256-ovBP4u8GYXpXVIellNT18oxxc4oJDA8V1l97lFWBEac=",
+        "owner": "adalessa",
+        "repo": "laravel.nvim",
+        "rev": "f9fbfe5763a72a1b74cbc8c8503cd7921f216f1d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "adalessa",
+        "repo": "laravel.nvim",
+        "type": "github"
+      }
+    },
+    "plugins-marker-groups.nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1756996822,
+        "narHash": "sha256-Zb0hNij65m9KB+xCwaPSP7VnnTooKjLGI/uD9lfhcTY=",
+        "owner": "jameswolensky",
+        "repo": "marker-groups.nvim",
+        "rev": "4b2507b2dfdeafba83b534c2b8e46ddc551ac686",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jameswolensky",
+        "repo": "marker-groups.nvim",
+        "type": "github"
+      }
+    },
+    "plugins-neotest-pest": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1754573996,
+        "narHash": "sha256-S1GzSJwIHQfwozSBEJ0TX5k9UVfctdquk3m30kE7AHk=",
+        "owner": "V13Axel",
+        "repo": "neotest-pest",
+        "rev": "1429445746f28a4ce887289ea6e442430629e306",
+        "type": "github"
+      },
+      "original": {
+        "owner": "V13Axel",
+        "repo": "neotest-pest",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "blade-treesitter": "blade-treesitter",
+        "neovim-nightly-overlay": "neovim-nightly-overlay",
+        "nixCats": "nixCats",
+        "nixpkgs": "nixpkgs_2",
+        "plugins-debugmaster.nvim": "plugins-debugmaster.nvim",
+        "plugins-git-worktree.nvim": "plugins-git-worktree.nvim",
+        "plugins-laravel.nvim": "plugins-laravel.nvim",
+        "plugins-marker-groups.nvim": "plugins-marker-groups.nvim",
+        "plugins-neotest-pest": "plugins-neotest-pest"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

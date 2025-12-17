@@ -41,169 +41,185 @@
 
   };
 
-  outputs = { self, nixpkgs, nixCats, ... }@inputs: let
-    inherit (nixCats) utils;
-    luaPath = ./.;
-    forEachSystem = utils.eachSystem nixpkgs.lib.platforms.all;
-    extra_pkg_config = {
-    };
-    dependencyOverlays = [
-      (utils.standardPluginOverlay inputs)
-    ];
+  outputs = { self, nixpkgs, nixCats, ... }@inputs:
+    let
+      inherit (nixCats) utils;
+      luaPath = ./.;
+      forEachSystem = utils.eachSystem nixpkgs.lib.platforms.all;
+      extra_pkg_config = { };
+      dependencyOverlays = [
+        (utils.standardPluginOverlay inputs)
+      ];
 
-    categoryDefinitions = { pkgs, settings, categories, extra, name, mkPlugin, ... }@packageDef: {
-      lspsAndRuntimeDeps = {
-        laravel = with pkgs; [
-          phpactor
-          blade-formatter
-          mago
-        ];
-        go = with pkgs; [
-          gopls
-          gotools
-          golangci-lint
-          golangci-lint-langserver
-        ];
-        rust = with pkgs; [
-          rustc
-          rustfmt
-          cargo
-          clippy
-          rust-analyzer
-        ];
-        python = with pkgs; [
-          python312
-          python312Packages.python-lsp-server
-        ];
-        javascript = with pkgs; [
-          nodejs
-          typescript-language-server
-          tailwindcss-language-server
-          emmet-language-server
-        ];
-        cpp = with pkgs; [
-          clang
-        ];
-        general = with pkgs; [
-          fd
-          gh
-          git
-          imagemagick
-          (import ./php-debug-adapter.nix { inherit pkgs fetchurl stdenv; })
-          jq
-          lazygit
-          lua-language-server
-          nixd
-          nixfmt-rfc-style
-          stylua
-        ];
-        symfony = with pkgs; [
-          phpactor
-        ];
-      };
+      categoryDefinitions = { pkgs, settings, categories, extra, name, mkPlugin, ... }@packageDef: {
+        lspsAndRuntimeDeps = {
+          laravel = with pkgs; [
+            phpactor
+            blade-formatter
+            mago
+          ];
+          go = with pkgs; [
+            gopls
+            gotools
+            golangci-lint
+            golangci-lint-langserver
+          ];
+          rust = with pkgs; [
+            rustc
+            rustfmt
+            cargo
+            clippy
+            rust-analyzer
+          ];
+          python = with pkgs; [
+            python312
+            python312Packages.python-lsp-server
+          ];
+          javascript = with pkgs; [
+            nodejs
+            typescript-language-server
+            tailwindcss-language-server
+            emmet-language-server
+          ];
+          cpp = with pkgs; [
+            clang
+          ];
+          general = with pkgs; [
+            fd
+            gh
+            git
+            imagemagick
+            (import ./php-debug-adapter.nix { inherit pkgs fetchurl stdenv; })
+            jq
+            lazygit
+            lua-language-server
+            nixd
+            nixfmt-rfc-style
+            stylua
+          ];
+          symfony = with pkgs; [
+            phpactor
+          ];
+        };
 
-      startupPlugins = {
-        gitPlugins = with pkgs.neovimPlugins; [ ];
-        general = with pkgs.vimPlugins; [ ];
-      };
+        startupPlugins = {
+          gitPlugins = with pkgs.neovimPlugins; [ ];
+          general = with pkgs.vimPlugins; [
+            nvim-treesitter
+          ];
+        };
 
-      optionalPlugins = {
-        gitPlugins = with pkgs.neovimPlugins; [ ];
-        general = with pkgs.vimPlugins; [ ];
-      };
-      sharedLibraries = {
-        general = with pkgs; [
-          # libgit2
-        ];
-      };
-      environmentVariables = {
-        test = {
-          CATTESTVAR = "It worked!";
+        optionalPlugins = {
+          gitPlugins = with pkgs.neovimPlugins; [ ];
+          general = with pkgs.vimPlugins; [ ];
+        };
+        sharedLibraries = {
+          general = with pkgs; [
+            # libgit2
+          ];
+        };
+        environmentVariables = {
+          test = {
+            CATTESTVAR = "It worked!";
+          };
+        };
+        extraWrapperArgs = {
+          test = [
+            '' --set CATTESTVAR2 "It worked again!"''
+          ];
+        };
+        python3.libraries = {
+          test = (_: [ ]);
+        };
+        extraLuaPackages = {
+          general = with pkgs.lua51Packages; [
+          ];
+          test = [ (_: [ ]) ];
         };
       };
-      extraWrapperArgs = {
-        test = [
-          '' --set CATTESTVAR2 "It worked again!"''
-        ];
-      };
-      python3.libraries = {
-        test = (_:[]);
-      };
-      extraLuaPackages = {
-        test = [ (_:[]) ];
-      };
-    };
 
-    packageDefinitions = {
-      nvim = {pkgs , name, ... }: {
-        settings = {
-          suffix-path = true;
-          suffix-LD = true;
-          wrapRc = true;
-          aliases = [ "vim" ];
-        };
-        categories = {
-          general = true;
-          gitPlugins = true;
-          customPlugins = true;
-          test = true;
-          example = {
-            youCan = "add more than just booleans";
-            toThisSet = [
-              "and the contents of this categories set"
-              "will be accessible to your lua with"
-              "nixCats('path.to.value')"
-              "see :help nixCats"
-            ];
+      packageDefinitions = {
+        nvim = { pkgs, name, ... }: {
+          settings = {
+            suffix-path = true;
+            suffix-LD = true;
+            wrapRc = true;
+            aliases = [ "vim" ];
+          };
+          categories = {
+            general = true;
+            gitPlugins = true;
+            customPlugins = true;
+            test = true;
+            example = {
+              youCan = "add more than just booleans";
+              toThisSet = [
+                "and the contents of this categories set"
+                "will be accessible to your lua with"
+                "nixCats('path.to.value')"
+                "see :help nixCats"
+              ];
+            };
           };
         };
       };
-    };
-    defaultPackageName = "nvim";
-  in
+      defaultPackageName = "nvim";
+    in
 
 
-  forEachSystem (system: let
-    nixCatsBuilder = utils.baseBuilder luaPath {
-      inherit nixpkgs system dependencyOverlays extra_pkg_config;
-    } categoryDefinitions packageDefinitions;
-    defaultPackage = nixCatsBuilder defaultPackageName;
-    pkgs = import nixpkgs { inherit system; };
-  in
-  {
-    packages = utils.mkAllWithDefault defaultPackage;
-    devShells = {
-      default = pkgs.mkShell {
-        name = defaultPackageName;
-        packages = [ defaultPackage ];
-        inputsFrom = [ ];
-        shellHook = ''
+    forEachSystem
+      (system:
+        let
+          nixCatsBuilder = utils.baseBuilder luaPath
+            {
+              inherit nixpkgs system dependencyOverlays extra_pkg_config;
+            }
+            categoryDefinitions
+            packageDefinitions;
+          defaultPackage = nixCatsBuilder defaultPackageName;
+          pkgs = import nixpkgs { inherit system; };
+        in
+        {
+          packages = utils.mkAllWithDefault defaultPackage;
+          devShells = {
+            default = pkgs.mkShell {
+              name = defaultPackageName;
+              packages = [ defaultPackage ];
+              inputsFrom = [ ];
+              shellHook = ''
         '';
-      };
-    };
+            };
+          };
 
-  }) // (let
-    nixosModule = utils.mkNixosModules {
-      moduleNamespace = [ defaultPackageName ];
-      inherit defaultPackageName dependencyOverlays luaPath
-        categoryDefinitions packageDefinitions extra_pkg_config nixpkgs;
-    };
-    homeModule = utils.mkHomeModules {
-      moduleNamespace = [ defaultPackageName ];
-      inherit defaultPackageName dependencyOverlays luaPath
-        categoryDefinitions packageDefinitions extra_pkg_config nixpkgs;
-    };
-  in {
+        }) // (
+      let
+        nixosModule = utils.mkNixosModules {
+          moduleNamespace = [ defaultPackageName ];
+          inherit defaultPackageName dependencyOverlays luaPath
+            categoryDefinitions packageDefinitions extra_pkg_config nixpkgs;
+        };
+        homeModule = utils.mkHomeModules {
+          moduleNamespace = [ defaultPackageName ];
+          inherit defaultPackageName dependencyOverlays luaPath
+            categoryDefinitions packageDefinitions extra_pkg_config nixpkgs;
+        };
+      in
+      {
 
-    overlays = utils.makeOverlays luaPath {
-      inherit nixpkgs dependencyOverlays extra_pkg_config;
-    } categoryDefinitions packageDefinitions defaultPackageName;
+        overlays = utils.makeOverlays luaPath
+          {
+            inherit nixpkgs dependencyOverlays extra_pkg_config;
+          }
+          categoryDefinitions
+          packageDefinitions
+          defaultPackageName;
 
-    nixosModules.default = nixosModule;
-    homeModules.default = homeModule;
+        nixosModules.default = nixosModule;
+        homeModules.default = homeModule;
 
-    inherit utils nixosModule homeModule;
-    inherit (utils) templates;
-  });
+        inherit utils nixosModule homeModule;
+        inherit (utils) templates;
+      }
+    );
 
 }
