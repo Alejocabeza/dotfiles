@@ -15,6 +15,11 @@ if require("nixCatsUtils").enableForCategory("symfony") then
 	table.insert(dependencies, "olimorris/neotest-phpunit")
 end
 
+if require("nixCatsUtils").enableForCategory("behat") then
+	table.insert(dependencies, "nvim-neotest/neotest-vim-test")
+	table.insert(dependencies, "vim-test/vim-test")
+end
+
 if require("nixCatsUtils").enableForCategory("go") then
 	table.insert(dependencies, "fredrikaverpil/neotest-golang")
 end
@@ -91,32 +96,56 @@ return {
 		local adapters = {
 			require("neotest-plenary"),
 		}
+
+		local function add_adapter(adapter)
+			if adapter then
+				table.insert(adapters, adapter)
+			end
+		end
+
+		local function safe_require(module_name)
+			local ok, module = pcall(require, module_name)
+			if ok then
+				return module
+			else
+				vim.notify("Neotest adapter not found: " .. module_name, vim.log.levels.WARN)
+				return nil
+			end
+		end
+
 		if require("nixCatsUtils").enableForCategory("laravel") then
-			table.insert(adapters, require("neotest-pest"))
+			add_adapter(safe_require("neotest-pest"))
 		end
 
 		if require("nixCatsUtils").enableForCategory("behat") then
-			table.insert(adapters, require("neotest-behat"))
+			local vim_test_adapter = safe_require("neotest-vim-test")
+			if vim_test_adapter then
+				add_adapter(
+					vim_test_adapter({
+						ignore_file_types = { "php" }, -- Let phpunit handle php files if needed, or adjust as necessary
+					})
+				)
+			end
 		end
 
 		if require("nixCatsUtils").enableForCategory("go") then
-			table.insert(
-				adapters,
-				require("neotest-golang")({
+			local go_adapter = safe_require("neotest-golang")
+			if go_adapter then
+				add_adapter(go_adapter({
 					go_test_args = { "-v", "-count=1" },
-				})
-			)
+				}))
+			end
 		end
 
 		if require("nixCatsUtils").enableForCategory("symfony") then
-			table.insert(
-				adapters,
-				require("neotest-phpunit")({
+			local phpunit_adapter = safe_require("neotest-phpunit")
+			if phpunit_adapter then
+				add_adapter(phpunit_adapter({
 					phpunit_cmd = function()
 						return "bin/phpunit"
 					end,
-				})
-			)
+				}))
+			end
 		end
 
 		---@diagnostic disable-next-line: missing-fields
