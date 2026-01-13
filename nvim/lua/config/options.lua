@@ -1,43 +1,99 @@
-vim.g.mapleader=" "
-vim.g.maplocalleader=" "
+-- =============================================================================
+-- Core Setup
+-- =============================================================================
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
-vim.g.have_nerd_font = false
-vim.o.number=true
-vim.o.showmode=false
+-- Fix Nerd Font detection (Assume true for modern terminals)
+vim.g.have_nerd_font = true
+
+-- =============================================================================
+-- UI & Visuals
+-- =============================================================================
+vim.opt.number = true             -- Show line numbers
+vim.opt.relativenumber = true     -- Relative line numbers (better for jumps)
+vim.opt.signcolumn = "yes"        -- Always show sign column (prevents shift)
+vim.opt.cursorline = true         -- Highlight current line
+vim.opt.showmode = false          -- Don't show mode (lualine handles this)
+vim.opt.laststatus = 3            -- Global statusline (one line for all splits)
+vim.opt.termguicolors = true      -- True color support
+vim.opt.wrap = true               -- Enable line wrapping
+vim.opt.linebreak = true          -- Wrap at proper word boundaries (not in middle of word)
+vim.opt.breakindent = true        -- Maintain indentation on wrapped lines
+
+-- Whitespace chars (make invisible chars visible-ish)
+vim.opt.list = true
+vim.opt.listchars = { tab = "  ", trail = "·", nbsp = "␣" }
+
+-- Pmenu (Popup menu)
+vim.opt.pumblend = 10             -- Pseudo-transparency for popup menu
+vim.opt.pumheight = 10            -- Max items in popup menu
+
+-- =============================================================================
+-- Indentation
+-- =============================================================================
+vim.opt.expandtab = true          -- Use spaces instead of tabs
+vim.opt.shiftwidth = 4            -- Size of an indent
+vim.opt.tabstop = 4               -- Number of spaces tabs count for
+vim.opt.softtabstop = 4
+vim.opt.smartindent = true        -- Insert indents automatically
+
+-- =============================================================================
+-- Search & Replace
+-- =============================================================================
+vim.opt.ignorecase = true         -- Ignore case
+vim.opt.smartcase = true          -- ...unless uppercase is used
+vim.opt.inccommand = "split"      -- Preview substitutions live!
+
+-- =============================================================================
+-- System Behavior
+-- =============================================================================
+-- Clipboard
 vim.schedule(function()
-  vim.o.clipboard = 'unnamedplus'
+  vim.opt.clipboard = "unnamedplus" -- Sync with system clipboard
 end)
-vim.o.breakindent = true
-vim.o.undofile = true
-vim.o.ignorecase = true
-vim.o.smartcase = true
-vim.o.signcolumn = 'yes'
-vim.o.updatetime = 250
-vim.o.timeoutlen = 300
-vim.o.splitright = true
-vim.o.splitbelow = true
-vim.o.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
-vim.o.inccommand = 'split'
-vim.o.cursorline = true
-vim.o.scrolloff = 10
-vim.o.confirm = true
-vim.o.relativenumber = true
-vim.opt.encoding = "utf-8"
-vim.opt.fileencoding = "utf-8"
-vim.opt.wrap = false
-vim.opt.backspace = { "start", "eol", "indent" }
-vim.opt.path:append({ "**" })
-vim.opt.wildignore:append({ "*/node_modules/*" })
-vim.opt.splitbelow = true
-vim.opt.splitright = true
-vim.opt.splitkeep = "cursor"
-vim.opt.mouse = ""
 
+-- Undo & Backup
+vim.opt.undofile = true           -- Persistent undo
+vim.opt.swapfile = false          -- No swap files (annoying)
+vim.opt.backup = false            -- No backup files
+
+-- Timings
+vim.opt.updatetime = 250          -- Faster completion/save
+vim.opt.timeoutlen = 300          -- Faster key sequence completion
+
+-- Scrolling
+vim.opt.scrolloff = 8             -- Keep 8 lines context top/bottom
+vim.opt.sidescrolloff = 8         -- Keep 8 cols context left/right
+
+-- Splits
+vim.opt.splitright = true         -- Put new windows right of current
+vim.opt.splitbelow = true         -- Put new windows below current
+vim.opt.splitkeep = "screen"      -- Keep text stable when splitting
+
+-- Mouse
+vim.opt.mouse = "a"               -- Enable mouse in all modes (scrolling, clicking)
+
+-- =============================================================================
+-- Advanced
+-- =============================================================================
+-- Better completion experience
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
+vim.opt.shortmess:append("c")     -- Don't pass messages to |ins-completion-menu|
+
+-- Disable built-in providers we don't use (faster startup)
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
+
+-- Undercurl support for modern terminals
 vim.cmd([[let &t_Cs = "\e[4:3m"]])
 vim.cmd([[let &t_Ce = "\e[4:0m"]])
 
-vim.opt.formatoptions:append({ "r" })
-
+-- =============================================================================
+-- Filetypes (Ideally move to ftplugin or autocmds.lua, but ok here)
+-- =============================================================================
 vim.cmd([[au BufNewFile,BufRead *.astro setf astro]])
 vim.cmd([[au BufNewFile,BufRead Podfile setf ruby]])
+vim.cmd([[au BufNewFile,BufRead .env* setf sh]])
