@@ -1,5 +1,5 @@
 {
-  description = "Home Manager configuration of alejandro";
+  description = "Home Manager configuration of alejandrocabeza";
 
   inputs = {
     # Specify the source of Home Manager and Nixpkgs.
@@ -15,7 +15,7 @@
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
     in {
-      homeConfigurations."alejandro" = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations."alejandrocabeza" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
         # Specify your home configuration modules here, for example,

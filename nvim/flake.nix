@@ -38,6 +38,10 @@
       url = "github:V13Axel/neotest-pest";
       flake = false;
     };
+    "plugins-neotest-vitest" = {
+      url = "github:marilari88/neotest-vitest";
+      flake = false;
+    };
 
   };
 
@@ -52,34 +56,53 @@
       ];
 
       categoryDefinitions = { pkgs, settings, categories, extra, name, mkPlugin, ... }@packageDef: {
-        lspsAndRuntimeDeps = {
-          laravel = with pkgs; [
-            phpactor
-            blade-formatter
-            mago
+          lspsAndRuntimeDeps = {
+            laravel = with pkgs; [
+              phpactor
+              blade-formatter
+              mago
+              php83Packages.php-cs-fixer
+            ];
+            go = with pkgs; [
+              gopls
+              gotools
+              golangci-lint
+              golangci-lint-langserver
+            ];
+            rust = with pkgs; [
+              rustc
+              rustfmt
+              cargo
+              clippy
+              rust-analyzer
+            ];
+            python = with pkgs; [
+              python312
+              python312Packages.python-lsp-server
+            ];
+            javascript = with pkgs; [
+              nodejs
+              typescript-language-server
+              tailwindcss-language-server
+              emmet-language-server
+              vscode-langservers-extracted
+              eslint_d
+              prettierd
+              astro-language-server
+              vue-language-server
+              svelteserver
+            ];
+            test = with pkgs; [
+               vitest
+            ];
+
+          docker = with pkgs; [
+            dockerfile-language-server-nodejs
+            hadolint
           ];
-          go = with pkgs; [
-            gopls
-            gotools
-            golangci-lint
-            golangci-lint-langserver
-          ];
-          rust = with pkgs; [
-            rustc
-            rustfmt
-            cargo
-            clippy
-            rust-analyzer
-          ];
-          python = with pkgs; [
-            python312
-            python312Packages.python-lsp-server
-          ];
-          javascript = with pkgs; [
-            nodejs
-            typescript-language-server
-            tailwindcss-language-server
-            emmet-language-server
+          sql = with pkgs; [
+            sqlfluff
+            sqls
           ];
           cpp = with pkgs; [
             clang
@@ -102,10 +125,69 @@
           ];
         };
 
-        startupPlugins = {
-          gitPlugins = with pkgs.neovimPlugins; [ ];
-          general = with pkgs.vimPlugins; [
-            nvim-treesitter
+          startupPlugins = {
+            gitPlugins = with pkgs.neovimPlugins; [ ];
+            general = with pkgs.vimPlugins; [
+              indent-blankline-nvim
+              grug-far-nvim
+              nvim-ts-autotag
+              neotest-vitest
+              noice-nvim
+              trouble-nvim
+              lualine-nvim
+              nvim-notify
+              nui-nvim
+              nvim-web-devicons
+              flash-nvim
+              neogit
+              diffview-nvim
+              project-nvim
+              undotree
+              aerial-nvim
+              persistence-nvim
+              nvim-dap
+              nvim-dap-ui
+              nvim-dap-virtual-text
+              kulala-nvim
+              render-markdown-nvim
+              refactoring-nvim
+              nvim-treesitter-context
+              nvim-ufo
+              promise-async
+              mini-files
+              (nvim-treesitter.withPlugins (p: with p; [
+
+              bash
+              c
+              diff
+              html
+              javascript
+              jsdoc
+              json
+              lua
+              luadoc
+              luap
+              markdown
+              markdown_inline
+              python
+              query
+              toml
+              regex
+              tsx
+              typescript
+              vim
+              vimdoc
+              xml
+              yaml
+              php
+              css
+              dockerfile
+              astro
+              vue
+              svelte
+              sql
+              jsonc
+            ]))
           ];
         };
 
@@ -151,6 +233,15 @@
             gitPlugins = true;
             customPlugins = true;
             test = true;
+            laravel = true;
+            go = true;
+            rust = true;
+            python = true;
+            javascript = true;
+            docker = true;
+            sql = true;
+            cpp = true;
+            symfony = true;
             example = {
               youCan = "add more than just booleans";
               toThisSet = [

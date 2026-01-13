@@ -320,6 +320,41 @@ return {
 			".git",
 		},
 	},
+	astro = {
+		cmd = { "astro-ls", "--stdio" },
+		filetypes = { "astro" },
+		root_markers = { "package.json", "tsconfig.json", "jsconfig.json", ".git" },
+	},
+	volar = {
+		cmd = { "vue-language-server", "--stdio" },
+		filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
+		init_options = {
+			typescript = {
+				tsdk = "", -- We will let mason or nix handle this path usually, or rely on global
+			},
+		},
+	},
+	svelte = {
+		cmd = { "svelteserver", "--stdio" },
+		filetypes = { "svelte" },
+	},
+	dockerls = {
+		cmd = { "docker-langserver", "--stdio" },
+		filetypes = { "dockerfile" },
+		root_markers = { "Dockerfile" },
+	},
+	jsonls = {
+		cmd = { "vscode-json-language-server", "--stdio" },
+		filetypes = { "json", "jsonc" },
+		init_options = {
+			provideFormatter = true,
+		},
+	},
+	sqls = {
+		cmd = { "sqls" },
+		filetypes = { "sql" },
+		root_markers = { ".git" },
+	},
 	clangd = {
 		cmd = {
 			"clangd",

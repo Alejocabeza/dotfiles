@@ -24,6 +24,10 @@ if require("nixCatsUtils").enableForCategory("go") then
 	table.insert(dependencies, "fredrikaverpil/neotest-golang")
 end
 
+if require("nixCatsUtils").enableForCategory("javascript") then
+	table.insert(dependencies, "marilari88/neotest-vitest")
+end
+
 return {
 	"nvim-neotest/neotest",
 	dependencies = dependencies,
@@ -134,6 +138,13 @@ return {
 				add_adapter(go_adapter({
 					go_test_args = { "-v", "-count=1" },
 				}))
+			end
+		end
+
+		if require("nixCatsUtils").enableForCategory("javascript") then
+			local vitest_adapter = safe_require("neotest-vitest")
+			if vitest_adapter then
+				add_adapter(vitest_adapter)
 			end
 		end
 

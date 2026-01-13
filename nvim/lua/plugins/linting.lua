@@ -11,6 +11,11 @@ return {
 			typescriptreact = { "eslint_d" },
 			javascript = { "eslint_d" },
 			javascriptreact = { "eslint_d" },
+			vue = { "eslint_d" },
+			svelte = { "eslint_d" },
+			astro = { "eslint_d" },
+			dockerfile = { "hadolint" },
+			json = { "jsonlint" },
 		},
 	},
 	config = function(_, opts)

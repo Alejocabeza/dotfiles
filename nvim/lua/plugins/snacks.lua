@@ -84,6 +84,13 @@ return {
 			desc = "Find Command",
 		},
 		{
+			"<leader>fc",
+			function()
+				Snacks.picker.commands()
+			end,
+			desc = "Find Commands",
+		},
+		{
 			"<leader>fi",
 			function()
 				Snacks.picker.icons()

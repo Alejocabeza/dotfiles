@@ -45,8 +45,8 @@ let
 in
 {
   # --- Configuración básica de Home Manager ---
-  home.username = "alejandro";
-  home.homeDirectory = "/home/alejandro";
+  home.username = "alejandrocabeza";
+  home.homeDirectory = "/home/alejandrocabeza";
   home.stateVersion = "24.11"; # Por favor, lee el comentario original antes de cambiar.
 
   # --- Configuración de Nixpkgs ---
@@ -101,11 +101,11 @@ in
 
   # --- Gestión de archivos de configuración (dotfiles) ---
   home.file = {
-    ".gitconfig".source = /home/alejandro/.dotfiles/.gitconfig; # Asegúrate que esta ruta relativa sea correcta
-    ".config/nvim".source = /home/alejandro/.dotfiles/nvim; # Asegúrate que esta ruta relativa sea correcta
-    "utils".source = /home/alejandro/.dotfiles/utils;
-    ".config/kitty".source = /home/alejandro/.dotfiles/kitty;
-    ".bashrc".source = /home/alejandro/.dotfiles/.bashrc;
+    ".gitconfig".source = /home/alejandrocabeza/.dotfiles/.gitconfig; # Asegúrate que esta ruta relativa sea correcta
+    ".config/nvim".source = /home/alejandrocabeza/.dotfiles/nvim; # Asegúrate que esta ruta relativa sea correcta
+    "utils".source = /home/alejandrocabeza/.dotfiles/utils;
+    ".config/kitty".source = /home/alejandrocabeza/.dotfiles/kitty;
+    ".bashrc".source = /home/alejandrocabeza/.dotfiles/.bashrc;
   };
 
   # --- Variables de entorno de sesión ---
