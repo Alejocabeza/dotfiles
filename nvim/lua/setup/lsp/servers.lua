@@ -351,7 +351,10 @@ return {
 		},
 		settings = {
 			json = {
-				schemas = require("schemastore").json.schemas(),
+				schemas = (function()
+					local ok, schemastore = pcall(require, "schemastore")
+					return ok and schemastore.json.schemas() or {}
+				end)(),
 				validate = { enable = true },
 			},
 		},
@@ -365,7 +368,10 @@ return {
 					enable = false,
 					url = "",
 				},
-				schemas = require("schemastore").yaml.schemas(),
+				schemas = (function()
+					local ok, schemastore = pcall(require, "schemastore")
+					return ok and schemastore.yaml.schemas() or {}
+				end)(),
 			},
 		},
 	},
