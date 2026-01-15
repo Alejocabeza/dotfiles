@@ -19,6 +19,11 @@
       flake = false;
     };
 
+    "plugins-avante.nvim" = {
+      url = "github:yetone/avante.nvim";
+      flake = false;
+    };
+
     "plugins-debugmaster.nvim" = {
       url = "github:miroshQa/debugmaster.nvim";
       flake = false;
@@ -57,6 +62,17 @@
 
       categoryDefinitions = { pkgs, settings, categories, extra, name, mkPlugin, ... }@packageDef: {
           lspsAndRuntimeDeps = {
+            # Avante dependencies
+            avante-deps = with pkgs; [
+              # For building avante
+              cargo
+              rustc
+              pkg-config
+              openssl
+              # Optional but recommended
+              fd
+              ripgrep
+            ];
             laravel = with pkgs; [
               phpactor
               blade-formatter
@@ -126,8 +142,32 @@
         };
 
           startupPlugins = {
-            gitPlugins = with pkgs.neovimPlugins; [ ];
+            gitPlugins = with pkgs.neovimPlugins; [
+              git-worktree-nvim
+              avante-nvim
+            ];
             general = with pkgs.vimPlugins; [
+              # AI
+              dressing-nvim
+              img-clip-nvim
+              
+              # UI/UX
+              rainbow-delimiters-nvim
+              inc-rename-nvim
+
+              # Added by Agent
+              harpoon2
+              todo-comments-nvim
+              cloak-nvim
+              friendly-snippets
+              neogen
+              treesj
+              vim-tmux-navigator
+              vim-dadbod
+              vim-dadbod-ui
+              vim-dadbod-completion
+              SchemaStore-nvim
+
               indent-blankline-nvim
               grug-far-nvim
               nvim-ts-autotag
@@ -154,7 +194,7 @@
               nvim-treesitter-context
               nvim-ufo
               promise-async
-              mini-files
+              mini-nvim
               (nvim-treesitter.withPlugins (p: with p; [
 
               bash
@@ -234,6 +274,7 @@
             customPlugins = true;
             test = true;
             laravel = true;
+            avante-deps = true; # Load Avante deps
             go = true;
             rust = true;
             python = true;

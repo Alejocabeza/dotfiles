@@ -349,6 +349,25 @@ return {
 		init_options = {
 			provideFormatter = true,
 		},
+		settings = {
+			json = {
+				schemas = require("schemastore").json.schemas(),
+				validate = { enable = true },
+			},
+		},
+	},
+	yamlls = {
+		cmd = { "yaml-language-server", "--stdio" },
+		filetypes = { "yaml", "yaml.docker-compose", "yaml.gitlab" },
+		settings = {
+			yaml = {
+				schemaStore = {
+					enable = false,
+					url = "",
+				},
+				schemas = require("schemastore").yaml.schemas(),
+			},
+		},
 	},
 	sqls = {
 		cmd = { "sqls" },
