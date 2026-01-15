@@ -8,10 +8,8 @@ return {
 		auto_suggestions_provider = "copilot",
 		providers = {
 			copilot = {
-				endpoint = "https://api.githubcopilot.com",
-				model = "gpt-4o-2024-05-13",
+				model = "grok-code-fast-1",
 				proxy = nil,
-				allow_insecure = false,
 				timeout = 30000,
 				temperature = 0,
 				max_tokens = 4096,
