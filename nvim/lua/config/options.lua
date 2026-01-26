@@ -3,6 +3,7 @@
 -- =============================================================================
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+vim.g.snippets = "luasnip"
 
 -- Fix Nerd Font detection (Assume true for modern terminals)
 vim.g.have_nerd_font = true
@@ -30,13 +31,11 @@ vim.opt.pumblend = 10             -- Pseudo-transparency for popup menu
 vim.opt.pumheight = 10            -- Max items in popup menu
 
 -- =============================================================================
--- Indentation
+-- Indentation (configurable per filetype via ftplugin)
 -- =============================================================================
 vim.opt.expandtab = true          -- Use spaces instead of tabs
-vim.opt.shiftwidth = 4            -- Size of an indent
-vim.opt.tabstop = 4               -- Number of spaces tabs count for
-vim.opt.softtabstop = 4
 vim.opt.smartindent = true        -- Insert indents automatically
+-- Default indent (4 spaces), overridden by ftplugin
 
 -- =============================================================================
 -- Search & Replace

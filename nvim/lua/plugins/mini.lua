@@ -15,7 +15,7 @@ return { -- Collection of various small independent plugins/modules
 		require("mini.surround").setup()
 		require("mini.pairs").setup()
 		-- require("mini.statusline").setup()
-		require('mini.animate').setup()
+		-- require('mini.animate').setup()
 		require('mini.cursorword').setup()
 		require('mini.hipatterns').setup()
 		-- require('mini.files').setup()

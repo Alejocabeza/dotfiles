@@ -121,15 +121,6 @@ return {
 				})
 
 				-- Manually setup excluded servers if they happen to be installed or needed
-				-- For volar, we try to set it up even if not ensured by mason-lspconfig, 
-				-- assuming user might install it manually via :Mason or it is vue-language-server
-				-- if servers["volar"] then
-				-- 	local lspconfig = require("lspconfig")
-				-- 	-- Check if volar config exists in lspconfig to prevent errors
-				-- 	if lspconfig["volar"] then
-				-- 		lspconfig["volar"].setup(vim.tbl_deep_extend("force", servers["volar"] or {}, { capabilities = capabilities }))
-				-- 	end
-				-- end
 
 				require("mason-tool-installer").setup({
 					ensure_installed = {

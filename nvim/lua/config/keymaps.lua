@@ -14,9 +14,7 @@ map({ "i", "n" }, "<Esc>", "<cmd>nohlsearch<cr><esc>", { desc = "Escape and clea
 
 -- Save file with <C-s>
 map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
-
--- Diagnostic Quickfix
-map("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
+map({ "i", "x", "n", "s" }, "<C-w>", "<cmd>q<cr>", { desc = "Close Window" })
 
 -- Exit terminal mode easily
 map("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
@@ -29,8 +27,8 @@ map("n", "dw", 'vb"_d', { desc = "Delete Word Backwards" })
 -- =============================================================================
 
 -- Split windows
-map("n", "<leader>-", "<C-W>s", { desc = "Split Window Below", remap = true })
-map("n", "<leader>|", "<C-W>v", { desc = "Split Window Right", remap = true })
+map("n", "ss", ":split<Return>", { desc = "Split Window Below", remap = true })
+map("n", "sv", ":vsplit<Return>", { desc = "Split Window Right", remap = true })
 
 -- Move between windows (Ctrl + hjkl)
 map("n", "<C-h>", "<C-w>h", { desc = "Go to left window", remap = true })
