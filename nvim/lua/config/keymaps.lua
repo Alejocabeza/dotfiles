@@ -27,8 +27,8 @@ map("n", "dw", 'vb"_d', { desc = "Delete Word Backwards" })
 -- =============================================================================
 
 -- Split windows
-map("n", "ss", ":split<Return>", { desc = "Split Window Below", remap = true })
-map("n", "sv", ":vsplit<Return>", { desc = "Split Window Right", remap = true })
+map("n", "sv", ":split<Return>", { desc = "Split Window Below", remap = true })
+map("n", "ss", ":vsplit<Return>", { desc = "Split Window Right", remap = true })
 
 -- Move between windows (Ctrl + hjkl)
 map("n", "<C-h>", "<C-w>h", { desc = "Go to left window", remap = true })

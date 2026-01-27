@@ -12,4 +12,11 @@ return {
 			},
 		},
 	},
+	keys = {
+		{
+			"<leader>ct",
+			"<cmd>CloakToggle<cr>",
+			desc = "Toggle Cloak",
+		},
+	},
 }

@@ -19,8 +19,8 @@
       flake = false;
     };
 
-    "plugins-avante.nvim" = {
-      url = "github:yetone/avante.nvim";
+    "plugins-opencode.nvim" = {
+      url = "github:nickvandyke/opencode.nvim";
       flake = false;
     };
 
@@ -62,17 +62,6 @@
 
       categoryDefinitions = { pkgs, settings, categories, extra, name, mkPlugin, ... }@packageDef: {
           lspsAndRuntimeDeps = {
-            # Avante dependencies
-            avante-deps = with pkgs; [
-              # For building avante
-              cargo
-              rustc
-              pkg-config
-              openssl
-              # Optional but recommended
-              fd
-              ripgrep
-            ];
             laravel = with pkgs; [
               phpactor
               blade-formatter
@@ -144,7 +133,7 @@
           startupPlugins = {
             gitPlugins = with pkgs.neovimPlugins; [
               git-worktree-nvim
-              avante-nvim
+              opencode-nvim
             ];
             general = with pkgs.vimPlugins; [
               # AI
@@ -274,7 +263,6 @@
             customPlugins = true;
             test = true;
             laravel = true;
-            avante-deps = true; # Load Avante deps
             go = true;
             rust = true;
             python = true;
