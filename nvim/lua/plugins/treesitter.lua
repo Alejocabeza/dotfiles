@@ -41,7 +41,6 @@ return { -- Highlight, edit, and navigate code
 			"yaml",
 			"php",
 			"css",
-			"ghostty"
 		}),
 		auto_install = require("nixCatsUtils").lazyAdd(true, false),
 

@@ -113,7 +113,7 @@ in
     ".bashrc".source = /home/alejandrocabeza/.dotfiles/.bashrc;
     ".config/ghostty".source = /home/alejandrocabeza/.dotfiles/ghostty;
     ".config/opencode/opencode.jsonc".source = /home/alejandrocabeza/.dotfiles/opencode/opencode.jsonc;
-    ".config/opencode/agents.json".source = /home/alejandrocabeza/.dotfiles/opencode/agents.json;
+    ".config/opencode/agents".source = /home/alejandrocabeza/.dotfiles/opencode/agents;
   };
 
   # --- Variables de entorno de sesión ---
