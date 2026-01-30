@@ -20,7 +20,7 @@
     };
 
     "plugins-opencode.nvim" = {
-      url = "github:nickvandyke/opencode.nvim";
+      url = "github:sudo-tee/opencode.nvim";
       flake = false;
     };
 

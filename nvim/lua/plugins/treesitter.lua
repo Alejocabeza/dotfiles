@@ -7,8 +7,6 @@ return { -- Highlight, edit, and navigate code
 	},
 	lazy = false,
 	opts = {
-		-- NOTE: nixCats: use lazyAdd to only set these 2 options if nix wasnt involved.
-		-- because nix already ensured they were installed.
 		ensure_installed = require("nixCatsUtils").lazyAdd({
 			"bash",
 			"c",
@@ -63,8 +61,6 @@ return { -- Highlight, edit, and navigate code
 		},
 	},
 	config = function(_, opts)
-		-- [[ Configure Treesitter ]] See `:help nvim-treesitter`
-
 		local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
 		parser_config.blade = {
 			install_info = {
@@ -90,19 +86,9 @@ return { -- Highlight, edit, and navigate code
 			},
 		})
 
-		-- Prefer git instead of curl in order to improve connectivity in some environments
 		require("nvim-treesitter.install").prefer_git = true
 		---@diagnostic disable-next-line: missing-fields
 		require("nvim-treesitter.configs").setup(opts)
-
-		-- Manually ensure blade is installed after config is registered
 		require("nvim-treesitter.install").ensure_installed({ "blade" })
-
-		-- There are additional nvim-treesitter modules that you can use to interact
-		-- with nvim-treesitter. You should go explore a few and see what interests you:
-		--
-		--    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
-		--    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
-		--    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 	end,
 }

@@ -4,7 +4,7 @@
 # --- Bloque let para definir variables locales ---
 let
   # Define tu versión de PHP base para facilitar cambios futuros
-  phpBase = pkgs.php84;
+  phpBase = pkgs.php;
 
   # Crea una versión personalizada de PHP con las extensiones que necesitas
   phpWithMyExtensions = phpBase.withExtensions (
@@ -88,7 +88,6 @@ in
     #pkgs.vscode
     #pkgs.postman
     #pkgs.kitty
-    pkgs.nerd-fonts.hack # Asegúrate que este paquete exista o usa pkgs.hack-font u otro nerd font
     pkgs.luarocks-nix
     pkgs.oh-my-fish
     pkgs.libgcc
@@ -96,16 +95,23 @@ in
     pkgs.python313
     pkgs.gnumake42
     pkgs.libcdada
-    # pkgs.mongodb-compass
+    pkgs.nerd-fonts.hack
+    pkgs.nerd-fonts.symbols-only
+    # pkgs.ghostty
   ];
+
+  # --- Configuración de Fuentes ---
+  # Habilita fontconfig para que el sistema detecte las fuentes instaladas por Home Manager
+  fonts.fontconfig.enable = true;
 
   # --- Gestión de archivos de configuración (dotfiles) ---
   home.file = {
-    ".gitconfig".source = /home/alejandrocabeza/.dotfiles/.gitconfig; # Asegúrate que esta ruta relativa sea correcta
-    ".config/nvim".source = /home/alejandrocabeza/.dotfiles/nvim; # Asegúrate que esta ruta relativa sea correcta
+    ".gitconfig".source = /home/alejandrocabeza/.dotfiles/.gitconfig;
+    ".config/nvim".source = /home/alejandrocabeza/.dotfiles/nvim;
     "utils".source = /home/alejandrocabeza/.dotfiles/utils;
     ".config/kitty".source = /home/alejandrocabeza/.dotfiles/kitty;
     ".bashrc".source = /home/alejandrocabeza/.dotfiles/.bashrc;
+    ".config/ghostty".source = /home/alejandrocabeza/.dotfiles/ghostty;
   };
 
   # --- Variables de entorno de sesión ---
@@ -125,44 +131,6 @@ in
     enable = true;
   };
 
-  programs.kitty = {
-    enable = false;
-    font = {
-      name = "Hack Nerd Font Mono"; # Verifica que la fuente esté disponible y el nombre sea exacto
-      size = 12;
-    };
-    settings = {
-      allow_remote_control = "yes";
-      enable_audio_bell = false;
-      adjust_line_height = "130%";
-      close_on_child_death = true;
-      window_padding_width = 0;
-      hide_window_decorations = false; # Cambiado de 'None' a booleano si es necesario
-      confirm_os_window_close = 0;
-    };
-    extraConfig = ''
-      # Si quieres que Kitty inicie tmux automáticamente, puedes descomentar esto.
-      # Sin embargo, dado que gestionas tmux con programs.tmux, puede ser redundante.
-      shell tmux new-session -A -s Main
-    '';
-  };
-
-  programs.alacritty = {
-    enable = false; # Mantenido como deshabilitado según tu config original
-    settings = {
-      window.padding = { x = 4; y = 4; };
-      window.decorations = "None";
-      window.opacity = 0.8;
-      window.startup_mode = "Maximized";
-      window.blur = true;
-      font.normal = { family = "Hack Nerd Font Mono"; style = "Regular"; };
-      font.size = 10;
-      cursor.style = "Block";
-      cursor.unfocused_hollow = true;
-      env.TERM = "xterm-256color";
-    };
-  };
-
   programs.ripgrep = {
     enable = true;
     arguments = [
@@ -172,8 +140,7 @@ in
 
   programs.tmux = {
     enable = true;
-    terminal = "xterm-256color"; # O "tmux-256color"
-    # historyLimit = 100000; # Descomenta si quieres establecer un límite
+    terminal = "xterm-256color";
     plugins = with pkgs; [
       tmuxPlugins.sensible
       tmuxPlugins.tmux-fzf
@@ -287,7 +254,7 @@ in
     interactiveShellInit = ''
       # Muestra fastfetch al inicio
       fastfetch
-      tmux new -s Main
+      # tmux new -s Main
 
       # Iniciar el agente SSH en Fish
       # eval (ssh-agent -c)

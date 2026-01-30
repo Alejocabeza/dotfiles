@@ -1,0 +1,31 @@
+theme = Gruvbox Material
+
+font-family = Hack Nerd Font Mono
+font-size = 12
+
+background-opacity = 0.95
+background-blur-radius = 20
+
+window-decoration = false
+window-padding-color = extend
+window-step-resize = false
+window-padding-balance = true
+window-height = 100
+window-width = 100
+
+gtk-tabs-location = hidden
+
+# Navegación con sintaxis explícita
+keybind = control+h=goto_split:left
+keybind = control+j=goto_split:bottom
+keybind = control+k=goto_split:top
+keybind = control+l=goto_split:right
+
+# Creación de splits (más intuitivo)
+keybind = ctrl+shift+e=new_split:right
+keybind = ctrl+shift+o=new_split:down
+
+# Pestañas (Tabs)
+keybind = ctrl+t=new_tab
+keybind = ctrl+n=next_tab
+keybind = ctrl+p=previous_tab

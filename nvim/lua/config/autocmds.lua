@@ -107,3 +107,13 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "FileReadPost" }, {
 		vim.cmd("%!gunzip -c") -- O bunzip2/xz según el tipo
 	end,
 })
+
+-- Ghostty Config Detection
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+	desc = "Detect ghostty config files",
+	group = vim.api.nvim_create_augroup("ghostty-detection", { clear = true }),
+	pattern = "*/ghostty/config",
+	callback = function()
+		vim.bo.filetype = "ghostty"
+	end,
+})
