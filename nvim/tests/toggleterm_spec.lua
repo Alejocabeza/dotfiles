@@ -1,0 +1,12 @@
+describe("toggleterm plugin", function()
+  it("should be able to require toggleterm", function()
+    local ok, toggleterm = pcall(require, "toggleterm")
+    assert.is_true(ok, "toggleterm module should be loadable")
+    assert.is_table(toggleterm, "toggleterm should be a table")
+  end)
+
+  it("should have setup function", function()
+    local toggleterm = require("toggleterm")
+    assert.is_function(toggleterm.setup, "toggleterm.setup should be a function")
+  end)
+end)

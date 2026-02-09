@@ -216,6 +216,38 @@
         "type": "github"
       }
     },
+    "plugins-opencode.nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1769808555,
+        "narHash": "sha256-Iqse3A0JRQq6ybl4rt5Ktbt3voSComnHW/kcOkfOz/8=",
+        "owner": "sudo-tee",
+        "repo": "opencode.nvim",
+        "rev": "2dba73d61d2c0f00f67eba51ba4110d94dd97e75",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sudo-tee",
+        "repo": "opencode.nvim",
+        "type": "github"
+      }
+    },
+    "plugins-toggleterm.nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1741512039,
+        "narHash": "sha256-fytbX+L12TK45YKFU9K+iFJcDrwboKabihc2LtX29J4=",
+        "owner": "akinsho",
+        "repo": "toggleterm.nvim",
+        "rev": "9a88eae817ef395952e08650b3283726786fb5fb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "akinsho",
+        "repo": "toggleterm.nvim",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "blade-treesitter": "blade-treesitter",
@@ -227,7 +259,9 @@
         "plugins-laravel.nvim": "plugins-laravel.nvim",
         "plugins-marker-groups.nvim": "plugins-marker-groups.nvim",
         "plugins-neotest-pest": "plugins-neotest-pest",
-        "plugins-neotest-vitest": "plugins-neotest-vitest"
+        "plugins-neotest-vitest": "plugins-neotest-vitest",
+        "plugins-opencode.nvim": "plugins-opencode.nvim",
+        "plugins-toggleterm.nvim": "plugins-toggleterm.nvim"
       }
     }
   },

@@ -48,6 +48,11 @@
       flake = false;
     };
 
+    "plugins-toggleterm.nvim" = {
+      url = "github:akinsho/toggleterm.nvim";
+      flake = false;
+    };
+
   };
 
   outputs = { self, nixpkgs, nixCats, ... }@inputs:
@@ -85,21 +90,20 @@
               python312
               python312Packages.python-lsp-server
             ];
-            javascript = with pkgs; [
-              nodejs
-              typescript-language-server
-              tailwindcss-language-server
-              emmet-language-server
-              vscode-langservers-extracted
-              eslint_d
-              prettierd
-              astro-language-server
-              vue-language-server
-              svelteserver
-            ];
-            test = with pkgs; [
-               vitest
-            ];
+             javascript = with pkgs; [
+               nodejs
+               typescript-language-server
+               tailwindcss-language-server
+               emmet-language-server
+               vscode-langservers-extracted
+               eslint_d
+               prettierd
+               astro-language-server
+               vue-language-server
+               svelte-language-server
+             ];
+           test = with pkgs; [
+             ];
 
           docker = with pkgs; [
             dockerfile-language-server-nodejs
@@ -130,12 +134,10 @@
           ];
         };
 
-          startupPlugins = {
-            gitPlugins = with pkgs.neovimPlugins; [
-              git-worktree-nvim
-              opencode-nvim
-            ];
-            general = with pkgs.vimPlugins; [
+         startupPlugins = {
+             gitPlugins = with pkgs.neovimPlugins; [
+             ];
+             general = with pkgs.vimPlugins; [
               # AI
               dressing-nvim
               img-clip-nvim
@@ -180,11 +182,14 @@
               kulala-nvim
               render-markdown-nvim
               refactoring-nvim
-              nvim-treesitter-context
-              nvim-ufo
-              promise-async
-              mini-nvim
-              (nvim-treesitter.withPlugins (p: with p; [
+               nvim-treesitter-context
+               nvim-ufo
+               promise-async
+               mini-nvim
+               toggleterm-nvim
+               git-worktree-nvim
+               opencode-nvim
+               (nvim-treesitter.withPlugins (p: with p; [
 
               bash
               c

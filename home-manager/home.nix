@@ -114,6 +114,7 @@ in
     ".config/ghostty".source = /home/alejandrocabeza/.dotfiles/ghostty;
     ".config/opencode/opencode.jsonc".source = /home/alejandrocabeza/.dotfiles/opencode/opencode.jsonc;
     ".config/opencode/agents".source = /home/alejandrocabeza/.dotfiles/opencode/agents;
+    ".config/opencode/skills".source = /home/alejandrocabeza/.dotfiles/opencode/skills;
   };
 
   # --- Variables de entorno de sesión ---
@@ -257,6 +258,7 @@ in
       # Muestra fastfetch al inicio
       fastfetch
       # tmux new -s Main
+      fish_add_path ~/.local/bin
 
       # Iniciar el agente SSH en Fish
       # eval (ssh-agent -c)

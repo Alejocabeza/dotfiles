@@ -11,10 +11,20 @@ return {
 	},
 	{
 		"ellisonleao/gruvbox.nvim",
+		enabled = false,
 		priority = 1000,
 		config = true,
 		init = function()
 			vim.cmd("colorscheme gruvbox")
 		end,
+	},
+	{
+		"f4z3r/gruvbox-material.nvim",
+		name = "gruvbox-material",
+		lazy = false,
+		priority = 1000,
+		init = function ()
+			vim.cmd('colorscheme gruvbox-material')
+		end
 	},
 }

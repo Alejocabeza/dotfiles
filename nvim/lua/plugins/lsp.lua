@@ -41,14 +41,14 @@ return {
 						mode = mode or "n"
 						vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = desc })
 					end
-					map("grn", vim.lsp.buf.rename, "[R]e[n]ame")
-					map("gra", vim.lsp.buf.code_action, "[G]oto Code [A]ction", { "n", "x" })
+					map("gn", vim.lsp.buf.rename, "[R]e[n]ame")
+					map("ga", vim.lsp.buf.code_action, "[G]oto Code [A]ction", { "n", "x" })
 					map("grr", require("snacks").picker.lsp_references, "[G]oto [R]eferences")
-					map("gri", require("snacks").picker.lsp_implementations, "[G]oto [I]mplementations")
-					map("grd", require("snacks").picker.lsp_definitions, "[G]oto [D]efinition")
-					map("grD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-					map("gD", require("snacks").picker.lsp_symbols, "Goto Document Symbol")
-					map("gW", require("snacks").picker.lsp_workspace_symbols, "Goto [W]orkspace Symbol")
+					map("gi", require("snacks").picker.lsp_implementations, "[G]oto [I]mplementations")
+					map("gd", require("snacks").picker.lsp_definitions, "[G]oto [D]efinition")
+					map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+					map("grD", require("snacks").picker.lsp_symbols, "Goto Document Symbol")
+					map("grW", require("snacks").picker.lsp_workspace_symbols, "Goto [W]orkspace Symbol")
 					map("grt", require("snacks").picker.lsp_type_definitions, "Goto [T]ype Definition")
 
 					local client = vim.lsp.get_client_by_id(event.data.client_id)
@@ -82,12 +82,15 @@ return {
 				-- In NixCats, we assume dependencies are managed by Nix.
 				-- We directly setup servers without Mason.
 				for server_name, server_config in pairs(servers) do
-					server_config.capabilities = vim.tbl_deep_extend("force", server_config.capabilities or {}, capabilities)
+					server_config.capabilities =
+						vim.tbl_deep_extend("force", server_config.capabilities or {}, capabilities)
 					-- Check if lspconfig has the server before setting it up to avoid errors with custom servers or missing binaries
 					-- Also handle 'volar' case if lspconfig doesn't have it directly exposed under that key (it should be 'volar' though)
 					local lspconfig = require("lspconfig")
 					-- Use pcall to safely access lspconfig[server_name] as it might error if server definition is missing/broken
-					local ok, config = pcall(function() return lspconfig[server_name] end)
+					local ok, config = pcall(function()
+						return lspconfig[server_name]
+					end)
 					if ok and config then
 						config.setup(server_config)
 					end
@@ -112,7 +115,9 @@ return {
 							-- Add safety check for server existence in lspconfig
 							local lspconfig = require("lspconfig")
 							-- Use pcall to safely access lspconfig[server_name]
-							local ok, config = pcall(function() return lspconfig[server_name] end)
+							local ok, config = pcall(function()
+								return lspconfig[server_name]
+							end)
 							if ok and config then
 								config.setup(server)
 							end
