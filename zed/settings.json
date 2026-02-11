@@ -1,0 +1,47 @@
+{
+  "toolbar": {
+    "quick_actions": false
+  },
+  "show_edit_predictions": true,
+  "features": {
+    "edit_prediction_provider": "copilot"
+  },
+  "terminal": {
+    "shell": "system",
+    "font_family": "Hack Nerd Font Mono",
+    "env": {
+      "ZED_TERMINAL": "1"
+    },
+    "line_height": { "custom": 1.25 }
+  },
+  "project_panel": {
+    "dock": "left",
+    "indent_size": 12
+  },
+  "agent": {
+    "always_allow_tool_actions": true,
+    "inline_assistant_model": {
+      "provider": "copilot_chat",
+      "model": "claude-4-sonnet"
+    },
+    "model_parameters": [],
+    "default_model": {
+      "provider": "copilot_chat",
+      "model": "claude-sonnet-4"
+    }
+  },
+  "vim_mode": true,
+  "vim": {
+    "toggle_relative_line_numbers": true
+  },
+  "ui_font_size": 16,
+  "buffer_font_size": 16,
+  "agent_ui_font_size": 16,
+  "ui_font_family": "IosevkaTerm Nerd Font",
+  "buffer_font_family": "IosevkaTerm Nerd Font",
+  "diagnostics": {
+    "inline": {
+      "enabled": true
+    }
+  }
+}

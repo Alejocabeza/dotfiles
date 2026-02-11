@@ -115,6 +115,9 @@ in
     ".config/opencode/opencode.jsonc".source = /home/alejandrocabeza/.dotfiles/opencode/opencode.jsonc;
     ".config/opencode/agents".source = /home/alejandrocabeza/.dotfiles/opencode/agents;
     ".config/opencode/skills".source = /home/alejandrocabeza/.dotfiles/opencode/skills;
+    ".config/zed/settings.json".source = /home/alejandrocabeza/.dotfiles/zed/settings.json;
+    ".config/zed/keymap.json".source = /home/alejandrocabeza/.dotfiles/zed/keymap.json;
+    ".config/zed/tasks.json".source = /home/alejandrocabeza/.dotfiles/zed/tasks.json;
   };
 
   # --- Variables de entorno de sesión ---

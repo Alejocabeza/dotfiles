@@ -5,14 +5,14 @@
       "type": "local",
       "command": ["npx", "@testsprite/testsprite-mcp@latest"],
       "environment": {
-        "API_KEY": "...",
+         "API_KEY": "YOUR_TESTSPRITE_API_KEY_HERE",
       },
     },
     "github": {
       "type": "local",
       "command": ["npx", "-y", "@modelcontextprotocol/server-github"],
       "environment": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "...",
+         "GITHUB_PERSONAL_ACCESS_TOKEN": "YOUR_GITHUB_PAT_HERE",
       },
     },
     "playwright": {

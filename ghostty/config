@@ -35,3 +35,6 @@ keybind = alt+c=clear_screen
 
 # Si quieres que Ctrl+L deje de funcionar (para que no te borre la terminal por error)
 keybind = ctrl+l=unbind
+
+# Maximizar / Restaurar panel (Zoom)
+keybind = alt+m=toggle_split_zoom
