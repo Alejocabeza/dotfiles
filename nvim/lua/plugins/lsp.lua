@@ -43,6 +43,7 @@ return {
 					end
 					map("gn", vim.lsp.buf.rename, "[R]e[n]ame")
 					map("ga", vim.lsp.buf.code_action, "[G]oto Code [A]ction", { "n", "x" })
+					map("<leader>ca", vim.lsp.buf.code_action, "Quick Fix (Code Action)", { "n", "x" })
 					map("grr", require("snacks").picker.lsp_references, "[G]oto [R]eferences")
 					map("gi", require("snacks").picker.lsp_implementations, "[G]oto [I]mplementations")
 					map("gd", require("snacks").picker.lsp_definitions, "[G]oto [D]efinition")

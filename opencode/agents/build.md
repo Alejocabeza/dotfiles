@@ -1,7 +1,6 @@
 ---
 description: Desarrollador Full Stack - Ejecutor (Solo Lectura de Plan)
 mode: primary
-model: github-copilot/grok-code-fast-1
 temperature: 0.1
 tools:
   read_file: true

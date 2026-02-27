@@ -1,7 +1,6 @@
 ---
 description: Consultor de Arquitectura Agnostico (Modo Mentor)
 mode: primary
-model: 'github-copilot/gemini-3-pro-preview'
 temperature: 0.1
 tools:
   read_file: true
