@@ -141,3 +141,8 @@ if command -v tmux &> /dev/null; then
     exec tmux new-session -A -s Main
   fi
 fi
+
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=$PATH:$ANDROID_HOME/emulator
+export ADB_SERVER_SOCKET=tcp:$(ip route show | grep default | awk '{print $3}'):5037
