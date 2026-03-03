@@ -34,6 +34,11 @@
       flake = false;
     };
 
+    "plugins-universal-clipboard.nvim" = {
+      url = "github:swaits/universal-clipboard.nvim";
+      flake = false;
+    };
+
     "plugins-laravel.nvim" = {
       url = "github:adalessa/laravel.nvim";
       flake = false;
@@ -50,6 +55,11 @@
 
     "plugins-toggleterm.nvim" = {
       url = "github:akinsho/toggleterm.nvim";
+      flake = false;
+    };
+
+    "plugins-obsidian-nvim" = {
+      url = "github:obsidian-nvim/obsidian.nvim";
       flake = false;
     };
 
@@ -127,7 +137,11 @@
             lua-language-server
             nixd
             nixfmt-rfc-style
+            ripgrep
             stylua
+            wl-clipboard
+            xclip
+            xsel
           ];
           symfony = with pkgs; [
             phpactor
@@ -158,6 +172,10 @@
               vim-dadbod-ui
               vim-dadbod-completion
               SchemaStore-nvim
+              plugins-universal-clipboard-nvim
+
+              # Notes & Obsidian
+              plugins-obsidian-nvim
 
               indent-blankline-nvim
               grug-far-nvim

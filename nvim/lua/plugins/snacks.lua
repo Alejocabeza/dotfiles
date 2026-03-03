@@ -9,7 +9,14 @@ return {
 		indent = { enabled = true },
 		input = { enabled = true },
 		image = { enabled = false },
-		picker = { enabled = true },
+		picker = {
+			enabled = true,
+			-- Fix para obsidian.nvim: usar preset layout en lugar de función
+			-- evita el issue #442 de obsidian-nvim
+			layout = function()
+				return require("snacks.picker.config.layouts").default
+			end,
+		},
 		notifier = { enabled = true },
 		quickfile = { enabled = true },
 		scope = { enabled = true },

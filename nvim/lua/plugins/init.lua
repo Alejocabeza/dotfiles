@@ -1,6 +1,13 @@
 return {
 	"tpope/vim-sleuth",
 	{
+		"swaits/universal-clipboard.nvim",
+		event = "VimEnter",
+		opts = {
+			verbose = false,
+		},
+	},
+	{
 		"folke/lazydev.nvim",
 		ft = "lua",
 		opts = {

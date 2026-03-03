@@ -48,8 +48,39 @@ vim.opt.inccommand = "split"      -- Preview substitutions live!
 -- System Behavior
 -- =============================================================================
 -- Clipboard
+-- Universal-clipboard.nvim will handle clipboard automatically if installed
+-- If not, we fall back to system clipboard tools
 vim.schedule(function()
-  vim.opt.clipboard = "unnamedplus" -- Sync with system clipboard
+  -- Check if universal-clipboard is available
+  local has_uc = pcall(require, "universal-clipboard")
+
+  if has_uc then
+    -- universal-clipboard.nvim handles everything
+    vim.notify("Universal Clipboard enabled", vim.log.levels.INFO)
+  elseif vim.fn.has('clipboard') == 1 then
+    -- Use X11 clipboard explicitly (xclip) when DISPLAY is set
+    -- This avoids issues with Wayland when both X11 and Wayland vars are set
+    if vim.fn.exists('$DISPLAY') == 1 then
+      vim.opt.clipboard = "unnamedplus"
+      vim.g.clipboard = {
+        copy = {
+          ["+"] = "xclip -selection clipboard",
+          ["*"] = "xclip -selection primary",
+        },
+        paste = {
+          ["+"] = "xclip -selection clipboard -o",
+          ["*"] = "xclip -selection primary -o",
+        },
+      }
+    elseif vim.fn.exists('$WAYLAND_DISPLAY') == 1 then
+      -- Use Wayland clipboard when only WAYLAND_DISPLAY is set
+      vim.opt.clipboard = "unnamedplus"
+    else
+      vim.opt.clipboard = "unnamedplus"
+    end
+  else
+    vim.notify("Warning: Neovim compiled without clipboard support. Install universal-clipboard.nvim for clipboard functionality.", vim.log.levels.WARN)
+  end
 end)
 
 -- Undo & Backup
