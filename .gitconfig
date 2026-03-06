@@ -50,7 +50,9 @@
 [interactive]
     diffFilter = delta --color-only
 [delta]
-    navigate = true    # use n and N to move between diff sections
+    features = gruvbox-material
+    syntax-theme = Gruvbox Material
+    line-numbers = true
 [merge]
     conflictstyle = diff3
 [diff]

@@ -110,7 +110,9 @@ in
     ".bashrc".source = /home/alejandrocabeza/.dotfiles/.bashrc;
     ".config/ghostty".source = /home/alejandrocabeza/.dotfiles/ghostty;
     ".config/opencode/opencode.jsonc".source = /home/alejandrocabeza/.dotfiles/opencode/opencode.jsonc;
-    ".config/fish".source = /home/alejandrocabeza/.dotfiles/fish;
+    ".config/fish/conf.d".source = /home/alejandrocabeza/.dotfiles/fish/conf.d;
+    ".config/fish/config.fish".source = /home/alejandrocabeza/.dotfiles/fish/config.fish;
+    ".config/fish/functions".source = /home/alejandrocabeza/.dotfiles/fish/functions;
     ".config/opencode/agents".source = /home/alejandrocabeza/.dotfiles/opencode/agents;
     ".config/opencode/skills".source = /home/alejandrocabeza/.dotfiles/opencode/skills;
     ".config/zed/settings.json".source = /home/alejandrocabeza/.dotfiles/zed/settings.json;
