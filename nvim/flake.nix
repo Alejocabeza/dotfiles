@@ -197,9 +197,10 @@
               nvim-dap
               nvim-dap-ui
               nvim-dap-virtual-text
-              kulala-nvim
-              render-markdown-nvim
-              refactoring-nvim
+               kulala-nvim
+               render-markdown-nvim
+               nvim-tree
+               refactoring-nvim
                nvim-treesitter-context
                nvim-ufo
                promise-async

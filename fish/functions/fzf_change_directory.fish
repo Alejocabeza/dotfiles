@@ -1,13 +1,15 @@
 function fzf_change_directory
-    set -l dir (fd --type d --hidden --exclude .git --exclude node_modules --base-directory $HOME . | fzf \
+    # Buscamos desde / (raíz) y redirigimos errores a /dev/null para evitar ruido de permisos
+    set -l dir (fd --type d --hidden --exclude .git --exclude node_modules . / 2>/dev/null | fzf \
         --height 40% \
         --layout reverse \
         --border \
-        --preview 'eza --tree --level=1 --icons --color=always $HOME/{}' \
-        --header "Buscar directorio en $HOME")
+        --ansi \
+        --preview 'eza --tree --level=1 --icons --color=always {}' \
+        --header "Buscando en todo el sistema (Raíz)")
 
     if test -n "$dir"
-        cd "$HOME/$dir"
+        cd "$dir"
         commandline -f repaint
     else
         commandline -f repaint

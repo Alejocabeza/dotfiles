@@ -30,7 +30,9 @@ return {
         ["<S-Tab>"] = {},
         ["<Tab>"] = {},
         ["<C-l>"] = { "snippet_forward", "fallback" },
-        ["<C-j>"] = { "snippet_backward", "fallback" },
+        ["<C-j>"] = { "select_next", "fallback" },
+        ["<C-k>"] = { "select_prev", "fallback" },
+        ["<CR>"] = { "accept", "fallback" },
       },
       signature = {
         enabled = true,
@@ -96,6 +98,12 @@ return {
 
             return ctx.mode ~= "cmdline" or not vim.tbl_contains({ "/", "?" }, vim.fn.getcmdtype())
           end,
+        },
+        list = {
+          selection = {
+            preselect = false,
+            auto_insert = false,
+          },
         },
       },
     },

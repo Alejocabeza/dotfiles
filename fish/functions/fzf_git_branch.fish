@@ -5,7 +5,11 @@ function fzf_git_branch
     end
 
     set -l branch (git branch -a --color=always | grep -v '/HEAD' | fzf \
-        --height 50% --layout reverse --border --ansi \
+        --height 40% \
+        --layout reverse \
+        --ansi \
+        --border \
+        --ansi \
         --preview 'git log --oneline --graph --date=short --color=always -n 10 (echo {} | sed "s/.* //" | sed "s#remotes/[^/]*/##")' \
         --header "Git Checkout Branch")
 

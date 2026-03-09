@@ -1,6 +1,7 @@
 
 # Muestra fastfetch al inicio
 fastfetch
+
 # tmux new -s Main
 fish_add_path ~/.local/bin
 
@@ -20,7 +21,7 @@ fish_vi_key_bindings
 set -g fish_sequence_key_delay_ms 10
 
 # Añade el directorio vendor de Composer al PATH
-set -gx PATH "$PATH:/home/alejandrocabeza/.composer/vendor/bin"
+set -gx PATH "$PATH:/home/alejandrocabeza/.config/composer/vendor/bin"
 
 # --- Inicializar FNM (Node Version Manager) ---
 # Asegúrate que fnm esté en home.packages
@@ -42,12 +43,8 @@ set fish_cursor_insert line
 set fish_cursor_replace_one underscore
 set fish_cursor_visual block
 
-set -gx FZF_DEFAULT_OPTS "
-  --color=fg:#d4be98,bg:-1,hl:#e67e80
-  --color=fg+:#d4be98,bg+:#3c3836,hl+:#e67e80
-  --color=info:#a9b665,prompt:#7daea3,pointer:#d3869b
-  --color=marker:#d3869b,spinner:#a9b665,header:#7daea3
-  --height 40% --layout reverse --border
-"
+starship init fish | source
 
-
+# Set Default Editor
+set -gx EDITOR nvim
+set -gx VISUAL nvim

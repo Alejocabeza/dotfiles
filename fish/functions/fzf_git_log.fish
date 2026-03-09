@@ -7,7 +7,7 @@ function fzf_git_log
     set -l log_format "%C(yellow)%h%C(reset) %C(magenta)%ad%C(reset) %s %C(cyan)(%an)%C(reset)"
 
     set -l commit (git log --graph --color=always --format="$log_format" --date=short | fzf \
-        --height 80% \
+        --height 40% \
         --layout reverse \
         --ansi \
         --no-sort \

@@ -212,4 +212,69 @@ in
       unbind '"'
     '';
   };
+
+  programs.fzf = {
+    enable = true;
+    defaultOptions = [
+      "--color=fg:#d4be98,bg:-1,hl:#e67e80"
+      "--color=fg+:#d4be98,bg+:#3c3836,hl+:#e67e80"
+      "--color=info:#a9b665,prompt:#7daea3,pointer:#d3869b"
+      "--color=marker:#d3869b,spinner:#a9b665,header:#7daea3"
+      "--height 40% --layout reverse --border"
+    ];
+  };
+
+  programs.starship = {
+    enable = true;
+    settings = {
+      # Formato de bloques sólidos sin módulos que dependan de estados complejos
+      format = "[](#a89984)$username[](bg:#d8a657 fg:#a89984)$directory[](fg:#d8a657 bg:#a9b665)$git_branch$git_status[](fg:#a9b665 bg:#7daea3)$nix_shell[](fg:#7daea3 bg:#32302f)$cmd_duration[ ](fg:#32302f)$character";
+
+      add_newline = true;
+      line_break = { disabled = true; };
+
+      # El carácter de entrada simple y elegante
+      character = {
+        success_symbol = "[➜](bold #a9b665)";
+        error_symbol = "[➜](bold #e67e80)";
+      };
+
+      username = {
+        show_always = true;
+        style_user = "bg:#a89984 fg:#282828";
+        format = "[$user]($style)";
+      };
+
+      directory = {
+        style = "bg:#d8a657 fg:#282828";
+        format = "[ $path ]($style)";
+        truncation_length = 3;
+        fish_style_pwd_dir_length = 1;
+      };
+
+      git_branch = {
+        symbol = " ";
+        style = "bg:#a9b665 fg:#282828";
+        format = "[ $symbol$branch ]($style)";
+      };
+
+      git_status = {
+        style = "bg:#a9b665 fg:#282828";
+        format = "([$all_status$ahead_behind]($style))";
+        ahead = "⇡\${count}"; 
+        behind = "⇣\${count}";
+      };
+
+      nix_shell = {
+        symbol = " ";
+        style = "bg:#7daea3 fg:#282828";
+        format = "[ $symbol]($style)";
+      };
+
+      cmd_duration = {
+        style = "bg:#32302f fg:#d8a657";
+        format = "[  $duration ]($style)";
+      };
+    };
+  };
 }

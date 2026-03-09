@@ -12,7 +12,7 @@ return {
     workspaces = {
       {
         name = "notes",
-        path = "/mnt/c/Users/Alejandro Cabeza/Documents/Obsidian Vault/Alejandro Cabeza",
+        path = "/home/alejandrocabeza/.dotfiles/obsidean",
       },
     },
 
