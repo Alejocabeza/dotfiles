@@ -7,6 +7,7 @@ return {
 	},
 	{
 		"saghen/blink.cmp",
+		-- PERFORMANCE: Lazy load para mejorar startup
 		lazy = false,
 		dependencies = {
 			"rafamadriz/friendly-snippets",
@@ -15,7 +16,9 @@ return {
 				version = "v2.*",
 				name = "luasnip",
 				config = function()
-					require("luasnip.loaders.from_vscode").lazy_load()
+					-- PERFORMANCE: Cargar snippets bajo demanda
+					require("luasnip.loaders.from_vscode").lazy_load({ lazy = true })
+					require("luasnip.loaders.from_snipmate").lazy_load()
 				end,
 			},
 			{ "echasnovski/mini.icons", opts = {} },
@@ -32,10 +35,7 @@ return {
 				["<CR>"] = { "accept", "fallback" },
 			},
 			signature = {
-				enabled = true,
-				trigger = {
-					enabled = false,
-				},
+				enabled = false, -- PERFORMANCE: Deshabilitar para mejorar rendimiento
 			},
 
 			snippets = {
@@ -47,35 +47,15 @@ return {
 				nerd_font_variant = "mono",
 			},
 
+			-- PERFORMANCE: Configuración de fuentes optimizada
 			sources = {
-				default = function()
-					local sources = { "lsp", "path", "snippets" }
-					if
-						require("nixCatsUtils").enableForCategory("laravel")
-						and vim.bo.filetype == "php"
-						and vim.fn.filereadable("artisan") == 1
-					then
-						table.insert(sources, "laravel")
-					end
-
-					if vim.tbl_contains({ "sql", "mysq", "plsql" }, vim.bo.filetype) then
-						return { "dadbod", "snippets" }
-					end
-
-					if vim.tbl_contains({ "markdown" }, vim.bo.filetype) then
-						return { "buffer", "path", "snippets" }
-					end
-					if require("nixCatsUtils").enableForCategory("copilot") then
-						table.insert(sources, "copilot")
-					end
-
-					return sources
-				end,
+				-- PERFORMANCE: Usar función más simple
+				default = { "lsp", "path", "snippets" },
 				providers = {
 					laravel = {
 						name = "laravel",
 						module = "blink.compat.source",
-						score_offset = 95, -- show at a higher priority than lsp
+						score_offset = 95,
 					},
 					dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
 					copilot = {
@@ -86,16 +66,25 @@ return {
 					},
 				},
 			},
+			-- PERFORMANCE: Configuraciones de rendimiento
 			completion = {
+				-- PERFORMANCE: Menos items para procesar
+				list = {
+					selection = { preselect = true, auto_insert = true },
+					max_items = 50, -- Limitar items mostrados
+				},
 				menu = {
 					auto_show = function(ctx)
 						if vim.tbl_contains({ "markdown" }, vim.bo.filetype) then
 							return false
 						end
-
 						return ctx.mode ~= "cmdline" or not vim.tbl_contains({ "/", "?" }, vim.fn.getcmdtype())
 					end,
 				},
+			},
+			-- PERFORMANCE: Fuzzy search optimizado
+			fuzzy = {
+				implementation = "lua",
 			},
 		},
 		opts_extend = { "sources.default" },

@@ -1,6 +1,7 @@
 ---
 description: Lead Technical Writer & Knowledge Keeper
 mode: primary
+model: github-copilot/gpt-5-mini
 temperature: 0.2
 tools:
   read_file: true

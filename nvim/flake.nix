@@ -53,6 +53,21 @@
       flake = false;
     };
 
+    "plugins-nvim-dap-vscode-js" = {
+      url = "github:mxsdev/nvim-dap-vscode-js";
+      flake = false;
+    };
+
+    "plugins-nvim-dap-reactnative" = {
+      url = "github:sultanahamer/nvim-dap-reactnative";
+      flake = false;
+    };
+
+    "plugins-template-string-nvim" = {
+      url = "github:axelvc/template-string.nvim";
+      flake = false;
+    };
+
     "plugins-toggleterm.nvim" = {
       url = "github:akinsho/toggleterm.nvim";
       flake = false;
@@ -101,17 +116,22 @@
               python312Packages.python-lsp-server
             ];
              javascript = with pkgs; [
-               nodejs
-               typescript-language-server
-               tailwindcss-language-server
-               emmet-language-server
-               vscode-langservers-extracted
-               eslint_d
-               prettierd
-               astro-language-server
-               vue-language-server
-               svelte-language-server
-             ];
+                nodejs
+                deno
+                typescript-language-server
+                tailwindcss-language-server
+                emmet-language-server
+                vscode-langservers-extracted
+                eslint_d
+                prettierd
+                biome
+                astro-language-server
+                vue-language-server
+                svelte-language-server
+                # React Native
+                android-sdk
+                watchman
+              ];
            test = with pkgs; [
              ];
 
@@ -185,18 +205,21 @@
               trouble-nvim
               lualine-nvim
               nvim-notify
-              nui-nvim
-              nvim-web-devicons
-              flash-nvim
-              neogit
-              diffview-nvim
-              project-nvim
-              undotree
-              aerial-nvim
-              persistence-nvim
-              nvim-dap
-              nvim-dap-ui
-              nvim-dap-virtual-text
+               nui-nvim
+               nvim-web-devicons
+               flash-nvim
+               neogit
+               diffview-nvim
+               project-nvim
+               undotree
+               aerial-nvim
+               persistence-nvim
+               nvim-dap
+               nvim-dap-ui
+               nvim-dap-virtual-text
+               plugins-nvim-dap-vscode-js-nvim
+               plugins-nvim-dap-reactnative-nvim
+               plugins-template-string-nvim-nvim
                kulala-nvim
                render-markdown-nvim
                nvim-tree
@@ -240,6 +263,7 @@
               svelte
               sql
               jsonc
+              prisma
             ]))
           ];
         };

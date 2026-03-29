@@ -49,6 +49,202 @@ return {
 			".git",
 		},
 		single_file_support = true,
+		settings = {
+			typescript = {
+				inlayHints = {
+					includeInlayParameterNameHints = "all",
+					includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+					includeInlayFunctionParameterTypeHints = true,
+					includeInlayVariableTypeHints = true,
+					includeInlayPropertyDeclarationTypeHints = true,
+					includeInlayFunctionLikeReturnTypeHints = true,
+					includeInlayEnumMemberValueHints = true,
+				},
+			},
+			javascript = {
+				inlayHints = {
+					includeInlayParameterNameHints = "all",
+					includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+					includeInlayFunctionParameterTypeHints = true,
+					includeInlayVariableTypeHints = true,
+					includeInlayPropertyDeclarationTypeHints = true,
+					includeInlayFunctionLikeReturnTypeHints = true,
+					includeInlayEnumMemberValueHints = true,
+				},
+			},
+		},
+	},
+	-- HTML - Completado de HTML en archivos JS/TS
+	html = {
+		cmd = { "vscode-html-language-server", "--stdio" },
+		filetypes = {
+			"html",
+			"htmldjango",
+			"javascript",
+			"javascriptreact",
+			"javascript.jsx",
+			"typescript",
+			"typescriptreact",
+			"typescript.tsx",
+			"vue",
+			"svelte",
+			"php",
+			"blade",
+		},
+		root_markers = {
+			"package.json",
+			".git",
+		},
+		settings = {
+			html = {
+				format = {
+					enable = true,
+					wrapLineLength = 120,
+					wrapAttributes = "auto",
+				},
+				validate = {
+					scripts = true,
+					styles = true,
+				},
+				hover = {
+					documentation = true,
+					references = true,
+				},
+			},
+		},
+	},
+	-- CSS - Para archivos de estilos
+	cssls = {
+		cmd = { "vscode-css-language-server", "--stdio" },
+		filetypes = {
+			"css",
+			"scss",
+			"less",
+			"javascript",
+			"javascriptreact",
+			"typescript",
+			"typescriptreact",
+			"vue",
+			"svelte",
+		},
+		root_markers = {
+			"package.json",
+			".git",
+		},
+		settings = {
+			css = {
+				validate = true,
+				format = {
+					enable = true,
+				},
+			},
+			scss = {
+				validate = true,
+			},
+			less = {
+				validate = true,
+			},
+		},
+	},
+	-- ESLint LSP - Mejor linting en tiempo real
+	eslint = {
+		cmd = { "eslint_d", "--stdio" },
+		filetypes = {
+			"javascript",
+			"javascriptreact",
+			"javascript.jsx",
+			"typescript",
+			"typescriptreact",
+			"typescript.tsx",
+			"vue",
+			"svelte",
+			"astro",
+		},
+		root_markers = {
+			".eslintrc",
+			".eslintrc.json",
+			".eslintrc.js",
+			"eslint.config.js",
+			"eslint.config.mjs",
+			"eslint.config.mjs",
+			"package.json",
+		},
+		settings = {
+			validate = "on",
+			format = true,
+			quiet = false,
+			rules = {
+				custom = {},
+			},
+		},
+	},
+	-- Biome - Linter y formatter moderno todo-en-uno
+	biome = {
+		cmd = { "biome", "lsp", "proxy" },
+		filetypes = {
+			"javascript",
+			"javascriptreact",
+			"javascript.jsx",
+			"typescript",
+			"typescriptreact",
+			"typescript.tsx",
+			"json",
+			"jsonc",
+		},
+		root_markers = {
+			"biome.json",
+			"biome.jsonc",
+			"package.json",
+		},
+		settings = {
+			biome = {
+				enable = true,
+				format = true,
+				linter = {
+					enable = true,
+					rules = {
+						recommended = true,
+					},
+				},
+				organizeImports = {
+					enabled = true,
+				},
+			},
+		},
+	},
+	-- Deno - Para proyectos Deno
+	deno = {
+		cmd = { "deno", "lsp" },
+		filetypes = {
+			"javascript",
+			"javascriptreact",
+			"javascript.jsx",
+			"typescript",
+			"typescriptreact",
+			"typescript.tsx",
+			"json",
+			"jsonc",
+			"markdown",
+			"toml",
+		},
+		root_markers = {
+			"deno.json",
+			"deno.jsonc",
+			"deno.lock",
+			"package.json",
+		},
+		settings = {
+			deno = {
+				enable = true,
+				unstable = false,
+				cache = "onSave",
+				cacheOnLoad = false,
+				importMap = "",
+				taskRunner = {
+					enable = true,
+				},
+			},
+		},
 	},
 	tailwindcss = {
 		cmd = { "tailwindcss-language-server", "--stdio" },
@@ -415,6 +611,18 @@ return {
 	prismals = {
 		cmd = { "prisma-language-server", "--stdio" },
 		filetypes = { "prisma" },
-		root_markers = { "schema.prisma", ".git" },
+		root_markers = { "schema.prisma", ".git", "prisma" },
+		settings = {
+			prisma = {
+				-- Habilitar formato de Prisma
+				format = true,
+				-- Configuraciones de linting
+				linting = {
+					enable = true,
+				},
+			},
+		},
 	},
+	-- tRPC no tiene LSP propio, pero ts_ls funciona bien con proyectos tRPC
+	-- La configuración de ts_ls ya cubre tRPC
 }

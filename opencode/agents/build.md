@@ -1,6 +1,7 @@
 ---
 description: Full Stack Developer - Lead Implementer (TDD & UI/UX Integration Focus)
 mode: primary
+model: github-copilot/gpt-5-mini
 tools:
   read_file: true
   ls: true

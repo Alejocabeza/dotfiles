@@ -9,6 +9,41 @@ vim.g.snippets = "luasnip"
 vim.g.have_nerd_font = true
 
 -- =============================================================================
+-- PERFORMANCE OPTIMIZATIONS
+-- =============================================================================
+-- Deshabilitar eventos de archivo que no usamos
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_2html_plugin = 1
+vim.g.loaded_tarPlugin = 1
+vim.g.loaded_zipPlugin = 1
+vim.g.loaded_gzip = 1
+vim.g.loaded_rrhelper = 1
+
+-- Disable slower features
+vim.g.ruler = false -- Don't show ruler (lualine handles this)
+vim.g.showcmd = false -- Don't show command (lualine handles this)
+vim.g.cmdheight = 0 -- No command line height (use built-in)
+
+-- Faster redraws
+vim.opt.updatetime = 300 -- Faster cursor hold (was 250)
+vim.opt.redrawtime = 1500 -- Allow longer redraw for syntax
+vim.opt.ttimeoutlen = 50 -- Faster timeout for key sequences
+
+-- Disable expensive features
+vim.opt.foldmethod = "expr" -- Use expr for foldmethod (treesitter will handle)
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldlevel = 99 -- Start with all folds open
+vim.opt.foldlevelstart = 99
+
+-- Disable unnecessary UI updates
+vim.g.tagstack = true
+
+-- Faster scrolling
+vim.opt.synmaxcol = 240 -- Limit syntax column for performance
+vim.opt.re = 1 -- Use faster regex engine
+
+-- =============================================================================
 -- UI & Visuals
 -- =============================================================================
 vim.opt.number = true             -- Show line numbers

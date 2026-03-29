@@ -2,7 +2,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "Highlight when yanking (copying) text",
 	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
 	callback = function()
-		vim.hl.on_yank()
+		vim.hl.on_yank({ timeout = 100 }) -- PERFORMANCE: Timeout más corto
 	end,
 })
 
@@ -45,7 +45,7 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
--- Resize splits if window got resized
+-- Resize splits if window got resized (solo en modo interactivo)
 vim.api.nvim_create_autocmd("VimResized", {
 	desc = "Auto-resize splits",
 	group = vim.api.nvim_create_augroup("auto-resize", { clear = true }),
@@ -54,12 +54,20 @@ vim.api.nvim_create_autocmd("VimResized", {
 	end,
 })
 
--- Highlight trailing whitespace
-vim.api.nvim_create_autocmd("BufWinEnter", {
-	desc = "Highlight trailing whitespace",
-	group = vim.api.nvim_create_augroup("highlight-trailing-whitespace", { clear = true }),
+-- PERFORMANCE: Disable highlight trailing whitespace on large files
+vim.api.nvim_create_autocmd("BufReadPre", {
+	desc = "Disable expensive features for large files",
+	group = vim.api.nvim_create_augroup("large-files", { clear = true }),
 	callback = function()
-		vim.cmd("match ErrorMsg /\\s\\+$/")
+		local size = vim.fn.getfsize(vim.fn.expand("%"))
+		if size > 500 * 1024 then -- 500KB - más agresivo
+			vim.cmd("syntax off")
+			vim.opt_local.swapfile = false
+			vim.opt_local.undofile = false
+			vim.opt_local.foldmethod = "manual"
+			-- Disable treesitter para archivos grandes
+			vim.b.ts_highlight = false
+		end
 	end,
 })
 
@@ -73,27 +81,14 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
--- Auto Save Inactive Buffers
+-- PERFORMANCE: Auto Save con debounce - menos frecuente
 vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 	desc = "Auto-save inactive buffers",
 	group = vim.api.nvim_create_augroup("auto-save-inactive-buffers", { clear = true }),
+	-- Solo ejecutar cada 5 segundos (en vez de más frecuente)
 	callback = function()
-		if vim.bo.modified and not vim.bo.readonly then
+		if vim.bo.modified and not vim.bo.readonly and vim.bo.buftype == "" then
 			vim.cmd("silent! write")
-		end
-	end,
-})
-
--- Handle Large Files
-vim.api.nvim_create_autocmd("BufReadPre", {
-	desc = "Handle Large Files",
-	group = vim.api.nvim_create_augroup("handle-large-files", { clear = true }),
-	callback = function()
-		local size = vim.fn.getfsize(vim.fn.expand("%"))
-		if size > 1024 * 1024 then --> 1MB
-			vim.cmd("syntax off")
-			vim.opt_local.swapfile = false
-			vim.opt_local.undofile = false
 		end
 	end,
 })

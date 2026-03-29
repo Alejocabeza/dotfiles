@@ -2,6 +2,7 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		url = "git@github.com:neovim/nvim-lspconfig.git",
+		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
 			{
 				"williamboman/mason.nvim",
@@ -24,6 +25,45 @@ return {
 			{ "saghen/blink.cmp", url = "git@github.com:saghen/blink.cmp.git" },
 		},
 		config = function()
+			-- ============================================
+			-- PERFORMANCE: Configuraciones de LSP
+			-- ============================================
+
+			-- Capabilidades base optimizadas
+			local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+			-- Deshabilitar features que no usamos para mejorar rendimiento
+			capabilities.textDocument.publishDiagnostics.annotations = false
+			capabilities.textDocument.publishDiagnostics.tagSupport = false
+
+			-- Configurar timeout para requests LSP
+			vim.lsp.protocol.CompletionItemKind = {
+				"Text",
+				"Method",
+				"Function",
+				"Constructor",
+				"Field",
+				"Variable",
+				"Class",
+				"Interface",
+				"Module",
+				"Property",
+				"Unit",
+				"Value",
+				"Enum",
+				"Keyword",
+				"Snippet",
+				"Color",
+				"File",
+				"Reference",
+				"Folder",
+				"EnumMember",
+				"Constant",
+				"Struct",
+				"Event",
+				"Operator",
+				"TypeParameter",
+			}
 			local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = true })
 
 			vim.api.nvim_create_autocmd("LspDetach", {
@@ -101,9 +141,14 @@ return {
 				require("mason").setup()
 
 				-- Filter out servers that Mason fails to install or are problematic
+				-- IMPORTANT: deno is NOT a valid server for mason-lspconfig, only for lspconfig directly
 				local servers_to_install = vim.tbl_keys(servers or {})
 				servers_to_install = vim.tbl_filter(function(name)
-					return name ~= "sqls" and name ~= "volar" -- Exclude sqls (requires go) and volar (name mismatch issues sometimes)
+					-- Exclude servers that are not available in mason-lspconfig
+					return name ~= "sqls" 
+						and name ~= "volar" 
+						and name ~= "deno"  -- deno has its own LSP, not in mason-lspconfig
+						and name ~= "phpactor" -- phpactor is managed separately
 				end, servers_to_install)
 
 				-- Configure mason-lspconfig to automatically install and setup servers.

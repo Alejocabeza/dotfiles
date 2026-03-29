@@ -4,11 +4,17 @@ return {
   lazy = false,
   version = false,
   opts = {
-    provider = "gemini",
-    gemini = {
-      model = "gemini-3-pro-preview",
-      temperature = 0,
-      max_tokens = 4096,
+    provider = "copilot",
+    providers = {
+      copilot = {
+        endpoint = "https://api.githubcopilot.com",
+        model = "gpt-5-mini",
+        timeout = 30000,
+        context_window = 64000,
+        extra_request_body = {
+          max_tokens = 20480,
+        },
+      },
     },
     behaviour = {
       auto_suggestions = false,

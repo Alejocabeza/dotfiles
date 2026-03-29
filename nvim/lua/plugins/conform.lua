@@ -28,7 +28,7 @@ return { -- Autoformat
 		formatters_by_ft = {
 			lua = { "stylua" },
 			blade = { "blade-formatter" },
-			json = { "jq" },
+			json = { "biome", "jq" },
 			php = function(bufnr)
 				local fname = vim.uri_from_bufnr(bufnr)
 				if fname:match("views") then
@@ -39,15 +39,16 @@ return { -- Autoformat
 				end
 				return { "pint" }
 			end,
-			javascript = { "prettierd", "prettier", stop_after_first = true },
-			typescript = { "prettierd", "prettier", stop_after_first = true },
-			javascriptreact = { "prettierd", "prettier", stop_after_first = true },
-			typescriptreact = { "prettierd", "prettier", stop_after_first = true },
+			-- JavaScript/TypeScript - biome primero (más rápido), luego prettier
+			javascript = { "biome", "prettierd", "prettier", stop_after_first = true },
+			typescript = { "biome", "prettierd", "prettier", stop_after_first = true },
+			javascriptreact = { "biome", "prettierd", "prettier", stop_after_first = true },
+			typescriptreact = { "biome", "prettierd", "prettier", stop_after_first = true },
 			vue = { "prettierd", "prettier", stop_after_first = true },
 			svelte = { "prettierd", "prettier", stop_after_first = true },
 			astro = { "prettierd", "prettier", stop_after_first = true },
-			json = { "prettierd", "prettier", stop_after_first = true },
-			jsonc = { "prettierd", "prettier", stop_after_first = true },
+			json = { "biome", "prettierd", "prettier", stop_after_first = true },
+			jsonc = { "biome", "prettierd", "prettier", stop_after_first = true },
 			html = { "prettierd", "prettier", stop_after_first = true },
 			css = { "prettierd", "prettier", stop_after_first = true },
 			scss = { "prettierd", "prettier", stop_after_first = true },

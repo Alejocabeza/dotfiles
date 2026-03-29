@@ -15,8 +15,6 @@ return {
         }
       ),
     })
-    
-    -- Sobrescribir el mapeo que pusimos antes para usar este preview
     vim.keymap.set({ "v", "n" }, "ga", require("actions-preview").code_actions)
     vim.keymap.set({ "v", "n" }, "<leader>ca", require("actions-preview").code_actions)
   end,
