@@ -20,6 +20,7 @@ return {
 		},
 		linters = {
 			biome = {
+				cmd = "biome",
 				name = "biome",
 				args = { "lint", "--stdin-file-path", "$TEXT" },
 				stdin = true,

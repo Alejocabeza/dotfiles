@@ -1,7 +1,7 @@
 ---
 description: Technical Intelligence & Research Subagent
 mode: subagent
-model: opencode-zen/minimax-m2.5-free
+model: opencode/minimax-m2.5-free
 temperature: 0.1
 tools:
   read_file: true

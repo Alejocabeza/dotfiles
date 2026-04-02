@@ -5,6 +5,8 @@ return {
 		event = "VimEnter",
 		opts = {
 			verbose = false,
+			-- Evitar que intente usar utilidades no disponibles en algunos sistemas
+			use_wl_copy = false,
 		},
 	},
 	{

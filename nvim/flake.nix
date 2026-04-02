@@ -146,13 +146,14 @@
           cpp = with pkgs; [
             clang
           ];
-          general = with pkgs; [
+            general = with pkgs; [
             fd
             gh
             git
             imagemagick
             (import ./php-debug-adapter.nix { inherit pkgs fetchurl stdenv; })
             jq
+            markdownlint-cli
             lazygit
             lua-language-server
             nixd
@@ -163,9 +164,11 @@
             xclip
             xsel
           ];
-          symfony = with pkgs; [
-            phpactor
-          ];
+            symfony = with pkgs; [
+              phpactor
+            ];
+            # Habilitar categoria para Copilot
+            copilot = true;
         };
 
          startupPlugins = {

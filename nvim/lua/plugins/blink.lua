@@ -50,7 +50,7 @@ return {
 			-- PERFORMANCE: Configuración de fuentes optimizada
 			sources = {
 				-- PERFORMANCE: Usar función más simple
-				default = { "lsp", "path", "snippets" },
+                default = { "lsp", "path", "snippets", "copilot" },
 				providers = {
 					laravel = {
 						name = "laravel",

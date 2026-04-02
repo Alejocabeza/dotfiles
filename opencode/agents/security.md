@@ -1,7 +1,7 @@
 ---
 description: Security Analyst & Vulnerability Specialist (SecOps)
 mode: subagent
-model: github-copilot/gemini-3-pro-preview
+model: opencode/minimax-m2.5-free
 temperature: 0.1
 tools:
   read_file: true

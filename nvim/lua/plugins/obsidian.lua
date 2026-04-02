@@ -64,66 +64,67 @@ return {
     },
 
     -- Desactivar comandos legacy si no los necesitas
-    -- legacy_commands = false,
+    legacy_commands = false,
   },
 
   -- Configuración de comandos válidos
+  -- Nuevos comandos (espacios, minúsculas) según la API actualizada
   cmd = {
-    "ObsidianOpen",
-    "ObsidianNew",
-    "ObsidianSearch",
-    "ObsidianDailies",
-    "ObsidianToday",
-    "ObsidianTomorrow",
-    "ObsidianYesterday",
-    "ObsidianBacklinks",
-    "ObsidianTags",
-    "ObsidianPasteImg",
-    "ObsidianQuickSwitch",
-    "ObsidianExtractNote",
-    "ObsidianTemplate",
+    "Obsidian open",
+    "Obsidian new",
+    "Obsidian search",
+    "Obsidian dailies",
+    "Obsidian today",
+    "Obsidian tomorrow",
+    "Obsidian yesterday",
+    "Obsidian backlinks",
+    "Obsidian tags",
+    "Obsidian paste img",
+    "Obsidian quick switch",
+    "Obsidian extract note",
+    "Obsidian template",
   },
 
   -- Configuración de keymaps globales
   keys = {
     {
       "<leader>oo",
-      "<cmd>ObsidianOpen<CR>",
+      "<cmd>Obsidian open<CR>",
       desc = "Obsidian: Abrir nota",
     },
     {
       "<leader>on",
-      "<cmd>ObsidianNew<CR>",
+      "<cmd>Obsidian new<CR>",
       desc = "Obsidian: Nueva nota",
     },
     {
       "<leader>os",
-      "<cmd>ObsidianSearch<CR>",
+      "<cmd>Obsidian search<CR>",
       desc = "Obsidian: Buscar notas",
     },
     {
       "<leader>od",
-      "<cmd>ObsidianDailies<CR>",
+      "<cmd>Obsidian dailies<CR>",
       desc = "Obsidian: Notas diarias",
     },
     {
       "<leader>ot",
-      "<cmd>ObsidianToday<CR>",
+      "<cmd>Obsidian today<CR>",
       desc = "Obsidian: Nota de hoy",
     },
     {
       "<leader>oy",
-      "<cmd>ObsidianYesterday<CR>",
+      "<cmd>Obsidian yesterday<CR>",
       desc = "Obsidian: Nota de ayer",
     },
     {
       "<leader>ob",
-      "<cmd>ObsidianBacklinks<CR>",
+      "<cmd>Obsidian backlinks<CR>",
       desc = "Obsidian: Backlinks",
     },
     {
       "<leader>op",
-      "<cmd>ObsidianPasteImg<CR>",
+      "<cmd>Obsidian paste img<CR>",
       desc = "Obsidian: Pegar imagen",
     },
   },

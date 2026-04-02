@@ -11,10 +11,14 @@
             "id": "371528056493d2f3",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "documents/mama/20260326-exposicion-derecho-sucesiones.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "Nueva pestaña"
+              "title": "20260326-exposicion-derecho-sucesiones"
             }
           }
         ]
@@ -74,7 +78,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "db19e992eff7edb2",
@@ -178,6 +183,7 @@
   },
   "active": "371528056493d2f3",
   "lastOpenFiles": [
+    "University/20260325-project-social.md",
     "20260309-nueva-nota.md",
     "dailies"
   ]
