@@ -2,13 +2,6 @@
   "$schema": "https://opencode.ai/config.json",
   "default_agent": "ask",
   "mcp": {
-    "testsprite": {
-      "type": "local",
-      "command": ["npx", "@testsprite/testsprite-mcp@latest"],
-      "environment": {
-         "API_KEY": "YOUR_TESTSPRITE_API_KEY_HERE",
-      },
-    },
     "github": {
       "type": "local",
       "command": ["npx", "-y", "@modelcontextprotocol/server-github"],
@@ -21,5 +14,12 @@
       "command": ["npx", "@playwright/mcp@latest"],
       "enabled": true,
     },
+    "notion": {
+      "type": "local",
+      "command": ["npx", "@notion/mcp@latest"],
+      "environment": {
+         "NOTION_API_KEY": "YOUR_NOTION_API"
+      }
+    }
   },
 }
