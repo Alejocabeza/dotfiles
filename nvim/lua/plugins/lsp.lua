@@ -25,18 +25,9 @@ return {
 			{ "saghen/blink.cmp", url = "git@github.com:saghen/blink.cmp.git" },
 		},
 		config = function()
-			-- ============================================
-			-- PERFORMANCE: Configuraciones de LSP
-			-- ============================================
-
-			-- Capabilidades base optimizadas
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
-
-			-- Deshabilitar features que no usamos para mejorar rendimiento
 			capabilities.textDocument.publishDiagnostics.annotations = false
 			capabilities.textDocument.publishDiagnostics.tagSupport = false
-
-			-- Configurar timeout para requests LSP
 			vim.lsp.protocol.CompletionItemKind = {
 				"Text",
 				"Method",

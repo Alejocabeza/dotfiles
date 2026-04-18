@@ -10,6 +10,8 @@ window-decoration = false
 window-padding-color = extend
 window-step-resize = false
 window-padding-balance = true
+window-width = 120
+window-height = 35
 
 command = tmux attach || tmux new-session
 

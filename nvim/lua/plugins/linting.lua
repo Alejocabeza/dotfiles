@@ -7,7 +7,6 @@ return {
 			sql = { "sqlfluff" },
 			lua = { "luacheck" },
 			php = { "tlint" },
-			-- JavaScript/TypeScript - Multiple linters
 			typescript = { "eslint_d", "biome" },
 			typescriptreact = { "eslint_d", "biome" },
 			javascript = { "eslint_d", "biome" },
@@ -33,16 +32,13 @@ return {
 		if opts.linters then
 			for name, linter in pairs(opts.linters) do
 				if type(linter) == "table" then
-					-- Check if linter already exists in lint.linters
 					if type(lint.linters[name]) == "table" then
-						-- Merge with existing linter configuration
 						lint.linters[name] = vim.tbl_deep_extend("force", lint.linters[name], linter)
 						if type(linter.prepend_args) == "table" then
 							lint.linters[name].args = lint.linters[name].args or {}
 							vim.list_extend(lint.linters[name].args, linter.prepend_args)
 						end
 					else
-						-- Create new linter entry if it doesn't exist
 						lint.linters[name] = linter
 					end
 				end

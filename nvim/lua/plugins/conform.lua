@@ -34,9 +34,9 @@ return { -- Autoformat
 				if fname:match("views") then
 					return { "blade-formatter" }
 				end
-				if vim.fn.filereadable(vim.fn.getcwd() .. "/mago.toml" == 1) then
-					return { "mango_format" }
-				end
+			if vim.fn.filereadable(vim.fn.getcwd() .. "/mago.toml") == 1 then
+				return { "mango_format" }
+			end
 				return { "pint" }
 			end,
 			-- JavaScript/TypeScript - biome primero (más rápido), luego prettier

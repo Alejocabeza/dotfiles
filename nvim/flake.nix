@@ -97,6 +97,8 @@
               blade-formatter
               mago
               php83Packages.php-cs-fixer
+              phpstan
+              laravel-pint
             ];
             go = with pkgs; [
               gopls
