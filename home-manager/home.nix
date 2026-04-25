@@ -108,13 +108,17 @@ in
     "utils".source = /home/alejandrocabeza/.dotfiles/utils;
     ".config/kitty".source = /home/alejandrocabeza/.dotfiles/kitty;
     ".bashrc".source = /home/alejandrocabeza/.dotfiles/.bashrc;
+    # Ghostty
     ".config/ghostty".source = /home/alejandrocabeza/.dotfiles/ghostty;
-    ".config/opencode/opencode.jsonc".source = /home/alejandrocabeza/.dotfiles/opencode/opencode.jsonc;
+    # Fish
     ".config/fish/conf.d".source = /home/alejandrocabeza/.dotfiles/fish/conf.d;
     ".config/fish/config.fish".source = /home/alejandrocabeza/.dotfiles/fish/config.fish;
     ".config/fish/functions".source = /home/alejandrocabeza/.dotfiles/fish/functions;
+    # Opencode
+    ".config/opencode/opencode.jsonc".source = /home/alejandrocabeza/.dotfiles/opencode/opencode.jsonc;
     ".config/opencode/agents".source = /home/alejandrocabeza/.dotfiles/opencode/agents;
     ".config/opencode/skills".source = /home/alejandrocabeza/.dotfiles/opencode/skills;
+    # Zed
     ".config/zed/settings.json".source = /home/alejandrocabeza/.dotfiles/zed/settings.json;
     ".config/zed/keymap.json".source = /home/alejandrocabeza/.dotfiles/zed/keymap.json;
     ".config/zed/tasks.json".source = /home/alejandrocabeza/.dotfiles/zed/tasks.json;

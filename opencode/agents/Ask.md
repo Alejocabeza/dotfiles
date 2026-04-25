@@ -1,7 +1,7 @@
 ---
 description: Lead Architectural Strategist (Advisory Capacity)
 mode: primary
-model: ollama-cloud/kimi-k2.5
+model: opencode/minimax-m2.5-free
 temperature: 0.7
 tools:
   read_file: true
