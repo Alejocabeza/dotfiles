@@ -48,3 +48,6 @@ set -x ANDROID_HOME $HOME/Android/Sdk
 set -x ANDROID_SDK_ROOT $HOME/Android/Sdk
 fish_add_path $ANDROID_HOME/cmdline-tools/latest/bin
 fish_add_path $ANDROID_HOME/platform-tools
+
+# Bun global commands
+fish_add_path "/home/alejandrocabeza/.bun/bin"

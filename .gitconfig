@@ -1,8 +1,8 @@
 [core]
-  pager = delta
-  excludesfile = ~/.gitignore
-  editor = nvim 
-  ignorecase = false
+    pager = delta
+    excludesfile = ~/.gitignore
+    editor = nvim 
+    ignorecase = false
 [push]
     default = simple
 [color]
@@ -41,12 +41,12 @@
     sta = stash
     stp = stash pop
 [hub]
-  protocol = https
+    protocol = https
 [user]
-	email = alejandrocabeza400@gmail.com
-	name = Alejandro Cabeza
+    email = alejandrocabeza400@gmail.com
+    name = Alejandro Cabeza
 [init]
-	defaultBranch = Master
+    defaultBranch = Master
 [interactive]
     diffFilter = delta --color-only
 [delta]
@@ -60,6 +60,6 @@
     side-by-side = true
     line-numbers = true
 [pull]
-	rebase = false
+    rebase = false
 [credential "helperselector"]
-	selected = wincred
+    selected = wincred

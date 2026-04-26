@@ -75,16 +75,16 @@ return { -- Highlight, edit, and navigate code
 		local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
 		parser_config.blade = {
 			install_info = {
-				url = "https://github.com/EmranMR/tree-sitter-blade",
+				url = "git@github.com:EmranMR/tree-sitter-blade",
 				files = { "src/parser.c" },
 				branch = "main",
 			},
 			filetype = "blade",
 		}
-		-- Configuración de Prisma parser
+-- Configuración de Prisma parser
 		parser_config.prisma = {
 			install_info = {
-				url = "https://github.com/nicbarker/tree-sitter-prisma",
+				url = "git@github.com:victorhqc/tree-sitter-prisma",
 				files = { "src/parser.c" },
 				branch = "main",
 			},
@@ -109,6 +109,7 @@ return { -- Highlight, edit, and navigate code
 		require("nvim-treesitter.install").prefer_git = true
 		---@diagnostic disable-next-line: missing-fields
 		require("nvim-treesitter.configs").setup(opts)
-		require("nvim-treesitter.install").ensure_installed({ "blade", "prisma" })
+		-- No instalar automáticamente blade y prisma, ya están instalados manualmente
+		-- require("nvim-treesitter.install").ensure_installed({ "blade", "prisma" })
 	end,
 }

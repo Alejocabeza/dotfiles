@@ -1,3 +1,29 @@
+--[[
+  Laravel.nvim solo se carga en proyectos Laravel.
+  Detecta buscando vendor/laravel hacia arriba desde el directorio actual.
+  Si no es un proyecto Laravel, retorna config vacía (no carga el plugin).
+--]]
+local function is_laravel_project()
+  -- Busca hacia arriba hasta encontrar vendor/ con laravel/
+  local current = vim.fn.getcwd()
+  local root = vim.fn.finddir("vendor", current .. ";")
+  if root == "" then
+    return false
+  end
+  return vim.fn.isdirectory(root .. "/laravel") == 1
+end
+
+-- Si no es Laravel, no cargar el plugin
+if not is_laravel_project() then
+  return {}
+end
+
+-- Crear directorio para archivos temporales de laravel.nvim
+local nvim_laravel_dir = vim.fn.getcwd() .. "/vendor/nvim-laravel"
+if vim.fn.isdirectory(nvim_laravel_dir) == 0 then
+  vim.fn.mkdir(nvim_laravel_dir, "p")
+end
+
 local dir_path = vim.fn.expand("~/code/plugins/laravel.nvim")
 local dir_exists = vim.fn.isdirectory(dir_path) == 1
 
