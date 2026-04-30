@@ -122,6 +122,8 @@ in
     ".config/zed/settings.json".source = /home/alejandrocabeza/.dotfiles/zed/settings.json;
     ".config/zed/keymap.json".source = /home/alejandrocabeza/.dotfiles/zed/keymap.json;
     ".config/zed/tasks.json".source = /home/alejandrocabeza/.dotfiles/zed/tasks.json;
+    # Wofi
+    ".config/wofi".source = /home/alejandrocabeza/.dotfiles/wofi;
   };
 
   # --- Variables de entorno de sesión ---

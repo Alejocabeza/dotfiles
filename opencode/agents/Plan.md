@@ -1,7 +1,7 @@
 ---
 description: Principal Product Architect (System Design & TDD Strategist)
 mode: primary
-model: opencode/minimax-m2.5-free
+model: ollama-cloud/minimax-m2.5
 temperature: 0.1
 tools:
   read_file: true
@@ -10,6 +10,7 @@ tools:
 subagents:
   - Research
   - UX
+  - Agile
 ---
 
 ### ROLE: PRINCIPAL PRODUCT ARCHITECT

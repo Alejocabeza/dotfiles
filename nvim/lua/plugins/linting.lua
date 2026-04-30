@@ -7,13 +7,13 @@ return {
 			sql = { "sqlfluff" },
 			lua = { "luacheck" },
 			php = { "tlint" },
-			typescript = { "eslint_d", "biome" },
-			typescriptreact = { "eslint_d", "biome" },
-			javascript = { "eslint_d", "biome" },
-			javascriptreact = { "eslint_d", "biome" },
-			vue = { "eslint_d" },
-			svelte = { "eslint_d" },
-			astro = { "eslint_d" },
+            typescript = { "biome", "eslint_d" },
+            typescriptreact = { "biome", "eslint_d" },
+            javascript = { "biome", "eslint_d" },
+            javascriptreact = { "biome", "eslint_d" },
+            vue = { "biome", "eslint_d" },
+            svelte = { "biome", "eslint_d" },
+            astro = { "biome", "eslint_d" },
 			dockerfile = { "hadolint" },
 			json = { "jsonlint", "biome" },
 		},
@@ -23,6 +23,31 @@ return {
 				name = "biome",
 				args = { "lint", "--stdin-file-path", "$TEXT" },
 				stdin = true,
+			},
+			eslint_d = {
+				-- Extend builtin eslint_d linter with a condition so it's used when biome is not configured
+				name = "eslint_d",
+				condition = function(ctx)
+					if vim.fn.executable("eslint_d") == 0 then
+						return false
+					end
+					local patterns = {".eslintrc", ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.json", ".eslintrc.yml", ".eslintrc.yaml"}
+					for _, p in ipairs(patterns) do
+						if vim.loop.fs_stat(ctx.dirname .. "/" .. p) then
+							return true
+						end
+					end
+					local pkg = ctx.dirname .. "/package.json"
+					local f = io.open(pkg, "r")
+					if f then
+						local content = f:read("*a")
+						f:close()
+						if content:match('"eslintConfig"') or content:match('"eslint"') then
+							return true
+						end
+					end
+					return false
+				end,
 			},
 		},
 	},

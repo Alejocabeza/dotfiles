@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "documents/mama/20260326-exposicion-derecho-sucesiones.md",
+                "file": "Alejandro Cabeza/projects/spec-driven-development-gapo.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "20260326-exposicion-derecho-sucesiones"
+              "title": "spec-driven-development-gapo"
             }
           }
         ]
@@ -78,8 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "db19e992eff7edb2",
@@ -183,8 +182,18 @@
   },
   "active": "371528056493d2f3",
   "lastOpenFiles": [
+    "Alejandro Cabeza/notes/20260429-propuesta-tecnica.md",
+    "Alejandro Cabeza/notes/20260429-propuesta-tecnica.md~",
+    "Alejandro Cabeza/projects/spec-driven-development-gapo.md",
+    "Sin nombre/Sin título.md",
+    "Sin nombre",
+    "dailies",
+    "2026-04-28.md",
+    "Sin título.canvas",
+    "documents/mama/20260326-exposicion-derecho-sucesiones.md",
+    "projects/SPEC DRIVEN DEVELOPMENT (GAPO).md",
+    "projects",
     "University/20260325-project-social.md",
-    "20260309-nueva-nota.md",
-    "dailies"
+    "20260309-nueva-nota.md"
   ]
 }

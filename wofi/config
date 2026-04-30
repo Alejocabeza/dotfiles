@@ -1,0 +1,11 @@
+mode=drun
+width=800
+height=400
+location=center
+prompt=Search...
+allow_images=true
+image_size=32
+always_run=true
+show_all=false
+hide_scroll=true
+key_exit=Escape
